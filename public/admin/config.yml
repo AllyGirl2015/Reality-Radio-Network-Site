@@ -1,0 +1,28 @@
+backend:
+  name: git-gateway
+  branch: main # Alterare para o nome do branch principal se diferente
+
+# Configuração de mídia
+media_folder: "public/uploads" # Onde as imagens serão armazenadas
+public_folder: "/uploads" # Como serão referenciadas no site
+
+# Idioma
+locale: 'pt'
+
+# Collections - Estrutura de conteúdo
+collections:
+  - name: "blog" # Identificador
+    label: "Blog Posts" # Nome que aparece no admin
+    folder: "content/blog" # Onde os posts serão salvos
+    create: true # Permite criar novos posts
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Formato do nome do arquivo
+    fields:
+      - {label: "Título", name: "title", widget: "string", required: true}
+      - {label: "Data de Publicação", name: "date", widget: "datetime", required: true}
+      - {label: "Slug (URL)", name: "slug", widget: "string", required: true, hint: "Usado na URL do post, ex: meu-primeiro-post"}
+      - {label: "Imagem Destacada", name: "featuredImage", widget: "image", required: true, hint: "Imagem principal do post"}
+      - {label: "Resumo", name: "excerpt", widget: "text", required: false, hint: "Breve descrição que aparece na listagem"}
+      - {label: "Conteúdo", name: "body", widget: "markdown", required: true}
+      - {label: "Tags", name: "tags", widget: "list", required: false, hint: "Palavras-chave separadas por vírgula"}
+      - {label: "Autor", name: "author", widget: "string", default: "Reality Radio Network", required: true}
+      - {label: "Publicado", name: "published", widget: "boolean", default: true}
