@@ -73,7 +73,7 @@ export default function ContactPage() {
             <Clock className="w-6 h-6 md:w-8 md:h-8 text-purple-400 mb-2 md:mb-3" aria-hidden="true" />
             <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Please Note</h3>
             <p className="text-sm md:text-base text-gray-300 leading-relaxed">
-              <strong>Reality Radio Network is currently operated by just one person</strong> — 
+              <strong>Reality Radio Network is currently operated by just one person</strong>.
               Alissa M.R. Eldridge. While the plan is to grow and expand into a full team over time, 
               all operations (from production to support) are handled personally for now.
             </p>

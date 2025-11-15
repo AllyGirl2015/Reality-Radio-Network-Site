@@ -20,7 +20,7 @@ export default function BarefootSupernovaAlbumPage() {
     physicalPrice: 14.99,
     catalog: 'RRN-KH-BS',
     image: '/Barefoot Supernova.png',
-    description: 'Small-town sparks and big-sky dreams — Barefoot Supernova pairs country heart with modern storytelling from Kaira Heartfelt. This debut album captures the magic of firefly nights, the sting of heartbreak, and the strength found in staying true to yourself.',
+    description: 'Barefoot Supernova is a cosmic journey through country-rock landscapes. Mathew Cage and Guilded Hearts blend stellar storytelling with explosive energy.',
   };
 
   const tracklist = [
@@ -244,7 +244,7 @@ export default function BarefootSupernovaAlbumPage() {
             
             <p className="leading-relaxed">
               Standout tracks like "Small Town Supernova" and the emotional duet "Beautiful Broken Love" with 
-              Johnathan Gold showcase Kaira's versatility — she's equally at home with upbeat anthems and tender 
+              Johnathan Gold showcase Kaira's versatility. She's equally at home with upbeat anthems and tender
               ballads. The album includes alternative versions of fan favorites, giving listeners a deeper 
               connection to her artistry.
             </p>

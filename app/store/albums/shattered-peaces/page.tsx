@@ -20,7 +20,7 @@ export default function ShatteredPeacesAlbumPage() {
     physicalPrice: 19.99,
     catalog: 'RRN-MC-SP',
     image: '/Shattered Peaces.png',
-    description: 'Shattered Peaces dives into the depths of emotion, resilience, and identity through gritty rock and raw expression. Mathew Cage delivers an unforgettable journey — torn between darkness and light — that demands to be felt.',
+    description: 'Shattered Peaces dives into the depths of emotion, resilience, and identity through gritty rock and raw expression. Mathew Cage delivers an unforgettable journey. torn between darkness and light. that demands to be felt.',
   };
 
   const tracklist = [

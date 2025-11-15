@@ -20,7 +20,8 @@ export default function HeartfeltRebellionAlbumPage() {
     physicalPrice: 16.99,
     catalog: 'RRN-JGGH-HR',
     image: '/Heartfelt Rebellion.png',
-    description: 'A bold country-rock statement — tackling faith, fire, and the fight for authenticity with Johnathan Gold\'s trademark grit and the full force of Guilded Hearts. This powerful album refuses to stay quiet, channeling rebellion through grace and raw emotion.',
+    description: 'Heartfelt Rebellion captures the essence of defiance and passion. Mathew Cage\'s powerful voice and intense guitar work create an anthem of resistance and hope.',
+
   };
 
   const tracklist = [
@@ -237,7 +238,7 @@ export default function HeartfeltRebellionAlbumPage() {
 
           <div className="bg-black/40 border border-purple-500/30 rounded-lg p-6 space-y-4 text-gray-300">
             <p className="leading-relaxed">
-              <strong className="text-purple-400">Heartfelt Rebellion</strong> isn't just music—it's a movement. 
+              <strong className="text-purple-400">Heartfelt Rebellion</strong> isn't just music it's a movement.
               This album tackles the hard questions about faith, identity, and authenticity in modern America with 
               unflinching honesty and soul-stirring melodies.
             </p>
@@ -250,7 +251,7 @@ export default function HeartfeltRebellionAlbumPage() {
 
             <div className="pt-4 border-t border-purple-500/20">
               <p className="text-sm text-gray-400 italic">
-                "Rebellion isn't always loud—sometimes it's the whisper that refuses to fade."
+                "Rebellion isn't always loud sometimes it's the whisper that refuses to fade."
               </p>
             </div>
           </div>

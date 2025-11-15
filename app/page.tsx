@@ -123,20 +123,20 @@ export default function Home() {
               <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">What is RRN?</span>
             </h2>
             <p className="text-base md:text-lg text-gray-400 max-w-3xl mx-auto">
-              Powered by RBEW — Built from Passion, Driven by Purpose
+              Powered by RBEW. Built from Passion, Driven by Purpose
             </p>
           </div>
 
           <div className="space-y-6 md:space-y-8">
             <div className="bg-black/40 border border-purple-500/30 rounded-lg p-4 sm:p-6 md:p-8 hover:border-purple-400 transition-all">
               <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-3 md:mb-4">
-                The Reality Radio Network is <strong className="text-purple-400">more than a group of radio stations</strong> — 
+                The Reality Radio Network is <strong className="text-purple-400">more than a group of radio stations</strong>.
                 it's a <strong className="text-cyan-400">movement</strong>. A heartbeat. A voice for the real.
               </p>
               <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
                 Whether it's country, rock, rap, pop, or something wildly experimental… 
                 RRN gives sound to the stories that need to be heard. 
-                From heartfelt anthems to rebellious truths — <strong className="text-purple-400">we curate what matters</strong>.
+                From heartfelt anthems to rebellious truths. <strong className="text-purple-400">we curate what matters</strong>.
               </p>
             </div>
 
@@ -151,7 +151,7 @@ export default function Home() {
                   All-genre rotation. All truth. All heart. Featuring original artists like Johnathan Gold, Mathew Cage, and Kaira Heartfelt.
                 </p>
                 <p className="text-sm text-purple-400 font-semibold">
-                  Now Broadcasting — Curated by DJ Ally One herself
+                  Now Broadcasting. Curated by DJ Ally One herself
                 </p>
               </div>
 
@@ -183,7 +183,7 @@ export default function Home() {
               <p className="text-base md:text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto mb-4 md:mb-6">
                 Because mainstream doesn't speak for all of us. RRN exists to give <strong className="text-purple-400">real creators</strong>, 
                 <strong className="text-cyan-400"> real voices</strong>, and <strong className="text-purple-400">real communities</strong> a 
-                place to be heard — raw and unfiltered.
+                place to be heard. raw and unfiltered.
               </p>
               <p className="text-xl font-semibold text-purple-400">
                 You deserve a network that gets it. Welcome to the Reality Radio Network. 🎧

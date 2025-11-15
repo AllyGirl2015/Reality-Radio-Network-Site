@@ -6,7 +6,7 @@ import Section from '@/components/Section';
 
 export const metadata: Metadata = {
   title: 'Kaira Heartfelt | Reality Radio Network',
-  description: 'Kaira Heartfelt blends small-town sparks with big-sky dreams — a country/Americana voice built on grace, grit, and melodies that linger long after the porch light fades.',
+  description: 'Kaira Heartfelt blends small-town sparks with big-sky dreams. a country/Americana voice built on grace, grit, and melodies that linger long after the porch light fades.',
 };
 
 export default function KairaHeartfeltPage() {
@@ -76,7 +76,7 @@ export default function KairaHeartfeltPage() {
                 Kaira Heartfelt
               </h1>
               <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-                Kaira Heartfelt blends <strong className="text-pink-400">small-town sparks</strong> with <strong className="text-purple-400">big-sky dreams</strong> — 
+                Kaira Heartfelt blends <strong className="text-pink-400">small-town sparks</strong> with <strong className="text-purple-400">big-sky dreams</strong>.
                 a country/Americana voice built on grace, grit, and melodies that linger long after the porch light fades.
               </p>
 
@@ -206,7 +206,7 @@ export default function KairaHeartfeltPage() {
             <blockquote className="text-2xl text-gray-300 italic mb-4">
               "Small-town starlight meets open-road resolve in this collection of country-pop gems."
             </blockquote>
-            <p className="text-gray-500">— Barefoot Supernova Album Review</p>
+            <p className="text-gray-500">Barefoot Supernova Album Review</p>
           </div>
         </div>
       </Section>

@@ -6,7 +6,7 @@ import Section from '@/components/Section';
 
 export const metadata: Metadata = {
   title: 'Mathew Cage | Reality Radio Network',
-  description: 'Mathew Cage channels internal chaos into powerful waves of sound — a rock-driven, emotionally raw artist who turns pain into poetry.',
+  description: 'Mathew Cage channels internal chaos into powerful waves of sound. a rock-driven, emotionally raw artist who turns pain into poetry.',
 };
 
 export default function MathewCagePage() {
@@ -75,7 +75,7 @@ export default function MathewCagePage() {
                 Mathew Cage
               </h1>
               <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-                Mathew Cage channels internal chaos into powerful waves of sound — a rock-driven, emotionally raw artist who turns 
+                Mathew Cage channels internal chaos into powerful waves of sound. a rock-driven, emotionally raw artist who turns
                 <strong className="text-red-400"> pain into poetry</strong>. With a voice sharpened by heartbreak and lyrics forged from personal reckoning, 
                 Cage delivers <strong className="text-purple-400">catharsis, not just songs</strong>.
               </p>
@@ -199,7 +199,7 @@ export default function MathewCagePage() {
             <blockquote className="text-2xl text-gray-300 italic mb-4">
               "Fractured Signal, In the Devil's Name I Pray, Fallen Flag... Each track walks the line between collapse and clarity."
             </blockquote>
-            <p className="text-gray-500">— Shattered Peaces Album Review</p>
+            <p className="text-gray-500">Shattered Peaces Album Review</p>
           </div>
         </div>
       </Section>
@@ -211,7 +211,7 @@ export default function MathewCagePage() {
             Feel the Raw Emotion
           </h2>
           <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-            Mathew Cage's music isn't background noise — it's a visceral experience. 
+            Mathew Cage's music isn't background noise. it's a visceral experience.
             Heavy truths, searing ballads, and rebel soul anthems await. Listen now on Reality Radio Network.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">

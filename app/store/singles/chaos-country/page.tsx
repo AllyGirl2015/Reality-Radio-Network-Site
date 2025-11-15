@@ -19,7 +19,7 @@ export default function ChaosCountrySinglePage() {
     price: 0.99,
     catalog: 'RRN-JG-CC02',
     youtubeId: 'xs7wd9wtYQE',
-    description: 'A gritty, defiant anthem wrapped in dust and distortion. "Chaos Country" charges through the noise of modern discontent — unapologetically Southern, politically layered, and emotionally sharp. It doesn\'t just sing about chaos — it *dares* you to understand it.',
+    description: 'A gritty, defiant anthem wrapped in dust and distortion. "Chaos Country" charges through the noise of modern discontent. Unapologetically Southern, politically layered, and emotionally sharp. It doesn\'t just sing about chaos. It *dares* you to understand it.',
     quote: '"Chaos is but the precursor to the name. If what you seek is more, then seek the whole."',
   };
 
@@ -177,7 +177,7 @@ export default function ChaosCountrySinglePage() {
             Love this track? Get the full album!
           </h2>
           <p className="text-lg text-gray-300 mb-6">
-            "Chaos Country" is part of <span className="text-purple-400 font-semibold">{single.album}</span> — 
+            "Chaos Country" is part of <span className="text-purple-400 font-semibold">{single.album}</span>.
             13 powerful tracks for just $8.99 (save over 40%)
           </p>
           <div className="flex flex-wrap gap-4 justify-center">

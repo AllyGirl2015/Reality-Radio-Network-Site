@@ -240,7 +240,7 @@ export default function StorePage() {
           <blockquote className="text-lg italic text-gray-400 mb-4">
             "Sometimes you have to look at a grander picture to see the whole."
           </blockquote>
-          <p className="text-purple-400">— Alissa M.R. Eldridge, Founder</p>
+          <p className="text-purple-400">Alissa M.R. Eldridge, Founder</p>
         </div>
       </Section>
     </main>

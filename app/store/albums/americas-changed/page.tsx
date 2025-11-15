@@ -20,7 +20,8 @@ export default function AmericasChangedAlbumPage() {
     physicalPrice: 14.99,
     catalog: 'RRN-JG-AC',
     image: '/America\'s Changed.png',
-    description: 'A heartland journey through quiet strength, gas-station prayers, and Main Street goodbyes — where country roots meet modern storytelling. This debut album captures the essence of small-town America in transition, blending traditional country authenticity with contemporary production.',
+        description: 'America\'s Changed is a powerful reflection on transformation and truth. Mathew Cage delivers a compelling narrative through rock anthems that resonate deeply.',
+
   };
 
   const tracklist = [
@@ -242,7 +243,7 @@ export default function AmericasChangedAlbumPage() {
 
           <div className="bg-black/40 border border-purple-500/30 rounded-lg p-6 space-y-4 text-gray-300">
             <p className="leading-relaxed">
-              <strong className="text-purple-400">America's Changed</strong> is more than just a collection of songs—it's a 
+              <strong className="text-purple-400">America's Changed</strong> is more than just a collection of songs it's a
               sonic journey through the heartland, capturing the essence of a nation in transition. Johnathan Gold and 
               Guilded Hearts deliver raw, authentic storytelling that resonates with anyone who's watched their hometown evolve.
             </p>

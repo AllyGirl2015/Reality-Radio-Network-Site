@@ -137,7 +137,7 @@ export default function StoryPage() {
               <Zap className="w-12 h-12 text-purple-400 mx-auto mb-4" />
               <h3 className="text-xl font-bold mb-3 text-purple-400">Innovation</h3>
               <p className="text-gray-300 text-sm">
-                We're pioneering a new model for entertainment—one that combines cutting-edge 
+                We're pioneering a new model for entertainment one that combines cutting-edge
                 technology with timeless human creativity.
               </p>
             </div>
@@ -152,7 +152,7 @@ export default function StoryPage() {
             <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Join the Movement</span>
           </h2>
           <p className="text-lg text-gray-300 mb-8">
-            Whether you're an artist, a fan, or a partner—there's a place for you in our story.
+            Whether you're an artist, a fan, or a partner there's a place for you in our story.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/personas" className="btn-neon-purple">
@@ -174,7 +174,7 @@ export default function StoryPage() {
           <blockquote className="text-xl italic text-gray-400 mb-4">
             "Sometimes you have to look at a grander picture to see the whole."
           </blockquote>
-          <p className="text-purple-400 font-semibold">— Alissa M.R. Eldridge</p>
+          <p className="text-purple-400 font-semibold">Alissa M.R. Eldridge</p>
           <p className="text-sm text-gray-500 mt-1">Founder, Reality Radio Network</p>
         </div>
       </Section>

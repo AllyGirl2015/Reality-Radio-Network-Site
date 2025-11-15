@@ -168,7 +168,7 @@ export default function EvilLoveSinglePage() {
             Love this track? Get the full album!
           </h2>
           <p className="text-lg text-gray-300 mb-6">
-            "{single.title}" is part of <span className="text-purple-400 font-semibold">{single.album}</span> — 
+            "{single.title}" is part of <span className="text-purple-400 font-semibold">{single.album}</span>.
             13 captivating tracks for just $8.99
           </p>
           <div className="flex flex-wrap gap-4 justify-center">

@@ -19,7 +19,7 @@ export default function AmericasChangedSinglePage() {
     price: 0.99,
     catalog: 'RRN-JG-AC01',
     youtubeId: '79tszJ3bX_o',
-    description: 'A powerful and unapologetic anthem reflecting the state of a changing nation. "America\'s Changed" delivers heartland truths with raw emotion, balancing modern country roots and bold lyrical honesty. This single sets the tone for Johnathan Gold\'s musical rebellion — direct, emotional, unforgettable.',
+    description: 'A powerful and unapologetic anthem reflecting the state of a changing nation. "America\'s Changed" delivers heartland truths with raw emotion, balancing modern country roots and bold lyrical honesty. This single sets the tone for Johnathan Gold\'s musical rebellion. Direct, emotional, unforgettable.',
     quote: '"Sometimes you need to look beyond the meaning of one, and instead look for the meaning of many."',
   };
 
@@ -169,7 +169,7 @@ export default function AmericasChangedSinglePage() {
             Love this track? Get the full album!
           </h2>
           <p className="text-lg text-gray-300 mb-6">
-            "{single.title}" is part of <span className="text-purple-400 font-semibold">{single.album}</span> — 
+            "{single.title}" is part of <span className="text-purple-400 font-semibold">{single.album}</span>.
             10 powerful tracks for just $8.99 (save over 40%)
           </p>
           <div className="flex flex-wrap gap-4 justify-center">

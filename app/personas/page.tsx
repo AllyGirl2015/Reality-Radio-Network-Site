@@ -74,7 +74,7 @@ export default function PersonasPage() {
             <span className="text-white">Program</span>
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-6 md:mb-8">
-            Step into a carefully crafted artist identity—complete with sound, story, and visual branding. 
+            Step into a carefully crafted artist identity complete with sound, story, and visual branding.
             Perform, create, and eventually <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent font-semibold">make it fully yours</span>.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
@@ -96,7 +96,7 @@ export default function PersonasPage() {
           </h2>
           <div className="bg-black/40 border border-purple-500/30 rounded-lg p-6 hover:border-purple-400/40 transition-colors mb-8">
             <p className="text-lg text-gray-300 leading-relaxed mb-4">
-              At RRN, some artists begin as <strong className="text-purple-400">carefully crafted personas</strong>—
+              At RRN, some artists begin as <strong className="text-purple-400">carefully crafted personas</strong>
               complete with a sound, story, and visual identity. These personas are built to inspire, challenge, 
               and connect with audiences.
             </p>
@@ -193,8 +193,8 @@ export default function PersonasPage() {
           <div className="bg-black/40 border border-purple-500/30 rounded-lg p-6 hover:border-purple-400/40 transition-colors">
             <h3 className="text-xl font-bold mb-3 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Upon Full Completion:</h3>
             <p className="text-gray-300 leading-relaxed mb-3">
-              When you successfully complete your contract term on good terms, <strong>RBEW releases all rights 
-              to the Persona to you</strong>—except for a small 10% royalty share on works created during 
+              When you successfully complete your contract term on good terms, <strong>RBEW releases all rights
+              to the Persona to you</strong> except for a small 10% royalty share on works created during
               the contract period (if commercially exploited after the contract).
             </p>
             <p className="text-purple-400 font-semibold">

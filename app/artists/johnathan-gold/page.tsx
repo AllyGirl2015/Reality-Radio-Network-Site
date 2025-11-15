@@ -84,7 +84,7 @@ export default function JohnathanGoldPage() {
               <p className="text-xl text-gray-300 mb-8 leading-relaxed">
                 Johnathan Gold's warm grit and Guilded Hearts' rich instrumentation bridge classic country and modern Americana. 
                 Their music tells stories of <strong className="text-purple-400">resilience</strong>, <strong className="text-cyan-400">quiet faith</strong>, 
-                and <strong className="text-purple-400">everyday heroes</strong> — perfect for late-night drives and Sunday mornings alike.
+                and <strong className="text-purple-400">everyday heroes</strong>. perfect for late-night drives and Sunday mornings alike.
               </p>
 
               {/* Quick Stats */}

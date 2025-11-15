@@ -253,7 +253,7 @@ export default function ArtistsPage() {
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-6 md:mb-8">
             Each persona crafted with unique sound, style, and soul. From country roots to punk rebellion, 
-            dark pop to stadium rock—the Reality Radio Network roster covers it all.
+            dark pop to stadium rock the Reality Radio Network roster covers it all.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/personas" className="btn-neon-purple">

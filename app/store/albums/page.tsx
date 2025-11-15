@@ -26,7 +26,7 @@ export default function AlbumsPage() {
       digitalPrice: 8.99,
       physicalPrice: 14.99,
       image: '/America\'s Changed.png',
-      description: 'A heartland journey through quiet strength, gas-station prayers, and Main Street goodbyes — where country roots meet modern storytelling.',
+      description: 'A heartland journey through quiet strength, gas-station prayers, and Main Street goodbyes. where country roots meet modern storytelling.',
     },
     {
       slug: 'shattered-peaces',
@@ -39,7 +39,7 @@ export default function AlbumsPage() {
       digitalPrice: 8.99,
       physicalPrice: 19.99,
       image: '/Shattered Peaces.png',
-      description: 'Dives into the depths of emotion, resilience, and identity through gritty rock and raw expression — torn between darkness and light.',
+      description: 'Dives into the depths of emotion, resilience, and identity through gritty rock and raw expression. torn between darkness and light.',
     },
     {
       slug: 'barefoot-supernova',
@@ -52,7 +52,7 @@ export default function AlbumsPage() {
       digitalPrice: 8.99,
       physicalPrice: 14.99,
       image: '/Barefoot Supernova.png',
-      description: 'Small-town sparks and big-sky dreams — pairs country heart with modern storytelling for an unforgettable journey.',
+      description: 'Small-town sparks and big-sky dreams. pairs country heart with modern storytelling for an unforgettable journey.',
     },
     {
       slug: 'heartfelt-rebellion',
@@ -65,7 +65,7 @@ export default function AlbumsPage() {
       digitalPrice: 8.99,
       physicalPrice: 16.99,
       image: '/Heartfelt Rebellion.png',
-      description: 'A bold country-rock statement — tackling faith, fire, and the fight for authenticity with trademark grit and full force.',
+      description: 'A bold country-rock statement. tackling faith, fire, and the fight for authenticity with trademark grit and full force.',
     },
   ];
 

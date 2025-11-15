@@ -78,7 +78,7 @@ const stations = [
     id: 'game-central',
     number: '96.1',
     name: 'Game Central',
-    tagline: 'Play the hits—literally',
+    tagline: 'Play the hits literally',
     theme: 'Video game music & vibes',
     genres: ['Game OSTs', 'remixes', '8-bit', 'synth', 'lo-fi', 'nerdcore'],
     dj: 'TBA',
@@ -90,7 +90,7 @@ const stations = [
     id: 'animanial-radial',
     number: '195.2',
     name: 'Animanial Radial',
-    tagline: 'From screen to sound—film, animation, and beyond',
+    tagline: 'From screen to sound film, animation, and beyond',
     theme: 'Themed music from pop culture',
     genres: ['Anime openings/endings', 'cartoon themes', 'film soundtracks', 'musical theatre'],
     dj: 'TBA',
@@ -114,7 +114,7 @@ const stations = [
     id: 'pop-shop',
     number: '134.2',
     name: 'The Pop Shop',
-    tagline: 'Pop and shop—the best spot for Pop',
+    tagline: 'Pop and shop the best spot for Pop',
     theme: 'Pure, high-energy pop',
     genres: ['Pop', 'dark pop', 'bubblegum', 'alt-pop', 'hyperpop'],
     dj: 'TBA',
@@ -140,7 +140,7 @@ export default function RadioPage() {
             <span className="text-white">Infinite Vibes</span>
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed">
-            From country roads to punk rebellion, game soundtracks to talk radio—
+            From country roads to punk rebellion, game soundtracks to talk radio
             Reality Radio Network covers every corner of sound.
           </p>
         </div>
