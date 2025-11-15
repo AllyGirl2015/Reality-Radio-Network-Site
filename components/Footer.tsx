@@ -44,7 +44,7 @@ export default function Footer() {
               <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">RRN</span>
             </Link>
             <p className="text-gray-400 text-sm mb-4 max-w-xs mx-auto sm:mx-0">
-              The future of music. AI-powered artists, real emotions, authentic sound.
+              The future of music. Original artists, real emotions, authentic sound.
             </p>
             <nav aria-label="Social media links">
               <div className="flex space-x-4 justify-center sm:justify-start">
@@ -86,31 +86,6 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Newsletter Section */}
-        <div className="border-t border-purple-500/20 pt-8 mb-8">
-          <div className="max-w-md mx-auto lg:mx-0">
-            <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent text-center sm:text-left">Stay in the Loop</h3>
-            <p className="text-gray-400 text-sm mb-4 text-center sm:text-left">
-              Get the latest releases, artist updates, and exclusive offers.
-            </p>
-            <form className="flex flex-col sm:flex-row gap-3" aria-label="Newsletter signup">
-              <label htmlFor="newsletter-email" className="sr-only">Email address</label>
-              <input
-                type="email"
-                id="newsletter-email"
-                name="email"
-                placeholder="Enter your email"
-                required
-                aria-required="true"
-                className="flex-1 px-4 py-3 bg-black/50 border border-purple-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all"
-              />
-              <button type="submit" className="btn-neon-purple whitespace-nowrap w-full sm:w-auto" aria-label="Subscribe to newsletter">
-                Subscribe
-              </button>
-            </form>
-          </div>
-        </div>
-
         {/* Bottom Section */}
         <div className="border-t border-purple-500/20 pt-8">
           {/* Logos */}
@@ -123,14 +98,19 @@ export default function Footer() {
                 className="object-contain"
               />
             </div>
-            <div className="relative w-24 sm:w-32 h-12 sm:h-16 opacity-60 hover:opacity-100 transition-opacity">
+            <a 
+              href="https://www.rbentertainment-works.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative w-24 sm:w-32 h-12 sm:h-16 opacity-60 hover:opacity-100 transition-opacity"
+            >
               <Image
                 src="/RBEW_logo.jpg"
                 alt="Reality Builders Entertainment Works"
                 fill
                 className="object-contain"
               />
-            </div>
+            </a>
           </div>
 
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">

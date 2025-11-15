@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import { Radio, Clock, Users } from 'lucide-react';
 import Section from '@/components/Section';
-import RadioPlayer from '@/components/RadioPlayer';
+import Live365Player from '@/components/Live365Player';
 
 export const metadata: Metadata = {
   title: 'Radio Stations | 9 Channels of Pure Sound',
@@ -131,14 +132,14 @@ export default function RadioPage() {
     <main className="min-h-screen pt-24">
       {/* Hero */}
       <Section className="pb-12">
-        <div className="text-center max-w-3xl mx-auto">
-          <Radio className="w-16 h-16 text-purple-400 mx-auto mb-6" />
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+        <div className="text-center max-w-3xl mx-auto px-4">
+          <Radio className="w-12 h-12 md:w-16 md:h-16 text-purple-400 mx-auto mb-4 md:mb-6" />
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
             <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">9 Stations</span>
             <br />
             <span className="text-white">Infinite Vibes</span>
           </h1>
-          <p className="text-xl text-gray-300 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed">
             From country roads to punk rebellion, game soundtracks to talk radio—
             Reality Radio Network covers every corner of sound.
           </p>
@@ -147,58 +148,70 @@ export default function RadioPage() {
 
       {/* Live Stations */}
       <Section background="gradient">
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold mb-2 flex items-center gap-3">
-            <span className="w-3 h-3 bg-purple-400 rounded-full animate-pulse" />
+        <div className="mb-8 md:mb-12 px-4">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-2 md:gap-3">
+            <span className="w-2 h-2 md:w-3 md:h-3 bg-purple-400 rounded-full animate-pulse" />
             <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Live Now</span>
           </h2>
-          <p className="text-gray-400">Streaming 24/7</p>
+          <p className="text-sm md:text-base text-gray-400">Streaming 24/7</p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid sm:grid-cols-1 gap-6 md:gap-8 px-4 max-w-5xl mx-auto">
           {liveStations.map((station) => (
-            <div key={station.id} className="bg-black/40 border border-purple-500/30 rounded-lg overflow-hidden p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <div className="text-sm text-purple-400 font-mono mb-1">{station.number} FM</div>
-                  <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-1">{station.name}</h3>
-                  <p className="text-sm text-gray-400 italic">{station.tagline}</p>
-                </div>
-                <span className="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-bold rounded-full border border-purple-500/30 animate-pulse">
-                  LIVE
-                </span>
-              </div>
-
-              <p className="text-gray-300 mb-4">{station.description}</p>
-
-              <div className="mb-4">
-                <p className="text-sm text-gray-400 mb-2">Genres:</p>
-                <div className="flex flex-wrap gap-2">
-                  {station.genres.map((genre) => (
-                    <span
-                      key={genre}
-                      className="px-2 py-1 bg-black/50 border border-purple-500/30 rounded text-xs text-gray-300"
-                    >
-                      {genre}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 text-sm text-gray-400 mb-4">
-                <Users className="w-4 h-4" />
-                <span>DJ: {station.dj}</span>
-              </div>
-
-              {station.streamUrl && (
-                <div className="mt-4">
-                  <RadioPlayer
-                    streamUrl={station.streamUrl}
-                    stationName={station.name}
-                    tagline={station.tagline}
+            <div key={station.id} className="bg-black/40 border border-purple-500/30 rounded-lg overflow-hidden hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300">
+              {/* Header com imagem e info */}
+              <div className="grid md:grid-cols-[200px_1fr] gap-6 p-4 sm:p-6 border-b border-purple-500/20">
+                <div className="relative aspect-square rounded-lg overflow-hidden">
+                  <Image
+                    src="/201dot5RealityCentralRadio.png"
+                    alt={station.name}
+                    fill
+                    className="object-cover"
                   />
                 </div>
-              )}
+                <div>
+                  <div className="flex items-start justify-between mb-3 gap-2">
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs md:text-sm text-purple-400 font-mono mb-1">{station.number} FM</div>
+                      <h3 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-1 break-words">{station.name}</h3>
+                      <p className="text-xs md:text-sm text-gray-400 italic">{station.tagline}</p>
+                    </div>
+                    <span className="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-bold rounded-full border border-purple-500/30 animate-pulse">
+                      LIVE
+                    </span>
+                  </div>
+
+                  <p className="text-gray-300 mb-4">{station.description}</p>
+
+                  <div className="mb-4">
+                    <p className="text-sm text-gray-400 mb-2">Genres:</p>
+                    <div className="flex flex-wrap gap-2">
+                      {station.genres.map((genre) => (
+                        <span
+                          key={genre}
+                          className="px-2 py-1 bg-black/50 border border-purple-500/30 rounded text-xs text-gray-300"
+                        >
+                          {genre}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-sm text-gray-400">
+                    <Users className="w-4 h-4" />
+                    <span>DJ: {station.dj}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Player */}
+              <div className="p-4 sm:p-6">
+                <Live365Player
+                  stationId="a47993"
+                  stationName={station.name}
+                  compact={false}
+                />
+              </div>
             </div>
           ))}
         </div>
@@ -206,19 +219,19 @@ export default function RadioPage() {
 
       {/* Upcoming Stations */}
       <Section background="solid">
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold mb-2 flex items-center gap-3">
-            <Clock className="w-8 h-8 text-cyan-400" />
+        <div className="mb-8 md:mb-12 px-4">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-2 md:gap-3">
+            <Clock className="w-6 h-6 md:w-8 md:h-8 text-cyan-400" />
             <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Coming Soon</span>
           </h2>
-          <p className="text-gray-400">Currently curating content and preparing launch</p>
+          <p className="text-sm md:text-base text-gray-400">Currently curating content and preparing launch</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 px-4">
           {upcomingStations.map((station) => (
-            <div key={station.id} className="bg-black/40 border border-cyan-500/30 rounded-lg overflow-hidden p-6 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
-              <div className="flex items-start justify-between mb-3">
-                <div className="text-sm text-cyan-400 font-mono">{station.number} FM</div>
+            <div key={station.id} className="bg-black/40 border border-cyan-500/30 rounded-lg overflow-hidden p-4 sm:p-6 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
+              <div className="flex items-start justify-between mb-2 md:mb-3">
+                <div className="text-xs md:text-sm text-cyan-400 font-mono">{station.number} FM</div>
                 <span className="px-2 py-1 bg-gray-800 text-gray-400 text-xs rounded">
                   {station.status === 'planned' ? 'PLANNED' : 'CURATING'}
                 </span>
@@ -246,28 +259,6 @@ export default function RadioPage() {
               </div>
             </div>
           ))}
-        </div>
-      </Section>
-
-      {/* Schedule CTA */}
-      <Section id="schedule">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Want to Get Notified?</span>
-          </h2>
-          <p className="text-gray-300 mb-6">
-            Sign up for our newsletter to get alerts when new stations go live.
-          </p>
-          <form className="flex gap-2 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Your email"
-              className="flex-1 px-4 py-3 bg-black border border-purple-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-400"
-            />
-            <button type="submit" className="btn-neon-purple whitespace-nowrap">
-              Notify Me
-            </button>
-          </form>
         </div>
       </Section>
     </main>

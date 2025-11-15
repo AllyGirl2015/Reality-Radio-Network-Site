@@ -18,6 +18,7 @@ export default function ChaosCountrySinglePage() {
     duration: '3:55',
     price: 0.99,
     catalog: 'RRN-JG-CC02',
+    youtubeId: 'xs7wd9wtYQE',
     description: 'A gritty, defiant anthem wrapped in dust and distortion. "Chaos Country" charges through the noise of modern discontent — unapologetically Southern, politically layered, and emotionally sharp. It doesn\'t just sing about chaos — it *dares* you to understand it.',
     quote: '"Chaos is but the precursor to the name. If what you seek is more, then seek the whole."',
   };
@@ -37,8 +38,8 @@ export default function ChaosCountrySinglePage() {
 
       {/* Single Hero */}
       <Section className="pb-12">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-[300px_1fr] gap-12 items-start">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="grid md:grid-cols-[280px_1fr] lg:grid-cols-[300px_1fr] gap-6 md:gap-8 lg:gap-12 items-start">
             {/* Single Artwork */}
             <div className="relative">
               <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-purple-500/30 shadow-2xl shadow-purple-500/20 bg-gradient-to-br from-purple-500/20 to-cyan-500/20 flex items-center justify-center">
@@ -86,10 +87,10 @@ export default function ChaosCountrySinglePage() {
               </div>
 
               <div className="mb-3">
-                <h1 className="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
                   {single.title}
                 </h1>
-                <p className="text-xl text-gray-300">{single.artist}</p>
+                <p className="text-lg sm:text-xl text-gray-300">{single.artist}</p>
               </div>
 
               <Link 
@@ -132,10 +133,10 @@ export default function ChaosCountrySinglePage() {
               </div>
 
               <div className="flex gap-4">
-                <Link href="/radio" className="flex-1 px-6 py-3 border border-purple-400/30 rounded-lg text-center text-purple-400 hover:bg-purple-500/10 hover:border-purple-400 transition-all duration-300 flex items-center justify-center gap-2">
+                <a href="https://live365.com/station/201-5-Reality-Central-Radio-a47993" target="_blank" rel="noopener noreferrer" className="flex-1 px-6 py-3 border border-purple-400/30 rounded-lg text-center text-purple-400 hover:bg-purple-500/10 hover:border-purple-400 transition-all duration-300 flex items-center justify-center gap-2">
                   <Play className="w-5 h-5" aria-hidden="true" />
                   Listen on Radio
-                </Link>
+                </a>
                 <Link href="/artists/johnathan-gold" className="px-6 py-3 border border-cyan-400/30 rounded-lg text-center text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-300">
                   View Artist
                 </Link>
@@ -144,6 +145,29 @@ export default function ChaosCountrySinglePage() {
           </div>
         </div>
       </Section>
+
+      {/* YouTube Embed */}
+      {single.youtubeId && (
+        <Section background="solid">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              Listen Now
+            </h2>
+            <div className="relative aspect-video rounded-lg overflow-hidden border-2 border-purple-500/30 shadow-2xl shadow-purple-500/20">
+              <iframe
+                width="100%"
+                height="100%"
+                src={`https://www.youtube.com/embed/${single.youtubeId}`}
+                title={`${single.title} - ${single.artist}`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0"
+              />
+            </div>
+          </div>
+        </Section>
+      )}
 
       {/* Album Upsell */}
       <Section background="solid">

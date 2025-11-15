@@ -20,7 +20,7 @@ export default function SinglesPage() {
       artist: 'Johnathan Gold & Guilded Hearts',
       album: "America's Changed",
       genre: 'Country / Americana',
-      duration: '3:42',
+      duration: '3:20',
       price: 0.99,
       featured: true,
       description: 'A powerful and unapologetic anthem reflecting the state of a changing nation.',
@@ -42,7 +42,7 @@ export default function SinglesPage() {
       artist: 'Mathew Cage',
       album: 'Shattered Peaces',
       genre: 'Alt Rock',
-      duration: '4:12',
+      duration: '3:06',
       price: 0.99,
       featured: true,
       description: 'Cinematic emotion and haunting realism about the corruptive grip of wealth.',
@@ -53,7 +53,7 @@ export default function SinglesPage() {
       artist: 'Kaira Heartfelt',
       album: 'Barefoot Supernova',
       genre: 'Country-Pop',
-      duration: '3:28',
+      duration: '3:25',
       price: 0.99,
       featured: true,
       description: 'Haunting vocals diving into the toxic side of passion.',
@@ -64,7 +64,7 @@ export default function SinglesPage() {
       artist: 'Johnathan Gold & Guilded Hearts',
       album: 'Heartfelt Rebellion',
       genre: 'Country Rock',
-      duration: '4:05',
+      duration: '3:28',
       price: 0.99,
       featured: true,
       description: 'A defiant anthem wrapped in soul-soaked strings and weathered vocals.',
@@ -75,8 +75,8 @@ export default function SinglesPage() {
       artist: 'Mathew Cage',
       album: 'Shattered Peaces',
       genre: 'Alt Rock',
-      duration: '4:45',
-      price: 1.99,
+      duration: '5:05',
+      price: 2.00,
       featured: true,
       description: 'A cinematic alt-rock ballad that grieves what we lost and faces what remains.',
     },
@@ -129,14 +129,14 @@ export default function SinglesPage() {
     <main className="min-h-screen pt-24">
       {/* Hero */}
       <Section className="pb-12">
-        <div className="text-center max-w-3xl mx-auto">
-          <Music className="w-16 h-16 text-cyan-400 mx-auto mb-6" aria-hidden="true" />
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+        <div className="text-center max-w-3xl mx-auto px-4">
+          <Music className="w-12 h-12 md:w-16 md:h-16 text-cyan-400 mx-auto mb-4 md:mb-6" aria-hidden="true" />
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
             <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Singles</span>
             <br />
             <span className="text-white">Instant Impact</span>
           </h1>
-          <p className="text-xl text-gray-300 leading-relaxed mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-6 md:mb-8">
             Individual tracks from our best albums. Starting at <span className="text-cyan-400 font-bold">$0.99</span>.
             {' '}Instant digital download.
           </p>
@@ -145,27 +145,27 @@ export default function SinglesPage() {
 
       {/* Featured Singles */}
       <Section background="solid">
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold mb-2 flex items-center gap-3">
-            <Play className="w-8 h-8 text-purple-400" aria-hidden="true" />
+        <div className="mb-8 md:mb-12 px-4">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-2 md:gap-3">
+            <Play className="w-6 h-6 md:w-8 md:h-8 text-purple-400" aria-hidden="true" />
             <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Featured Singles</span>
           </h2>
-          <p className="text-gray-400">Handpicked tracks from our catalog</p>
+          <p className="text-sm md:text-base text-gray-400">Handpicked tracks from our catalog</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 px-4">
           {featuredSingles.map((single) => (
             <Link
               key={single.slug}
               href={`/store/singles/${single.slug}`}
-              className="group bg-black/40 border border-purple-500/30 rounded-lg p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
+              className="group bg-black/40 border border-purple-500/30 rounded-lg p-4 sm:p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
             >
               {/* Play Icon */}
-              <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-full flex items-center justify-center border-2 border-purple-400/30 group-hover:border-purple-400 group-hover:scale-110 transition-all duration-300">
-                <Play className="w-8 h-8 text-purple-400 group-hover:text-purple-300" aria-hidden="true" />
+              <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-full flex items-center justify-center border-2 border-purple-400/30 group-hover:border-purple-400 group-hover:scale-110 transition-all duration-300">
+                <Play className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400 group-hover:text-purple-300" aria-hidden="true" />
               </div>
 
-              <h3 className="text-lg font-bold mb-1 text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent group-hover:from-purple-400 group-hover:to-pink-400 transition-all">
+              <h3 className="text-base sm:text-lg font-bold mb-1 text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent group-hover:from-purple-400 group-hover:to-pink-400 transition-all break-words">
                 {single.title}
               </h3>
               
@@ -196,26 +196,26 @@ export default function SinglesPage() {
 
       {/* More Singles */}
       <Section background="gradient">
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold mb-2">
+        <div className="mb-8 md:mb-12 px-4">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2">
             <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">More Singles</span>
           </h2>
-          <p className="text-gray-400">Explore the full catalog</p>
+          <p className="text-sm md:text-base text-gray-400">Explore the full catalog</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 px-4">
           {moreSingles.map((single) => (
             <Link
               key={single.slug}
               href={`/store/singles/${single.slug}`}
-              className="group bg-black/40 border border-cyan-500/30 rounded-lg flex items-center gap-4 p-4 hover:bg-cyan-500/5 hover:border-cyan-400 transition-all duration-300"
+              className="group bg-black/40 border border-cyan-500/30 rounded-lg flex items-center gap-3 sm:gap-4 p-3 sm:p-4 hover:bg-cyan-500/5 hover:border-cyan-400 transition-all duration-300"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-lg flex items-center justify-center flex-shrink-0 border border-cyan-400/30 group-hover:border-cyan-400 transition-all">
-                <Play className="w-6 h-6 text-cyan-400" aria-hidden="true" />
+              <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-lg flex items-center justify-center flex-shrink-0 border border-cyan-400/30 group-hover:border-cyan-400 transition-all">
+                <Play className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" aria-hidden="true" />
               </div>
               
               <div className="flex-1 min-w-0">
-                <h3 className="font-bold text-white group-hover:text-cyan-300 transition-colors truncate">
+                <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-cyan-300 transition-colors truncate">
                   {single.title}
                 </h3>
                 <p className="text-sm text-gray-400 truncate">{single.artist}</p>

@@ -24,13 +24,13 @@ export default function ShatteredPeacesAlbumPage() {
   };
 
   const tracklist = [
-    { number: 1, title: 'World of Gold', duration: '4:12', featured: true },
+    { number: 1, title: 'World of Gold', duration: '3:06', featured: true },
     { number: 2, title: 'Fractured Signal', duration: '4:02' },
     { number: 3, title: 'The Line Was Crossed', duration: '3:58' },
     { number: 4, title: 'Echoes of the Cage', duration: '4:28' },
     { number: 5, title: 'Shattered', duration: '3:45' },
     { number: 6, title: 'Broken Peace', duration: '4:15' },
-    { number: 7, title: 'Fallen Flag', duration: '4:45', featured: true },
+    { number: 7, title: 'Fallen Flag', duration: '5:05', featured: true },
     { number: 8, title: 'Soulbound', duration: '3:52' },
     { number: 9, title: 'Corruption', duration: '4:38' },
     { number: 10, title: 'Opening', duration: '4:20' },

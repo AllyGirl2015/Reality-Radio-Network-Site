@@ -15,10 +15,10 @@ export default function EvilLoveSinglePage() {
     album: 'Barefoot Supernova',
     genre: 'Country-Pop / Dark Country',
     year: 2025,
-    duration: '3:28',
+    duration: '3:25',
     price: 0.99,
     catalog: 'RRN-KH-BS01',
-    youtubeId: '', // Add YouTube video ID here when available
+    youtubeId: 'I5PO3Uk88Xc',
     description: 'With haunting vocals and a mesmerizing melody, "Evil Love" dives deep into the toxic side of passion. Kaira Heartfelt captures the intoxication and danger of a love that consumes rather than completes. This track is a dark, emotional journey wrapped in country-pop elegance.',
     quote: '"Some loves don\'t break you… they twist you."',
   };
@@ -36,8 +36,8 @@ export default function EvilLoveSinglePage() {
       </Section>
 
       <Section className="pb-12">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-[300px_1fr] gap-12 items-start">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="grid md:grid-cols-[280px_1fr] lg:grid-cols-[300px_1fr] gap-6 md:gap-8 lg:gap-12 items-start">
             <div className="relative">
               <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-purple-500/30 shadow-2xl shadow-purple-500/20 bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
                 <div className="text-center p-8">
@@ -82,10 +82,10 @@ export default function EvilLoveSinglePage() {
               </div>
 
               <div className="mb-3">
-                <h1 className="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
                   {single.title}
                 </h1>
-                <p className="text-xl text-gray-300">{single.artist}</p>
+                <p className="text-lg sm:text-xl text-gray-300">{single.artist}</p>
               </div>
 
               <Link 
@@ -126,10 +126,10 @@ export default function EvilLoveSinglePage() {
               </div>
 
               <div className="flex gap-4">
-                <Link href="/radio" className="flex-1 px-6 py-3 border border-purple-400/30 rounded-lg text-center text-purple-400 hover:bg-purple-500/10 hover:border-purple-400 transition-all duration-300 flex items-center justify-center gap-2">
+                <a href="https://live365.com/station/201-5-Reality-Central-Radio-a47993" target="_blank" rel="noopener noreferrer" className="flex-1 px-6 py-3 border border-purple-400/30 rounded-lg text-center text-purple-400 hover:bg-purple-500/10 hover:border-purple-400 transition-all duration-300 flex items-center justify-center gap-2">
                   <Play className="w-5 h-5" aria-hidden="true" />
                   Listen on Radio
-                </Link>
+                </a>
                 <Link href="/artists/kaira-heartfelt" className="px-6 py-3 border border-cyan-400/30 rounded-lg text-center text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-300">
                   View Artist
                 </Link>

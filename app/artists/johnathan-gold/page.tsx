@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Music2, Play, ShoppingCart, Radio, Disc, ArrowRight } from 'lucide-react';
 import Section from '@/components/Section';
 
@@ -59,7 +60,7 @@ export default function JohnathanGoldPage() {
                 <Music2 className="w-32 h-32 text-purple-400 opacity-50" />
               </div>
               <div className="mt-6 space-y-3">
-                <Link href="/radio" className="btn-neon w-full flex items-center justify-center gap-2">
+                <Link href="https://live365.com/station/201-5-Reality-Central-Radio-a47993" target="_blank" rel="noopener noreferrer" className="btn-neon w-full flex items-center justify-center gap-2">
                   <Radio className="w-5 h-5" />
                   Listen on Radio
                 </Link>
@@ -123,8 +124,13 @@ export default function JohnathanGoldPage() {
                 href={`/store/albums/${album.slug}`}
                 className="group bg-black/40 border border-purple-500/30 rounded-lg p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all"
               >
-                <div className="aspect-square bg-gradient-to-br from-orange-500/20 to-purple-500/20 rounded-lg mb-6 flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <Disc className="w-24 h-24 text-purple-400 opacity-50" />
+                <div className="aspect-square rounded-lg mb-6 overflow-hidden relative">
+                  <Image
+                    src={`/${album.title}.png`}
+                    alt={album.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform"
+                  />
                 </div>
                 <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-purple-300 transition-colors">
                   {album.title}
@@ -199,7 +205,7 @@ export default function JohnathanGoldPage() {
             authentic country storytelling with modern heart. Listen now on Reality Radio Network.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/radio" className="btn-neon flex items-center gap-2">
+            <Link href="https://live365.com/station/201-5-Reality-Central-Radio-a47993" target="_blank" rel="noopener noreferrer" className="btn-neon flex items-center gap-2">
               <Radio className="w-5 h-5" />
               Listen Live
             </Link>

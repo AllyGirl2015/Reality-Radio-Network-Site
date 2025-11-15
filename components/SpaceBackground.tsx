@@ -33,6 +33,9 @@ export default function SpaceBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Detect mobile device
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+
     // Fixed seed for consistent background
     const seed = hashString('reality-radio-network-space-2025');
     const random = createSeededRandom(seed);
@@ -138,17 +141,33 @@ export default function SpaceBackground() {
     const stars: Star[] = [];
     const nebulas: Nebula[] = [];
 
-    for (let i = 0; i < 200; i++) {
+    // Reduce particles on mobile for better performance
+    const starCount = isMobile ? 80 : 200;
+    const nebulaCount = isMobile ? 2 : 5;
+
+    for (let i = 0; i < starCount; i++) {
       stars.push(new Star());
     }
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < nebulaCount; i++) {
       nebulas.push(new Nebula());
     }
 
     // Animation loop
-    function animate() {
+    let lastFrameTime = 0;
+    const targetFPS = isMobile ? 30 : 60; // Lower FPS on mobile
+    const frameInterval = 1000 / targetFPS;
+
+    function animate(currentTime: number) {
       if (!canvas || !ctx) return;
+      
+      // Throttle animation frame rate
+      const elapsed = currentTime - lastFrameTime;
+      if (elapsed < frameInterval) {
+        requestAnimationFrame(animate);
+        return;
+      }
+      lastFrameTime = currentTime - (elapsed % frameInterval);
       
       // Clear canvas with dark space color
       ctx.fillStyle = 'rgba(0, 0, 0, 1)';
@@ -169,7 +188,7 @@ export default function SpaceBackground() {
       requestAnimationFrame(animate);
     }
 
-    animate();
+    animate(0);
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);

@@ -3,56 +3,75 @@
 interface Live365PlayerProps {
   stationId?: string;
   stationName?: string;
-  height?: number;
-  width?: number | string;
+  compact?: boolean;
 }
 
 export default function Live365Player({ 
   stationId = "a47993", 
   stationName = "Reality Central Radio",
-  height = 250,
-  width = "100%" 
+  compact = false
 }: Live365PlayerProps) {
   return (
-    <div className="card-neon">
-      <div className="mb-4">
-        <h3 className="text-xl font-bold neon-text mb-2">{stationName}</h3>
-        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#00f3ff]/20 text-[#00f3ff] border border-[#00f3ff] inline-block">
-          🔴 LIVE NOW
-        </span>
-      </div>
-      
-      <div className="relative w-full overflow-hidden rounded-lg border border-[#00f3ff]/30 bg-black">
+    <div className="w-full h-full">
+      {/* Player Embed */}
+      <div className="w-full h-full">
         <iframe
-          src={`https://live365.com/embed/popout?l=${stationId}`}
-          width={typeof width === 'number' ? width : '100%'}
-          height={height}
+          width="100%"
+          height="100%"
           frameBorder="0"
-          scrolling="no"
-          allow="autoplay"
+          src={`https://live365.com/${stationId}/embeds/v1/player/${stationId}?s=null&m=null&c=mp3`}
           title={`${stationName} Live Player`}
+          allow="autoplay"
           style={{ 
             border: 'none',
             display: 'block',
-            minHeight: `${height}px`
+            width: '100%',
+            height: '100vh',
+            maxHeight: '600px'
           }}
         />
       </div>
 
-      <div className="mt-4 pt-4 border-t border-[#00f3ff]/20">
-        <p className="text-xs text-gray-400 text-center">
-          🎵 Powered by{' '}
-          <a 
-            href="https://live365.com/station/201-5-Reality-Central-Radio-a47993" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-[#00f3ff] hover:text-[#0ff] transition-colors"
-            aria-label="Visit Reality Central Radio on Live365"
-          >
-            Live365
-          </a>
-        </p>
-      </div>
+      {compact ? (
+        // Versão compacta - apenas player
+        null
+      ) : (
+        // Versão completa - com last played
+        <>
+          <div className="mt-4 text-center">
+            <button 
+              type="button"
+              className="btn-neon-purple text-sm px-4 py-2 inline-flex items-center gap-2"
+              onClick={() => {
+                const lastPlayed = document.getElementById('last-played-section');
+                if (lastPlayed) {
+                  lastPlayed.classList.toggle('hidden');
+                }
+              }}
+            >
+              View Recently Played Tracks
+            </button>
+          </div>
+
+          {/* Last Played - Colapsável */}
+          <div id="last-played-section" className="hidden mt-4">
+            <div className="w-full rounded-lg overflow-hidden">
+              <iframe
+                width="100%"
+                height="511"
+                frameBorder="0"
+                src={`https://live365.com/embeds/v1/played/${stationId}?s=md&m=dark`}
+                title={`${stationName} Recently Played`}
+                style={{ 
+                  border: 'none',
+                  display: 'block',
+                  width: '100%'
+                }}
+              />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

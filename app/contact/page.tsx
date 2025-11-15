@@ -17,11 +17,11 @@ export default function ContactPage() {
       {/* Hero */}
       <Section className="pb-12">
         <div className="max-w-3xl mx-auto text-center">
-          <Mail className="w-16 h-16 text-purple-400 mx-auto mb-6" aria-hidden="true" />
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+          <Mail className="w-12 h-12 md:w-16 md:h-16 text-purple-400 mx-auto mb-4 md:mb-6" aria-hidden="true" />
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 px-4">
             <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Get in Touch</span>
           </h1>
-          <p className="text-xl text-gray-300 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed px-4">
             Questions, feedback, or collaboration ideas? We'd love to hear from you.
           </p>
         </div>
@@ -30,17 +30,17 @@ export default function ContactPage() {
       {/* Contact Options */}
       <Section background="solid">
         <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-12">
             {/* Email Contact */}
-            <div className="bg-black/40 border border-purple-500/30 rounded-lg p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300">
-              <Mail className="w-10 h-10 text-purple-400 mb-4" aria-hidden="true" />
-              <h2 className="text-2xl font-bold mb-3 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Email Us</h2>
-              <p className="text-gray-300 mb-4">
+            <div className="bg-black/40 border border-purple-500/30 rounded-lg p-4 sm:p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300">
+              <Mail className="w-8 h-8 md:w-10 md:h-10 text-purple-400 mb-3 md:mb-4" aria-hidden="true" />
+              <h2 className="text-xl md:text-2xl font-bold mb-2 md:mb-3 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Email Us</h2>
+              <p className="text-sm md:text-base text-gray-300 mb-3 md:mb-4">
                 For support, inquiries, or general questions, send us an email directly:
               </p>
               <a
                 href="mailto:support@realityradionetwork.com"
-                className="text-purple-400 text-lg font-semibold hover:text-purple-300 transition-colors inline-flex items-center gap-2"
+                className="text-purple-400 text-sm md:text-lg font-semibold hover:text-purple-300 transition-colors inline-flex items-center gap-2 break-all"
                 aria-label="Send email to support@realityradionetwork.com"
               >
                 support@realityradionetwork.com
@@ -49,30 +49,30 @@ export default function ContactPage() {
             </div>
 
             {/* Discord Community */}
-            <div className="bg-black/40 border border-cyan-500/30 rounded-lg p-6 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
-              <MessageSquare className="w-10 h-10 text-cyan-400 mb-4" aria-hidden="true" />
-              <h2 className="text-2xl font-bold mb-3 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Join Our Discord</h2>
-              <p className="text-gray-300 mb-4">
+            <div className="bg-black/40 border border-cyan-500/30 rounded-lg p-4 sm:p-6 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
+              <MessageSquare className="w-8 h-8 md:w-10 md:h-10 text-cyan-400 mb-3 md:mb-4" aria-hidden="true" />
+              <h2 className="text-xl md:text-2xl font-bold mb-2 md:mb-3 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Join Our Discord</h2>
+              <p className="text-sm md:text-base text-gray-300 mb-3 md:mb-4">
                 Connect with the community, get updates, and chat with other fans and artists.
               </p>
               <a
                 href="https://discord.realityradionetwork.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-cyan-400 text-lg font-semibold hover:text-cyan-300 transition-colors inline-flex items-center gap-2"
+                className="btn-neon inline-flex items-center justify-center gap-2 px-6 py-3"
                 aria-label="Join Reality Radio Network Discord server"
               >
+                <MessageSquare className="w-5 h-5" aria-hidden="true" />
                 Join Discord Server
-                <Send className="w-4 h-4" aria-hidden="true" />
               </a>
             </div>
           </div>
 
           {/* Important Note */}
-          <div className="bg-black/40 border border-purple-500/30 rounded-lg p-6 hover:border-purple-400/40 transition-colors mb-12">
-            <Clock className="w-8 h-8 text-purple-400 mb-3" aria-hidden="true" />
-            <h3 className="text-xl font-bold mb-3 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Please Note</h3>
-            <p className="text-gray-300 leading-relaxed">
+          <div className="bg-black/40 border border-purple-500/30 rounded-lg p-4 sm:p-6 hover:border-purple-400/40 transition-colors mb-8 md:mb-12">
+            <Clock className="w-6 h-6 md:w-8 md:h-8 text-purple-400 mb-2 md:mb-3" aria-hidden="true" />
+            <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Please Note</h3>
+            <p className="text-sm md:text-base text-gray-300 leading-relaxed">
               <strong>Reality Radio Network is currently operated by just one person</strong> — 
               Alissa M.R. Eldridge. While the plan is to grow and expand into a full team over time, 
               all operations (from production to support) are handled personally for now.
@@ -87,14 +87,14 @@ export default function ContactPage() {
 
       {/* Contact Form */}
       <Section background="gradient">
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-3 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Send a Message</h2>
-            <p className="text-gray-400">Fill out the form below and we'll get back to you</p>
+        <div className="max-w-2xl mx-auto px-4">
+          <div className="text-center mb-6 md:mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold mb-2 md:mb-3 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Send a Message</h2>
+            <p className="text-sm md:text-base text-gray-400">Fill out the form below and we'll get back to you</p>
           </div>
 
           <form 
-            action="https://formspree.io/f/YOUR_FORM_ID" 
+            action="https://formspree.io/f/mgvrkjeo" 
             method="POST"
             className="bg-black/40 border border-cyan-500/30 rounded-lg p-6 hover:border-cyan-400/40 transition-colors" 
             aria-label="Contact form"
@@ -195,9 +195,9 @@ export default function ContactPage() {
 
       {/* FAQ Quick Links */}
       <Section background="solid">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Before You Reach Out</h2>
-          <p className="text-gray-300 mb-6">
+        <div className="max-w-3xl mx-auto text-center px-4">
+          <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Before You Reach Out</h2>
+          <p className="text-sm md:text-base text-gray-300 mb-4 md:mb-6">
             Check out our FAQ for quick answers to common questions:
           </p>
           <div className="flex flex-wrap gap-3 justify-center">

@@ -17,12 +17,12 @@ export default function StoryPage() {
     <main className="min-h-screen pt-24">
       {/* Hero */}
       <Section className="pb-12">
-        <div className="max-w-4xl mx-auto text-center">
-          <Heart className="w-16 h-16 text-purple-400 mx-auto mb-6" />
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+        <div className="max-w-4xl mx-auto text-center px-4">
+          <Heart className="w-12 h-12 md:w-16 md:h-16 text-purple-400 mx-auto mb-4 md:mb-6" />
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
             <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Our Story</span>
           </h1>
-          <p className="text-xl text-gray-300 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed">
             A humble beginning with an extraordinary vision
           </p>
         </div>
@@ -31,9 +31,9 @@ export default function StoryPage() {
       {/* Main Story */}
       <Section background="solid">
         <div className="max-w-3xl mx-auto prose prose-invert prose-lg">
-          <div className="bg-black/40 border border-purple-500/30 rounded-lg p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 mb-12">
-            <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">We're Different by Design</h2>
-            <p className="text-gray-300 leading-relaxed mb-4">
+          <div className="bg-black/40 border border-purple-500/30 rounded-lg p-4 sm:p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 mb-8 md:mb-12">
+            <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">We're Different by Design</h2>
+            <p className="text-sm sm:text-base text-gray-300 leading-relaxed mb-3 md:mb-4">
               For starters, we aren't like everyone else. While many are transitioning <strong>towards</strong> AI 
               replacing people, our model is the <strong>inverse</strong> of that.
             </p>
@@ -55,11 +55,11 @@ export default function StoryPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 my-12">
-            <div className="bg-black/40 border border-purple-500/30 rounded-lg p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300">
-              <Target className="w-8 h-8 text-purple-400 mb-3" />
-              <h3 className="text-lg font-bold mb-2 text-purple-400">Our Mission</h3>
-              <p className="text-sm text-gray-300">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 my-8 md:my-12">
+            <div className="bg-black/40 border border-purple-500/30 rounded-lg p-4 sm:p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300">
+              <Target className="w-6 h-6 md:w-8 md:h-8 text-purple-400 mb-2 md:mb-3" />
+              <h3 className="text-base md:text-lg font-bold mb-2 text-purple-400">Our Mission</h3>
+              <p className="text-xs sm:text-sm text-gray-300">
                 Use AI as a stepping stone to discover, elevate, and empower real human talent across 
                 music, film, publishing, gaming, and beyond.
               </p>

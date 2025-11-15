@@ -70,11 +70,11 @@ body {
   
   .btn-neon-purple {
     @apply px-8 py-3 rounded-lg font-semibold transition-all duration-300;
-    @apply bg-[#a855f7]/10 border-2 border-[#a855f7] text-[#a855f7];
+    @apply bg-[#a855f7]/30 border-2 border-[#a855f7] text-white;
   }
   
   .btn-neon-purple:hover {
-    @apply bg-[#a855f7]/20;
+    @apply bg-[#a855f7]/40;
     box-shadow: 0 0 5px #a855f7, 0 0 15px #a855f7;
   }
   

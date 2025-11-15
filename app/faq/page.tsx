@@ -158,14 +158,14 @@ export default function FAQPage() {
     <main className="min-h-screen pt-24">
       {/* Hero */}
       <Section className="pb-12">
-        <div className="max-w-3xl mx-auto text-center">
-          <HelpCircle className="w-16 h-16 text-purple-400 mx-auto mb-6" aria-hidden="true" />
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+        <div className="max-w-3xl mx-auto text-center px-4">
+          <HelpCircle className="w-12 h-12 md:w-16 md:h-16 text-purple-400 mx-auto mb-4 md:mb-6" aria-hidden="true" />
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
             <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Frequently Asked</span>
             <br />
             <span className="text-white">Questions</span>
           </h1>
-          <p className="text-xl text-gray-300 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed">
             Find answers to common questions about our music, shipping, licensing, and more.
           </p>
         </div>
@@ -199,22 +199,22 @@ export default function FAQPage() {
           background={idx % 2 === 0 ? 'solid' : 'gradient'}
           id={category.id}
         >
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-4 mb-8">
-              <category.icon className="w-10 h-10 text-purple-400" aria-hidden="true" />
-              <h2 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">{category.title}</h2>
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-8">
+              <category.icon className="w-8 h-8 md:w-10 md:h-10 text-purple-400" aria-hidden="true" />
+              <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">{category.title}</h2>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4 md:space-y-6">
               {category.questions.map((faq, faqIdx) => (
-                <div key={faqIdx} className="bg-black/40 border border-cyan-500/30 rounded-lg p-6 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
-                  <h3 className="text-xl font-semibold text-white mb-3 flex items-start gap-3">
-                    <span className="text-purple-400 text-2xl font-bold shrink-0">Q.</span>
+                <div key={faqIdx} className="bg-black/40 border border-cyan-500/30 rounded-lg p-4 sm:p-6 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
+                  <h3 className="text-lg md:text-xl font-semibold text-white mb-2 md:mb-3 flex items-start gap-2 md:gap-3">
+                    <span className="text-purple-400 text-xl md:text-2xl font-bold shrink-0">Q.</span>
                     <span>{faq.q}</span>
                   </h3>
-                  <div className="flex items-start gap-3 pl-8">
-                    <span className="text-cyan-400 text-2xl font-bold shrink-0">A.</span>
-                    <p className="text-gray-300 leading-relaxed">{faq.a}</p>
+                  <div className="flex items-start gap-2 md:gap-3 pl-6 md:pl-8">
+                    <span className="text-cyan-400 text-xl md:text-2xl font-bold shrink-0">A.</span>
+                    <p className="text-sm md:text-base text-gray-300 leading-relaxed">{faq.a}</p>
                   </div>
                 </div>
               ))}
@@ -225,10 +225,10 @@ export default function FAQPage() {
 
       {/* Still Have Questions */}
       <Section background="solid">
-        <div className="max-w-3xl mx-auto text-center">
-          <Mail className="w-12 h-12 text-purple-400 mx-auto mb-4" aria-hidden="true" />
-          <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Still Have Questions?</h2>
-          <p className="text-gray-300 mb-8 leading-relaxed">
+        <div className="max-w-3xl mx-auto text-center px-4">
+          <Mail className="w-10 h-10 md:w-12 md:h-12 text-purple-400 mx-auto mb-3 md:mb-4" aria-hidden="true" />
+          <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Still Have Questions?</h2>
+          <p className="text-sm md:text-base text-gray-300 mb-6 md:mb-8 leading-relaxed">
             Can't find what you're looking for? We're here to help! 
             Reach out and we'll get back to you as soon as possible.
           </p>

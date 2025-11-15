@@ -56,22 +56,22 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <Section className="pt-32 pb-20 relative overflow-hidden">
-        <div className="relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <Section className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 relative overflow-hidden">
+        <div className="relative z-10 grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center px-4">
           <div className="text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight">
               <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">The Future</span>
               <br />
               <span className="text-white">of Music</span>
               <br />
               <span className="text-gray-400">Starts Here</span>
             </h1>
-            <p className="text-lg sm:text-xl text-gray-300 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-              AI-powered artists with real emotion. Discover authentic sound, unique personas, 
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 md:mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              Original artists with real emotion. Discover authentic sound, unique personas, 
               and the next generation of music at <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent font-semibold">Reality Radio Network</span>.
             </p>
-            <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start">
-              <Link href="#listen" className="btn-neon flex items-center justify-center gap-2">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 justify-center lg:justify-start">
+              <Link href="https://live365.com/station/201-5-Reality-Central-Radio-a47993" target="_blank" rel="noopener noreferrer" className="btn-neon flex items-center justify-center gap-2">
                 <Play className="w-5 h-5" />
                 Listen Live
               </Link>
@@ -82,33 +82,33 @@ export default function Home() {
             </div>
             
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 sm:gap-6 mt-12 pt-12 border-t border-purple-500/20">
+            <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 mt-8 md:mt-12 pt-8 md:pt-12 border-t border-purple-500/20">
               <div>
-                <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">22+</div>
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">22+</div>
                 <div className="text-xs sm:text-sm text-gray-400 mt-1">Artists</div>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">9</div>
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">9</div>
                 <div className="text-xs sm:text-sm text-gray-400 mt-1">Radio Stations</div>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">100%</div>
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">100%</div>
                 <div className="text-xs sm:text-sm text-gray-400 mt-1">Original</div>
               </div>
             </div>
           </div>
 
           {/* Radio Player */}
-          <div id="listen" className="lg:pl-8">
+          <div id="listen" className="lg:pl-8 px-4 lg:px-0">
             <Live365Player
               stationId="a47993"
               stationName="Reality Central Radio"
-              height={300}
+              compact={true}
             />
             <div className="mt-6 p-4 bg-[#00f3ff]/5 border border-[#00f3ff]/20 rounded-lg">
               <p className="text-sm text-gray-400">
                 🎧 <span className="text-[#00f3ff] font-semibold">Now Streaming:</span> Mixed genres from punk rock to country, 
-                all powered by our AI artists.
+                featuring our exclusive artists.
               </p>
             </div>
           </div>
@@ -116,20 +116,20 @@ export default function Home() {
       </Section>
 
       {/* What is RRN */}
-      <Section className="py-16">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+      <Section className="py-12 md:py-16">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4">
               <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">What is RRN?</span>
             </h2>
-            <p className="text-lg text-gray-400 max-w-3xl mx-auto">
+            <p className="text-base md:text-lg text-gray-400 max-w-3xl mx-auto">
               Powered by RBEW — Built from Passion, Driven by Purpose
             </p>
           </div>
 
-          <div className="space-y-8">
-            <div className="bg-black/40 border border-purple-500/30 rounded-lg p-6 sm:p-8 hover:border-purple-400 transition-all">
-              <p className="text-lg sm:text-xl text-gray-300 leading-relaxed mb-4">
+          <div className="space-y-6 md:space-y-8">
+            <div className="bg-black/40 border border-purple-500/30 rounded-lg p-4 sm:p-6 md:p-8 hover:border-purple-400 transition-all">
+              <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-3 md:mb-4">
                 The Reality Radio Network is <strong className="text-purple-400">more than a group of radio stations</strong> — 
                 it's a <strong className="text-cyan-400">movement</strong>. A heartbeat. A voice for the real.
               </p>
@@ -140,11 +140,11 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-black/40 border border-cyan-500/30 rounded-lg p-6 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 transition-all">
-                <div className="flex items-center gap-3 mb-4">
-                  <Radio className="w-8 h-8 text-cyan-400" />
-                  <h3 className="text-xl font-bold text-cyan-400">201.5 – Reality Central Radio</h3>
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              <div className="bg-black/40 border border-cyan-500/30 rounded-lg p-4 sm:p-6 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 transition-all">
+                <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
+                  <Radio className="w-6 h-6 md:w-8 md:h-8 text-cyan-400" />
+                  <h3 className="text-lg md:text-xl font-bold text-cyan-400">201.5 – Reality Central Radio</h3>
                 </div>
                 <p className="text-sm text-gray-500 mb-2 italic">"The Realest Mix Around."</p>
                 <p className="text-gray-300 mb-3">
@@ -176,11 +176,11 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="text-center bg-black/40 border border-purple-500/30 rounded-lg p-8">
-              <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+            <div className="text-center bg-black/40 border border-purple-500/30 rounded-lg p-4 sm:p-6 md:p-8">
+              <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
                 Why RRN?
               </h3>
-              <p className="text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto mb-6">
+              <p className="text-base md:text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto mb-4 md:mb-6">
                 Because mainstream doesn't speak for all of us. RRN exists to give <strong className="text-purple-400">real creators</strong>, 
                 <strong className="text-cyan-400"> real voices</strong>, and <strong className="text-purple-400">real communities</strong> a 
                 place to be heard — raw and unfiltered.
@@ -195,21 +195,21 @@ export default function Home() {
 
       {/* Featured Artists */}
       <Section background="solid">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <div className="text-center mb-8 md:mb-12 px-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4">
             Meet Our <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Artists</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
             Each persona crafted with unique sound, story, and soul
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 px-4">
           {featuredArtists.map((artist) => (
             <Link
               key={artist.name}
               href={artist.href}
-              className="group bg-black/40 border border-purple-500/30 rounded-lg overflow-hidden p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
+              className="group bg-black/40 border border-purple-500/30 rounded-lg overflow-hidden p-4 sm:p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
             >
               <div className="aspect-square mb-4 rounded-lg overflow-hidden relative">
                 <Image
@@ -237,14 +237,14 @@ export default function Home() {
 
       {/* Featured Releases */}
       <Section background="gradient">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <div className="text-center mb-8 md:mb-12 px-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4">
             <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Latest</span> Releases
           </h2>
-          <p className="text-xl text-gray-400">Stream now, own forever</p>
+          <p className="text-lg md:text-xl text-gray-400">Stream now, own forever</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8 md:mb-12 px-4">
           {featuredReleases.map((release) => (
             <Link
               key={release.title}
@@ -285,15 +285,15 @@ export default function Home() {
 
       {/* Persona Adoption CTA */}
       <Section>
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="mb-8">
-            <Sparkles className="w-16 h-16 text-purple-400 mx-auto mb-4" />
+        <div className="max-w-4xl mx-auto text-center px-4">
+          <div className="mb-6 md:mb-8">
+            <Sparkles className="w-12 h-12 md:w-16 md:h-16 text-purple-400 mx-auto mb-3 md:mb-4" />
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Become an <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">AI Artist</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
+            Become an <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Artist</span>
           </h2>
-          <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-            Our Persona Adoption Program lets you step into a fully-crafted artist identity. 
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 md:mb-8 leading-relaxed">
+            Our Persona Adoption Program lets you step into a fully-crafted artist identity with professional support. 
             Audition, perform, create—and eventually own the persona completely.
           </p>
           <div className="flex flex-wrap gap-4 justify-center mb-12">
@@ -338,12 +338,12 @@ export default function Home() {
             Our <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">Vision</span>
           </h2>
           <p className="text-lg text-gray-300 leading-relaxed mb-6">
-            We're not replacing people with AI—we're using AI as a foundation to elevate human talent. 
-            Our goal is to transition from AI-generated music to real people, hiring artists from the 
-            ground up and helping them reach the heights of fame.
+            We're building a platform that elevates real talent. Our goal is to discover and develop 
+            artists from the ground up, providing them with the tools, support, and opportunities to 
+            reach their full potential and achieve success.
           </p>
           <p className="text-lg text-gray-300 leading-relaxed mb-8">
-            Music is just the beginning. From CDs and personas to book publishing, film, animation, 
+            Music is just the beginning. From albums and live performances to book publishing, film, animation, 
             video games, and technology—we're building an ecosystem that raises everyone up.
           </p>
           <Link href="/story" className="btn-neon inline-flex items-center gap-2">

@@ -244,14 +244,14 @@ export default function ArtistsPage() {
     <main className="min-h-screen pt-24">
       {/* Hero */}
       <Section className="pb-12">
-        <div className="max-w-4xl mx-auto text-center">
-          <Users className="w-16 h-16 text-purple-400 mx-auto mb-6" />
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+        <div className="max-w-4xl mx-auto text-center px-4">
+          <Users className="w-12 h-12 md:w-16 md:h-16 text-purple-400 mx-auto mb-4 md:mb-6" />
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
             <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">22 Artists</span>
             <br />
             <span className="text-white">22 Unique Stories</span>
           </h1>
-          <p className="text-xl text-gray-300 leading-relaxed mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-6 md:mb-8">
             Each persona crafted with unique sound, style, and soul. From country roots to punk rebellion, 
             dark pop to stadium rock—the Reality Radio Network roster covers it all.
           </p>
@@ -268,25 +268,25 @@ export default function ArtistsPage() {
 
       {/* Original 5 */}
       <Section background="gradient">
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold mb-2 flex items-center gap-3">
-            <Sparkles className="w-8 h-8 text-purple-400" />
+        <div className="mb-8 md:mb-12 px-4">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-2 md:gap-3">
+            <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-purple-400" />
             <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Original 5</span>
           </h2>
-          <p className="text-gray-400">The founding personas of Reality Radio Network</p>
+          <p className="text-sm md:text-base text-gray-400">The founding personas of Reality Radio Network</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 px-4">
           {original5.map((artist) => (
             <Link
               key={artist.id}
               href={`/artists/${artist.id}`}
-              className="group bg-black/40 border border-purple-500/30 rounded-lg overflow-hidden p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
+              className="group bg-black/40 border border-purple-500/30 rounded-lg overflow-hidden p-4 sm:p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
             >
-              <div className="aspect-square bg-gradient-to-br from-cyan-500/20 via-purple-500/20 to-pink-500/20 mb-4 rounded-lg flex items-center justify-center">
-                <Music className="w-24 h-24 text-purple-400 opacity-50 group-hover:opacity-100 transition-opacity" />
+              <div className="aspect-square bg-gradient-to-br from-cyan-500/20 via-purple-500/20 to-pink-500/20 mb-3 md:mb-4 rounded-lg flex items-center justify-center">
+                <Music className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-purple-400 opacity-50 group-hover:opacity-100 transition-opacity" />
               </div>
-              <h3 className="text-xl font-bold mb-1 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent group-hover:from-purple-400 group-hover:to-pink-400 transition-all">
+              <h3 className="text-lg md:text-xl font-bold mb-1 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent group-hover:from-purple-400 group-hover:to-pink-400 transition-all break-words">
                 {artist.name}
               </h3>
               <p className="text-xs text-gray-500 mb-2">{artist.pronunciation}</p>
@@ -305,15 +305,15 @@ export default function ArtistsPage() {
 
       {/* Family-Inspired */}
       <Section background="solid">
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold mb-2 flex items-center gap-3">
-            <Users className="w-8 h-8 text-cyan-400" />
+        <div className="mb-8 md:mb-12 px-4">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-2 md:gap-3">
+            <Users className="w-6 h-6 md:w-8 md:h-8 text-cyan-400" />
             <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Family-Inspired Artists</span>
           </h2>
-          <p className="text-gray-400">Personas inspired by personal connections and stories</p>
+          <p className="text-sm md:text-base text-gray-400">Personas inspired by personal connections and stories</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 px-4">
           {familyInspired.map((artist) => (
             <Link
               key={artist.id}
@@ -336,25 +336,25 @@ export default function ArtistsPage() {
 
       {/* New Roster */}
       <Section background="gradient">
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold mb-2 flex items-center gap-3">
-            <Sparkles className="w-8 h-8 text-purple-400" />
+        <div className="mb-8 md:mb-12 px-4">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-2 md:gap-3">
+            <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-purple-400" />
             <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">New Artist Roster</span>
           </h2>
-          <p className="text-gray-400">Expanding the sound, pushing the boundaries</p>
+          <p className="text-sm md:text-base text-gray-400">Expanding the sound, pushing the boundaries</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 px-4">
           {newRoster.map((artist) => (
             <Link
               key={artist.id}
               href={`/artists/${artist.id}`}
-              className="group bg-black/40 border border-purple-500/30 rounded-lg overflow-hidden p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
+              className="group bg-black/40 border border-purple-500/30 rounded-lg overflow-hidden p-4 sm:p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
             >
-              <div className="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 mb-3 rounded-lg flex items-center justify-center">
-                <Music className="w-16 h-16 text-purple-400 opacity-40 group-hover:opacity-100 transition-opacity" />
+              <div className="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 mb-2 md:mb-3 rounded-lg flex items-center justify-center">
+                <Music className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 text-purple-400 opacity-40 group-hover:opacity-100 transition-opacity" />
               </div>
-              <h3 className="text-lg font-bold mb-1 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent group-hover:from-purple-400 group-hover:to-pink-400 transition-all line-clamp-1">
+              <h3 className="text-base md:text-lg font-bold mb-1 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent group-hover:from-purple-400 group-hover:to-pink-400 transition-all line-clamp-1">
                 {artist.name}
               </h3>
               <p className="text-xs text-cyan-400 mb-2">{artist.genre}</p>
@@ -366,11 +366,11 @@ export default function ArtistsPage() {
 
       {/* CTA */}
       <Section>
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+        <div className="max-w-3xl mx-auto text-center px-4">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
             Want to Be One of Them?
           </h2>
-          <p className="text-lg text-gray-300 mb-8">
+          <p className="text-base sm:text-lg text-gray-300 mb-6 md:mb-8">
             Our Persona Adoption Program lets you step into a fully-crafted artist identity. 
             Audition, perform, create, and eventually own the persona completely.
           </p>

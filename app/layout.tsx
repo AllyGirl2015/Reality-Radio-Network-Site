@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SpaceBackground from "@/components/SpaceBackground";
 import CookieBanner from "@/components/CookieBanner";
-import Analytics from "@/components/Analytics";
+// import Analytics from "@/components/Analytics";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -84,10 +84,12 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#000000" />
         <meta name="color-scheme" content="dark" />
+        <link rel="icon" href="/RRN_logo.jpg" type="image/jpeg" />
+        <link rel="apple-touch-icon" href="/RRN_logo.jpg" />
       </head>
       <body className={`${inter.variable} antialiased`} suppressHydrationWarning={true}>
         <SpaceBackground />
-        <Analytics />
+        {/* <Analytics /> */}
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#00f3ff] focus:text-black focus:rounded-lg focus:font-semibold">
           Skip to main content
         </a>

@@ -70,14 +70,14 @@ export default function StorePage() {
     <main className="min-h-screen pt-24">
       {/* Hero */}
       <Section className="pb-12">
-        <div className="text-center max-w-3xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto px-4">
           <ShoppingBag className="w-12 h-12 md:w-16 md:h-16 text-purple-400 mx-auto mb-4 md:mb-6" />
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
             <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Own the Music</span>
             <br />
             <span className="text-white">Support the Artists</span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-6 md:mb-8 px-4">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-6 md:mb-8 px-4">
             Every purchase directly supports Reality Radio Network and our mission to elevate real talent. 
             From digital downloads to handmade physical products.
           </p>
@@ -94,9 +94,9 @@ export default function StorePage() {
 
       {/* Important Notice */}
       <Section background="gradient" className="py-12">
-        <div className="max-w-4xl mx-auto bg-black/40 border border-purple-500/30 rounded-lg p-6 hover:border-purple-400/40 transition-colors">
-          <h3 className="text-xl font-bold mb-3 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">We're Proudly Indie 💙</h3>
-          <div className="space-y-2 text-gray-300">
+        <div className="max-w-4xl mx-auto bg-black/40 border border-purple-500/30 rounded-lg p-4 sm:p-6 hover:border-purple-400/40 transition-colors">
+          <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">We're Proudly Indie 💙</h3>
+          <div className="space-y-2 text-gray-300 text-sm md:text-base">
             <p>
               <strong>Handmade with care:</strong> Every physical product is created by hand. 
               Please allow up to <span className="text-purple-400">2 weeks</span> for fulfillment.
@@ -115,15 +115,15 @@ export default function StorePage() {
 
       {/* Albums Section */}
       <Section background="solid" id="albums">
-        <div className="mb-8 md:mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-2 flex items-center gap-2 md:gap-3">
+        <div className="mb-8 md:mb-12 px-4">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 flex items-center gap-2 md:gap-3">
             <Disc className="w-8 h-8 md:w-10 md:h-10 text-purple-400" />
             <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Albums</span>
           </h2>
           <p className="text-sm md:text-base text-gray-400">Full-length releases, complete stories</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 px-4">
           {featuredAlbums.map((album) => (
             <Link
               key={album.title}
@@ -143,12 +143,12 @@ export default function StorePage() {
                 </div>
               </div>
 
-              <div className="p-4">
-                <h3 className="text-lg font-bold mb-1 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent group-hover:from-purple-400 group-hover:to-pink-400 transition-all truncate">
+              <div className="p-3 sm:p-4">
+                <h3 className="text-base md:text-lg font-bold mb-1 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent group-hover:from-purple-400 group-hover:to-pink-400 transition-all truncate">
                   {album.title}
                 </h3>
-                <p className="text-sm text-gray-400 mb-2 truncate">{album.artist}</p>
-                <p className="text-xs text-gray-500 mb-3">{album.genre} • {album.tracks} tracks</p>
+                <p className="text-xs md:text-sm text-gray-400 mb-2 truncate">{album.artist}</p>
+                <p className="text-xs text-gray-500 mb-2 md:mb-3">{album.genre} • {album.tracks} tracks</p>
 
                 <div className="flex items-center justify-between pt-3 border-t border-purple-500/20">
                   <div>
@@ -174,26 +174,26 @@ export default function StorePage() {
 
       {/* Singles Section */}
       <Section background="gradient" id="singles">
-        <div className="mb-8 md:mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-2 flex items-center gap-2 md:gap-3">
+        <div className="mb-8 md:mb-12 px-4">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 flex items-center gap-2 md:gap-3">
             <Music className="w-8 h-8 md:w-10 md:h-10 text-cyan-400" />
             <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Singles</span>
           </h2>
           <p className="text-sm md:text-base text-gray-400">Individual tracks, instant impact</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 px-4">
           {featuredSingles.map((single, index) => (
             <Link
               key={index}
               href={single.href}
-              className="group bg-black/40 border border-cyan-500/30 rounded-lg flex items-center gap-4 p-4 hover:bg-cyan-500/5 hover:border-cyan-400 transition-all duration-300"
+              className="group bg-black/40 border border-cyan-500/30 rounded-lg flex items-center gap-3 sm:gap-4 p-3 sm:p-4 hover:bg-cyan-500/5 hover:border-cyan-400 transition-all duration-300"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Play className="w-6 h-6 text-cyan-400" />
+              <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <Play className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent group-hover:from-cyan-300 group-hover:to-purple-300 transition-all truncate">
+                <h3 className="text-sm sm:text-base font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent group-hover:from-cyan-300 group-hover:to-purple-300 transition-all truncate">
                   {single.title}
                 </h3>
                 <p className="text-sm text-gray-400 truncate">{single.artist}</p>
@@ -214,12 +214,12 @@ export default function StorePage() {
 
       {/* Licensing & Partnerships */}
       <Section>
-        <div className="max-w-4xl mx-auto text-center">
-          <Sparkles className="w-12 h-12 text-purple-400 mx-auto mb-6" />
-          <h2 className="text-3xl font-bold mb-4">
+        <div className="max-w-4xl mx-auto text-center px-4">
+          <Sparkles className="w-10 h-10 md:w-12 md:h-12 text-purple-400 mx-auto mb-4 md:mb-6" />
+          <h2 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">
             <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Business & Licensing</span>
           </h2>
-          <p className="text-lg text-gray-300 mb-6">
+          <p className="text-base sm:text-lg text-gray-300 mb-4 md:mb-6">
             Need music for your brand, film, or commercial project? Looking to partner 
             with Reality Radio Network? We offer flexible licensing and collaboration opportunities.
           </p>

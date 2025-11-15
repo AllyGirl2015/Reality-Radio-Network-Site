@@ -24,7 +24,7 @@ export default function HeartfeltRebellionAlbumPage() {
   };
 
   const tracklist = [
-    { number: 1, title: 'Heartfelt Rebellion', duration: '4:05', featured: true },
+    { number: 1, title: 'Heartfelt Rebellion', duration: '3:28', featured: true },
     { number: 2, title: 'Country Bonfire', duration: '3:48' },
     { number: 3, title: 'Screens', duration: '3:22' },
     { number: 4, title: 'Forgotten Sons', duration: '4:18' },

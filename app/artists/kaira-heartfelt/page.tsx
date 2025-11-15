@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Music2, Play, ShoppingCart, Radio, Disc, ArrowRight, Heart } from 'lucide-react';
 import Section from '@/components/Section';
 
@@ -53,7 +54,7 @@ export default function KairaHeartfeltPage() {
                 <Heart className="w-32 h-32 text-purple-400 opacity-50" />
               </div>
               <div className="mt-6 space-y-3">
-                <Link href="/radio" className="btn-neon w-full flex items-center justify-center gap-2">
+                <Link href="https://live365.com/station/201-5-Reality-Central-Radio-a47993" target="_blank" rel="noopener noreferrer" className="btn-neon w-full flex items-center justify-center gap-2">
                   <Radio className="w-5 h-5" />
                   Listen on Radio
                 </Link>
@@ -117,8 +118,13 @@ export default function KairaHeartfeltPage() {
                 className="group bg-black/40 border border-purple-500/30 rounded-lg p-8 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all block"
               >
                 <div className="grid md:grid-cols-[200px_1fr] gap-8 items-center">
-                  <div className="aspect-square bg-gradient-to-br from-pink-500/20 to-purple-500/20 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform">
-                    <Disc className="w-24 h-24 text-purple-400 opacity-50" />
+                  <div className="aspect-square rounded-lg overflow-hidden relative group-hover:scale-105 transition-transform">
+                    <Image
+                      src="/Barefoot Supernova.png"
+                      alt={album.title}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                   <div>
                     <h3 className="text-3xl font-bold mb-4 text-white group-hover:text-purple-300 transition-colors">
@@ -216,7 +222,7 @@ export default function KairaHeartfeltPage() {
             that stay with you. Experience the sound on Reality Radio Network.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/radio" className="btn-neon flex items-center gap-2">
+            <Link href="https://live365.com/station/201-5-Reality-Central-Radio-a47993" target="_blank" rel="noopener noreferrer" className="btn-neon flex items-center gap-2">
               <Radio className="w-5 h-5" />
               Listen Live
             </Link>

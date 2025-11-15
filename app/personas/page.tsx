@@ -66,14 +66,14 @@ export default function PersonasPage() {
     <main className="min-h-screen pt-24">
       {/* Hero */}
       <Section className="pb-12">
-        <div className="max-w-4xl mx-auto text-center">
-          <Sparkles className="w-16 h-16 text-purple-400 mx-auto mb-6 animate-pulse" />
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+        <div className="max-w-4xl mx-auto text-center px-4">
+          <Sparkles className="w-12 h-12 md:w-16 md:h-16 text-purple-400 mx-auto mb-4 md:mb-6 animate-pulse" />
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight">
             <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Persona Adoption</span>
             <br />
             <span className="text-white">Program</span>
           </h1>
-          <p className="text-xl text-gray-300 leading-relaxed mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-6 md:mb-8">
             Step into a carefully crafted artist identity—complete with sound, story, and visual branding. 
             Perform, create, and eventually <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent font-semibold">make it fully yours</span>.
           </p>
@@ -125,25 +125,25 @@ export default function PersonasPage() {
 
       {/* How It Works */}
       <Section background="gradient" id="how-it-works">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center">
+        <div className="max-w-5xl mx-auto px-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center">
             <span className="neon-text">How It Works</span>
           </h2>
 
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
             {howItWorks.map((item) => (
-              <div key={item.step} className="card-neon flex items-start gap-6">
-                <div className="flex-shrink-0">
-                  <div className="w-16 h-16 rounded-full bg-[#00f3ff] text-black flex items-center justify-center font-bold text-2xl">
+              <div key={item.step} className="card-neon flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+                <div className="flex-shrink-0 mx-auto sm:mx-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-[#00f3ff] text-black flex items-center justify-center font-bold text-xl sm:text-2xl">
                     {item.step}
                   </div>
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <item.icon className="w-6 h-6 text-[#00f3ff]" />
-                    <h3 className="text-2xl font-bold neon-text">{item.title}</h3>
+                <div className="flex-1 text-center sm:text-left">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2 justify-center sm:justify-start">
+                    <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#00f3ff]" />
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold neon-text">{item.title}</h3>
                   </div>
-                  <p className="text-gray-300 text-lg">{item.description}</p>
+                  <p className="text-gray-300 text-sm sm:text-base md:text-lg">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -153,12 +153,12 @@ export default function PersonasPage() {
 
       {/* Benefits */}
       <Section background="solid">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center">
+        <div className="max-w-5xl mx-auto px-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center">
             <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">What You Get as a Persona Adopter</span>
           </h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {benefits.map((benefit, index) => (
               <div key={index} className="bg-black/40 border border-purple-500/30 rounded-lg p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300">
                 <benefit.icon className="w-10 h-10 text-purple-400 mb-4" />
@@ -262,8 +262,8 @@ export default function PersonasPage() {
           </h2>
           <p className="text-lg text-gray-300 mb-8 leading-relaxed">
             Auditions are opening soon! We'll be setting up the submission system for vocals, 
-            instrumentals, and video intros. Sign up for our newsletter to get notified when 
-            auditions open.
+            instrumentals, and video intros. Contact us to express your interest and we'll 
+            notify you when auditions open.
           </p>
 
           <div className="bg-black/40 border border-purple-500/30 rounded-lg p-6 hover:border-purple-400/40 transition-colors mb-8">
@@ -284,21 +284,9 @@ export default function PersonasPage() {
             </div>
           </div>
 
-          <form className="max-w-md mx-auto">
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 px-4 py-3 bg-black border border-purple-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-400"
-              />
-              <button type="submit" className="btn-neon-purple whitespace-nowrap">
-                Notify Me
-              </button>
-            </div>
-            <p className="text-xs text-gray-500 mt-3">
-              We'll email you when auditions open and share submission guidelines
-            </p>
-          </form>
+          <Link href="/contact" className="btn-neon-purple inline-flex items-center gap-2">
+            Contact Us About Auditions
+          </Link>
         </div>
       </Section>
 

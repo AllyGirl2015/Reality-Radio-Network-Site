@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Menu, X, Radio, ShoppingBag, Users, Music, BookOpen, Mail, BookText, ChevronDown } from 'lucide-react';
 import SearchBar from './SearchBar';
@@ -34,11 +35,12 @@ export default function Header() {
   ];
 
   const talentsLinks = [
-    { href: '/personas', label: 'Personas', icon: Users },
-    { href: '/personas#adoption', label: 'Persona Adoption Program', icon: Music },
+    { href: '/artists', label: 'Artists', icon: Users },
+    { href: '/personas', label: 'Persona Adoption Program', icon: Music },
   ];
 
   return (
+    <>
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'bg-black/70 backdrop-blur-md border-b border-purple-500/30' : 'bg-transparent'
@@ -49,9 +51,14 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group" aria-label="Reality Radio Network Home">
-            <div className="relative">
-              <Radio className="w-8 h-8 text-purple-400 group-hover:text-purple-300 transition-colors" aria-hidden="true" />
-              <div className="absolute inset-0 blur-xl bg-purple-400 opacity-30 group-hover:opacity-50 transition-opacity" aria-hidden="true" />
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12">
+              <Image
+                src="/RRN_logo.jpg"
+                alt="Reality Radio Network"
+                fill
+                className="object-contain"
+                priority
+              />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent hidden sm:block">Reality Radio Network</span>
             <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent sm:hidden">RRN</span>
@@ -144,7 +151,9 @@ export default function Header() {
 
             {/* Listen Now Button */}
             <Link
-              href="/radio"
+              href="https://live365.com/station/201-5-Reality-Central-Radio-a47993"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-neon flex items-center gap-2 text-sm px-4 py-2 whitespace-nowrap flex-shrink-0"
               aria-label="Listen to Reality Radio Network"
             >
@@ -165,17 +174,49 @@ export default function Header() {
             {isMobileMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
           </button>
         </div>
+      </nav>
+    </header>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div 
-            id="mobile-menu"
-            className="lg:hidden mt-4 pb-4 border-t border-purple-500/20 pt-4 animate-in slide-in-from-top duration-300 bg-black/70 backdrop-blur-md rounded-lg px-2"
-            role="menu"
-          >
-            <div className="flex flex-col space-y-4">
+          <>
+            {/* Overlay */}
+            <div 
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
+            
+            {/* Menu Sidebar */}
+            <div 
+              id="mobile-menu"
+              className="fixed top-0 right-0 h-full w-[80%] bg-black/95 backdrop-blur-xl border-l border-purple-500/30 z-50 lg:hidden overflow-y-auto animate-in slide-in-from-right duration-300 shadow-2xl shadow-purple-500/20"
+              role="menu"
+            >
+              {/* Header do Menu */}
+              <div className="flex items-center justify-between p-4 border-b border-purple-500/20">
+                <div className="flex items-center space-x-2">
+                  <div className="relative w-8 h-8">
+                    <Image
+                      src="/RRN_logo.jpg"
+                      alt="RRN"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="text-lg font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Menu</span>
+                </div>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 text-purple-400 hover:bg-purple-500/10 rounded-lg transition-colors"
+                  aria-label="Close menu"
+                >
+                  <X className="w-6 h-6" aria-hidden="true" />
+                </button>
+              </div>
+            <div className="flex flex-col space-y-2 p-4">
               {/* Search Bar Mobile */}
-              <div className="px-4">
+              <div className="px-2 py-2">
                 <SearchBar />
               </div>
 
@@ -184,61 +225,63 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-gray-300 hover:text-purple-400 transition-colors duration-300 font-medium flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-purple-500/5"
+                  className="text-gray-300 hover:text-purple-400 transition-colors duration-300 font-medium flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-purple-500/10 active:bg-purple-500/20"
                   role="menuitem"
                   aria-label={link.label}
                 >
                   <link.icon className="w-5 h-5" aria-hidden="true" />
-                  <span>{link.label}</span>
+                  <span className="text-base">{link.label}</span>
                 </Link>
               ))}
               
               {/* Store Section Mobile */}
-              <div className="border-t border-purple-500/20 pt-4">
-                <div className="px-4 py-2">
-                  <div className="text-purple-400 font-semibold text-sm uppercase tracking-wide mb-2">Store</div>
+              <div className="border-t border-purple-500/20 pt-2 mt-1">
+                <div className="px-2 py-2">
+                  <div className="text-purple-400 font-semibold text-xs uppercase tracking-wide mb-2 px-2">Store</div>
                   {storeLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block text-gray-300 hover:text-purple-400 transition-colors duration-300 font-medium flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-purple-500/5"
+                      className="block text-gray-300 hover:text-purple-400 transition-colors duration-300 font-medium flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-purple-500/10 active:bg-purple-500/20"
                       role="menuitem"
                       aria-label={link.label}
                     >
                       <link.icon className="w-5 h-5" aria-hidden="true" />
-                      <span>{link.label}</span>
+                      <span className="text-base">{link.label}</span>
                     </Link>
                   ))}
                 </div>
               </div>
               
               {/* Talents Section Mobile */}
-              <div className="border-t border-purple-500/20 pt-4">
-                <div className="px-4 py-2">
-                  <div className="text-purple-400 font-semibold text-sm uppercase tracking-wide mb-2">Talents</div>
+              <div className="border-t border-purple-500/20 pt-2 mt-1">
+                <div className="px-2 py-2">
+                  <div className="text-purple-400 font-semibold text-xs uppercase tracking-wide mb-2 px-2">Talents</div>
                   {talentsLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block text-gray-300 hover:text-purple-400 transition-colors duration-300 font-medium flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-purple-500/5"
+                      className="block text-gray-300 hover:text-purple-400 transition-colors duration-300 font-medium flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-purple-500/10 active:bg-purple-500/20"
                       role="menuitem"
                       aria-label={link.label}
                     >
                       <link.icon className="w-5 h-5" aria-hidden="true" />
-                      <span>{link.label}</span>
+                      <span className="text-base">{link.label}</span>
                     </Link>
                   ))}
                 </div>
               </div>
 
               {/* Listen Now Mobile */}
-              <div className="border-t border-purple-500/20 pt-4 px-4">
+              <div className="border-t border-purple-500/20 pt-3 mt-2 px-2">
                 <Link
-                  href="/radio"
+                  href="https://live365.com/station/201-5-Reality-Central-Radio-a47993"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="btn-neon w-full flex items-center justify-center gap-2"
+                  className="btn-neon w-full flex items-center justify-center gap-2 py-3"
                   aria-label="Listen to Reality Radio Network"
                 >
                   <Radio className="w-5 h-5" aria-hidden="true" />
@@ -247,8 +290,8 @@ export default function Header() {
               </div>
             </div>
           </div>
+          </>
         )}
-      </nav>
-    </header>
+    </>
   );
 }
