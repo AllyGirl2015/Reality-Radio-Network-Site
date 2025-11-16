@@ -82,15 +82,15 @@ export default function Header() {
             <div 
               className="relative store-dropdown group"
             >
-              <Link
-                href="/store"
-                className="text-gray-300 hover:text-purple-400 transition-colors duration-300 font-medium flex items-center gap-1 whitespace-nowrap"
+              <button
+                className="text-gray-300 hover:text-purple-400 transition-colors duration-300 font-medium flex items-center gap-1 whitespace-nowrap cursor-pointer"
                 aria-label="Store"
+                onClick={() => window.location.href = '/store'}
               >
                 <ShoppingBag className="w-4 h-4" aria-hidden="true" />
                 <span>Store</span>
                 <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" aria-hidden="true" />
-              </Link>
+              </button>
               
               <div 
                 className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
@@ -165,8 +165,12 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-purple-400 hover:bg-purple-500/10 rounded-lg transition-colors"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsMobileMenuOpen(!isMobileMenuOpen);
+            }}
+            className="lg:hidden p-2 text-purple-400 hover:bg-purple-500/10 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400"
             aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
@@ -190,8 +194,9 @@ export default function Header() {
             {/* Menu Sidebar */}
             <div 
               id="mobile-menu"
-              className="fixed top-0 right-0 h-full w-[80%] bg-black/95 backdrop-blur-xl border-l border-purple-500/30 z-50 lg:hidden overflow-y-auto animate-in slide-in-from-right duration-300 shadow-2xl shadow-purple-500/20"
+              className="fixed top-0 right-0 h-full w-[280px] max-w-[80vw] bg-black/95 backdrop-blur-xl border-l border-purple-500/30 z-50 lg:hidden overflow-y-auto transform transition-transform duration-300 ease-in-out"
               role="menu"
+              style={{ transform: isMobileMenuOpen ? 'translateX(0)' : 'translateX(100%)' }}
             >
               {/* Header do Menu */}
               <div className="flex items-center justify-between p-4 border-b border-purple-500/20">
@@ -238,17 +243,27 @@ export default function Header() {
               <div className="border-t border-purple-500/20 pt-2 mt-1">
                 <div className="px-2 py-2">
                   <div className="text-purple-400 font-semibold text-xs uppercase tracking-wide mb-2 px-2">Store</div>
+                  <Link
+                    href="/store"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-gray-300 hover:text-purple-400 transition-colors duration-300 font-medium flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-purple-500/10 active:bg-purple-500/20 mb-1"
+                    role="menuitem"
+                    aria-label="Store"
+                  >
+                    <ShoppingBag className="w-5 h-5" aria-hidden="true" />
+                    <span className="text-base">All Products</span>
+                  </Link>
                   {storeLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block text-gray-300 hover:text-purple-400 transition-colors duration-300 font-medium flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-purple-500/10 active:bg-purple-500/20"
+                      className="block text-gray-300 hover:text-purple-400 transition-colors duration-300 font-medium flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-purple-500/10 active:bg-purple-500/20 ml-6"
                       role="menuitem"
                       aria-label={link.label}
                     >
-                      <link.icon className="w-5 h-5" aria-hidden="true" />
-                      <span className="text-base">{link.label}</span>
+                      <link.icon className="w-4 h-4" aria-hidden="true" />
+                      <span className="text-sm">{link.label}</span>
                     </Link>
                   ))}
                 </div>

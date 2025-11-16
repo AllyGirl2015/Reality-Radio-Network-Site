@@ -36,8 +36,30 @@ export default function Live365Player({
         // Versão compacta - apenas player
         null
       ) : (
-        // Versão completa - com last played
+        // Versão completa - com last played e links alternativos
         <>
+          {/* Links alternativos para Reality Central Radio */}
+          {stationId === "a47993" && (
+            <div className="mt-4 flex flex-col sm:flex-row gap-3 justify-center">
+              <a
+                href="https://live365.com/station/201-5-Reality-Central-Radio-a47993"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-neon-purple text-sm px-4 py-2 inline-flex items-center justify-center gap-2 whitespace-nowrap"
+              >
+                Live365 201.5-RCR
+              </a>
+              <a
+                href="https://streaming.live365.com/a47993"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-neon text-sm px-4 py-2 inline-flex items-center justify-center gap-2 whitespace-nowrap"
+              >
+                MP3 Stream
+              </a>
+            </div>
+          )}
+
           <div className="mt-4 text-center">
             <button 
               type="button"

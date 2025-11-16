@@ -94,7 +94,7 @@ export default function ContactPage() {
           </div>
 
           <form 
-            action="https://formspree.io/f/mgvrkjeo" 
+            action="https://formspree.io/f/manadbny" 
             method="POST"
             className="bg-black/40 border border-cyan-500/30 rounded-lg p-6 hover:border-cyan-400/40 transition-colors" 
             aria-label="Contact form"
