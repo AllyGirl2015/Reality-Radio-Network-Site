@@ -35,7 +35,7 @@ export default function Header() {
   ];
 
   const talentsLinks = [
-    { href: '/talents', label: 'Artists', icon: Users },
+    { href: '/talent', label: 'Artists', icon: Users },
     { href: '/personas', label: 'Persona Adoption Program', icon: Music },
   ];
 
@@ -116,7 +116,7 @@ export default function Header() {
               className="relative talents-dropdown group"
             >
               <Link
-                href="/talents"
+                href="/talent"
                 className="text-gray-300 hover:text-purple-400 transition-colors duration-300 font-medium flex items-center gap-1 whitespace-nowrap"
                 aria-label="Talents"
               >

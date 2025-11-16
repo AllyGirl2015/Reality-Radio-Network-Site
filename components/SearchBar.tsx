@@ -42,9 +42,9 @@ export default function SearchBar() {
     { id: '10', title: 'Evil Love', subtitle: 'Kaira Heartfelt', type: 'single', href: '/store/singles/evil-love', image: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=200&h=200&fit=crop' },
     
     // Artists
-    { id: '11', title: 'Johnathan Gold & Guilded Hearts', subtitle: 'Country / Americana', type: 'artist', href: '/talents/johnathan-gold', image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200&h=200&fit=crop' },
-    { id: '12', title: 'Mathew Cage', subtitle: 'Alt Rock / Emotional Rock', type: 'artist', href: '/talents/mathew-cage', image: 'https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=200&h=200&fit=crop' },
-    { id: '13', title: 'Kaira Heartfelt', subtitle: 'Country-Pop', type: 'artist', href: '/talents/kaira-heartfelt', image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&h=200&fit=crop' },
+    { id: '11', title: 'Johnathan Gold & Guilded Hearts', subtitle: 'Country / Americana', type: 'artist', href: '/talent/johnathan-gold', image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200&h=200&fit=crop' },
+    { id: '12', title: 'Mathew Cage', subtitle: 'Alt Rock / Emotional Rock', type: 'artist', href: '/talent/mathew-cage', image: 'https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=200&h=200&fit=crop' },
+    { id: '13', title: 'Kaira Heartfelt', subtitle: 'Country-Pop', type: 'artist', href: '/talent/kaira-heartfelt', image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&h=200&fit=crop' },
   ];
 
   // Close on outside click

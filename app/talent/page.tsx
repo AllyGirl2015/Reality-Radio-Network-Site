@@ -280,7 +280,7 @@ export default function TalentsPage() {
           {original5.map((artist) => (
             <Link
               key={artist.id}
-              href={`/talents/${artist.id}`}
+              href={`/talent/${artist.id}`}
               className="group bg-black/40 border border-purple-500/30 rounded-lg overflow-hidden p-4 sm:p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
             >
               <div className="aspect-square bg-gradient-to-br from-cyan-500/20 via-purple-500/20 to-pink-500/20 mb-3 md:mb-4 rounded-lg flex items-center justify-center">
@@ -317,7 +317,7 @@ export default function TalentsPage() {
           {familyInspired.map((artist) => (
             <Link
               key={artist.id}
-              href={`/talents/${artist.id}`}
+              href={`/talent/${artist.id}`}
               className="group bg-black/40 border border-cyan-500/30 rounded-lg overflow-hidden p-6 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
             >
               <div className="aspect-square bg-gradient-to-br from-cyan-500/20 via-purple-500/20 to-pink-500/20 mb-4 rounded-lg flex items-center justify-center">
@@ -348,7 +348,7 @@ export default function TalentsPage() {
           {newRoster.map((artist) => (
             <Link
               key={artist.id}
-              href={`/talents/${artist.id}`}
+              href={`/talent/${artist.id}`}
               className="group bg-black/40 border border-purple-500/30 rounded-lg overflow-hidden p-4 sm:p-6 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
             >
               <div className="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 mb-2 md:mb-3 rounded-lg flex items-center justify-center">

@@ -13,19 +13,19 @@ export default function Home() {
       name: 'Johnathan Gold & Guilded Hearts',
       genre: 'Modern Country / Americana',
       image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&h=600&fit=crop',
-      href: '/talents/johnathan-gold',
+      href: '/talent/johnathan-gold',
     },
     {
       name: 'Kaira Heartfelt',
       genre: 'Country-Pop',
       image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=600&fit=crop',
-      href: '/talents/kaira-heartfelt',
+      href: '/talent/kaira-heartfelt',
     },
     {
       name: 'Mathew Cage',
       genre: 'Alt Rock / Emotional Rock',
       image: 'https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=600&h=600&fit=crop',
-      href: '/talents/mathew-cage',
+      href: '/talent/mathew-cage',
     },
   ];
 
@@ -228,7 +228,7 @@ export default function Home() {
         </div>
 
         <div className="text-center mt-12">
-          <Link href="/talents" className="btn-neon-purple inline-flex items-center gap-2">
+          <Link href="/talent" className="btn-neon-purple inline-flex items-center gap-2">
             View All 22 Artists
             <ArrowRight className="w-5 h-5" />
           </Link>

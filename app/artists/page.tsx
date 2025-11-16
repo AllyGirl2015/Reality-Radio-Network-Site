@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
 
 export default function ArtistsRedirect() {
-  redirect('/talents');
+  redirect('/talent');
 }

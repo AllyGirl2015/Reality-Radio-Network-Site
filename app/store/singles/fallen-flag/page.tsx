@@ -130,7 +130,7 @@ export default function FallenFlagSinglePage() {
                   <Play className="w-5 h-5" aria-hidden="true" />
                   Listen on Radio
                 </a>
-                <Link href="/talents/mathew-cage" className="px-6 py-3 border border-cyan-400/30 rounded-lg text-center text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-300">
+                <Link href="/talent/mathew-cage" className="px-6 py-3 border border-cyan-400/30 rounded-lg text-center text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-300">
                   View Artist
                 </Link>
               </div>

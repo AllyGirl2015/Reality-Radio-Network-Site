@@ -10,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/store',
     '/store/albums',
     '/store/singles',
-    '/talents',
+    '/talent',
     '/personas',
     '/story',
     '/contact',
@@ -50,7 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   const artistRoutes = artists.map((artist) => ({
-    url: `${baseUrl}/talents/${artist}`,
+    url: `${baseUrl}/talent/${artist}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.7,
