@@ -27,7 +27,6 @@ export default function Footer() {
     Support: [
       { label: 'Contact Us', href: '/contact' },
       { label: 'FAQ', href: '/faq' },
-      { label: 'Policies', href: '/policies' },
       { label: 'Privacy', href: '/privacy' },
     ],
   };
