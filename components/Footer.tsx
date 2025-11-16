@@ -16,7 +16,7 @@ export default function Footer() {
       { label: 'Albums', href: '/store/albums' },
       { label: 'Singles', href: '/store/singles' },
       { label: 'Physical Products', href: '/store' },
-      { label: 'Licensing', href: '/partnerships' },
+      { label: 'Licensing', href: '/licensing' },
     ],
     Radio: [
       { label: 'All Stations', href: '/radio' },
