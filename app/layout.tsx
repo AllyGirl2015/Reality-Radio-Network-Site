@@ -84,7 +84,7 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#000000" />
         <meta name="color-scheme" content="dark" />
-        <link rel="icon" href="/RRN_logo.jpg" type="image/jpeg" />
+        <link rel="icon" href="/RRN_logo.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" href="/RRN_logo.jpg" />
       </head>
       <body className={`${inter.variable} antialiased`} suppressHydrationWarning={true}>

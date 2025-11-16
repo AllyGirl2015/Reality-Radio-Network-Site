@@ -238,7 +238,7 @@ export default function StorePage() {
       <Section background="solid" className="py-12">
         <div className="max-w-2xl mx-auto text-center">
           <blockquote className="text-lg italic text-gray-400 mb-4">
-            "Sometimes you have to look at a grander picture to see the whole."
+            "If nothing is ever said, nothing will ever be done, and if nothing is ever done, nothing will ever change... Be it for better, or for worse."
           </blockquote>
           <p className="text-purple-400">Alissa M.R. Eldridge, Founder</p>
         </div>

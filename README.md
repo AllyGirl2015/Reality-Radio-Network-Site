@@ -177,4 +177,4 @@ For detailed accessibility documentation, see:
 
 © 2025 Reality Radio Network. All rights reserved.
 
-*"Sometimes you have to look at a grander picture to see the whole."*
+*"If nothing is ever said, nothing will ever be done, and if nothing is ever done, nothing will ever change... Be it for better, or for worse."*

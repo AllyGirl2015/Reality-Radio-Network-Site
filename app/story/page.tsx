@@ -172,7 +172,7 @@ export default function StoryPage() {
       <Section background="solid" className="py-12">
         <div className="max-w-2xl mx-auto text-center">
           <blockquote className="text-xl italic text-gray-400 mb-4">
-            "Sometimes you have to look at a grander picture to see the whole."
+            "If nothing is ever said, nothing will ever be done, and if nothing is ever done, nothing will ever change... Be it for better, or for worse."
           </blockquote>
           <p className="text-purple-400 font-semibold">Alissa M.R. Eldridge</p>
           <p className="text-sm text-gray-500 mt-1">Founder, Reality Radio Network</p>
