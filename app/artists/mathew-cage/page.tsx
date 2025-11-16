@@ -18,6 +18,13 @@ export default function MathewCagePage() {
       tracks: 10,
       year: 2025,
     },
+    {
+      title: 'High Hit',
+      slug: 'high-hit',
+      description: 'A multi-meaning album of fire and resolve. A voice for the people channeling raw emotion and social consciousness into powerful rock anthems.',
+      tracks: 10,
+      year: 2025,
+    },
   ];
 
   const highlightedTracks = [

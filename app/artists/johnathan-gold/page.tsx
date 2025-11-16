@@ -19,6 +19,13 @@ export default function JohnathanGoldPage() {
       year: 2025,
     },
     {
+      title: 'Golden Heartbreak',
+      slug: 'golden-heartbreak',
+      description: 'Country love, lust, and heartbreak. Proves that country and love go together so well with emotionally vulnerable storytelling.',
+      tracks: 22,
+      year: 2025,
+    },
+    {
       title: 'Heartfelt Rebellion',
       slug: 'heartfelt-rebellion',
       description: 'Raw harmony and honest fire, standing for love, grit, and the unquiet heart.',

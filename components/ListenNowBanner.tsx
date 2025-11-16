@@ -43,16 +43,16 @@ export default function ListenNowBanner() {
           
           <div className="flex-1">
             <h3 className="font-bold text-white mb-1">🎵 Tune In Live!</h3>
-            <p className="text-sm text-gray-300">Listen to Reality Radio Network now</p>
+            <p className="text-sm text-gray-300">Listen to 201.5 Reality Central Radio</p>
           </div>
 
           <div className="flex items-center gap-2">
             <Link 
               href="/radio" 
-              className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50"
-              aria-label="Listen to radio stations"
+              className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50 whitespace-nowrap"
+              aria-label="Listen to 201.5 Reality Central Radio"
             >
-              Listen Now
+              Listen to 201.5 RCR
             </Link>
             
             <button

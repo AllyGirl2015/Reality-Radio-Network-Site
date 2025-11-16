@@ -137,7 +137,7 @@ export default function Footer() {
         {/* Founder Quote */}
         <div className="mt-8 text-center px-4">
           <blockquote className="text-gray-500 italic text-sm max-w-2xl mx-auto">
-            "Sometimes you have to look at a grander picture to see the whole."
+            "If nothing is ever said, nothing will ever be done, and if nothing is ever done, nothing will ever change... Be it for better, or for worse."
             <cite className="block mt-2 text-purple-400 not-italic text-xs">— Alissa M.R. Eldridge, Founder</cite>
           </blockquote>
         </div>

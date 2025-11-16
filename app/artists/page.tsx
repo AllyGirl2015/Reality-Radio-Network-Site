@@ -4,11 +4,11 @@ import { Music, Users, Sparkles } from 'lucide-react';
 import Section from '@/components/Section';
 
 export const metadata: Metadata = {
-  title: 'Artists | 22 Unique AI-Powered Personas',
-  description: 'Discover 22 unique AI-powered artists at Reality Radio Network. From country to rock, pop to experimental—each with their own sound, story, and style.',
+  title: 'Artists | 23 Unique AI-Powered Personas',
+  description: 'Discover 23 unique AI-powered artists at Reality Radio Network. From country to rock, pop to experimental—each with their own sound, story, and style.',
   openGraph: {
     title: 'Artists | Reality Radio Network',
-    description: 'Meet 22 unique AI-powered personas, each with distinct sound and story.',
+    description: 'Meet 23 unique AI-powered personas, each with distinct sound and story.',
   },
 };
 
@@ -19,7 +19,7 @@ const artists = [
     pronunciation: 'JON-uh-thin Gold',
     genre: '90s & Modern Country / Americana',
     description: 'Heartfelt, patriotic, and deeply observant. Voice of the everyday American, telling stories of unity, loss, and resilience.',
-    albums: 2,
+    albums: 3,
     singles: 4,
     category: 'original',
   },
@@ -29,7 +29,7 @@ const artists = [
     pronunciation: 'KAI-rah Heart-felt',
     genre: '2000s Country-Pop',
     description: 'Romantic fire with strength, blending emotional vulnerability with empowering country anthems.',
-    albums: 1,
+    albums: 2,
     singles: 2,
     category: 'original',
   },
@@ -39,8 +39,18 @@ const artists = [
     pronunciation: 'MATH-yoo Cage',
     genre: 'Alt Rock / Emotional Rock',
     description: 'Gritty and raw, tackling mental health struggles, survival, and personal redemption.',
-    albums: 1,
+    albums: 2,
     singles: 3,
+    category: 'original',
+  },
+  {
+    id: 'chronix',
+    name: 'Chronix',
+    pronunciation: 'KRON-ix',
+    genre: 'Experimental Electronic / Dark Ambient',
+    description: 'Exploring the depths of consciousness through sound. Dark ambient textures meet experimental electronic production.',
+    albums: 1,
+    singles: 0,
     category: 'original',
   },
   {
@@ -214,16 +224,6 @@ const artists = [
     category: 'new',
   },
   {
-    id: 'chronix',
-    name: 'Chronix',
-    pronunciation: 'KRON-ix',
-    genre: 'K-Pop / K-Rock Girl Band',
-    description: 'Edgy synergy with heavy Huntrix inspiration. Features Tonia Sonic, Sonia Maine, and Hannah Shawns.',
-    albums: 0,
-    singles: 0,
-    category: 'new',
-  },
-  {
     id: 'max-reaper',
     name: 'Max Reaper',
     pronunciation: 'Max REE-per',
@@ -247,9 +247,9 @@ export default function ArtistsPage() {
         <div className="max-w-4xl mx-auto text-center px-4">
           <Users className="w-12 h-12 md:w-16 md:h-16 text-purple-400 mx-auto mb-4 md:mb-6" />
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6">
-            <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">22 Artists</span>
+            <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">23 Artists</span>
             <br />
-            <span className="text-white">22 Unique Stories</span>
+            <span className="text-white">23 Unique Stories</span>
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-6 md:mb-8">
             Each persona crafted with unique sound, style, and soul. From country roots to punk rebellion, 
@@ -271,7 +271,7 @@ export default function ArtistsPage() {
         <div className="mb-8 md:mb-12 px-4">
           <h2 className="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-2 md:gap-3">
             <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-purple-400" />
-            <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Original 5</span>
+            <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Original 6</span>
           </h2>
           <p className="text-sm md:text-base text-gray-400">The founding personas of Reality Radio Network</p>
         </div>

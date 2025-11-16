@@ -18,6 +18,13 @@ export default function KairaHeartfeltPage() {
       tracks: 13,
       year: 2025,
     },
+    {
+      title: 'Stellar Love',
+      slug: 'stellar-love',
+      description: 'A clashing of love, lust, and heartbreak. A whirlwind of romantic emotions that takes you through the highs and lows of modern romance with country-pop sensibility.',
+      tracks: 11,
+      year: 2025,
+    },
   ];
 
   const highlightedTracks = [
@@ -84,10 +91,10 @@ export default function KairaHeartfeltPage() {
               <div className="grid grid-cols-3 gap-4 p-6 bg-black/40 border border-purple-500/30 rounded-lg">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-purple-400 mb-1">{albums.length}</div>
-                  <div className="text-sm text-gray-400">Album</div>
+                  <div className="text-sm text-gray-400">Albums</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-pink-400 mb-1">13</div>
+                  <div className="text-3xl font-bold text-pink-400 mb-1">24</div>
                   <div className="text-sm text-gray-400">Tracks</div>
                 </div>
                 <div className="text-center">
@@ -105,12 +112,12 @@ export default function KairaHeartfeltPage() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">
-              Album
+              Albums
             </h2>
-            <p className="text-gray-400">Studio album from Kaira Heartfelt</p>
+            <p className="text-gray-400">Studio albums from Kaira Heartfelt</p>
           </div>
 
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto space-y-6">
             {albums.map((album) => (
               <Link
                 key={album.slug}

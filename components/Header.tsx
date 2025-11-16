@@ -155,11 +155,11 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-neon flex items-center gap-2 text-sm px-4 py-2 whitespace-nowrap flex-shrink-0"
-              aria-label="Listen to Reality Radio Network"
+              aria-label="Listen to 201.5 Reality Central Radio"
             >
               <Radio className="w-4 h-4" aria-hidden="true" />
-              <span className="hidden xl:inline">Listen Now</span>
-              <span className="xl:hidden">Listen</span>
+              <span className="hidden xl:inline">Listen to 201.5 RCR</span>
+              <span className="xl:hidden">201.5 RCR</span>
             </Link>
           </div>
 
@@ -282,10 +282,10 @@ export default function Header() {
                   rel="noopener noreferrer"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="btn-neon w-full flex items-center justify-center gap-2 py-3"
-                  aria-label="Listen to Reality Radio Network"
+                  aria-label="Listen to 201.5 Reality Central Radio"
                 >
                   <Radio className="w-5 h-5" aria-hidden="true" />
-                  Listen Now
+                  Listen to 201.5 RCR
                 </Link>
               </div>
             </div>

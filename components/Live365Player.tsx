@@ -19,7 +19,7 @@ export default function Live365Player({
           width="100%"
           height="100%"
           frameBorder="0"
-          src={`https://live365.com/${stationId}/embeds/v1/player/${stationId}?s=null&m=null&c=mp3`}
+          src={`https://live365.com/embeds/v1/player/${stationId}?s=md&m=dark&c=mp3`}
           title={`${stationName} Live Player`}
           allow="autoplay"
           style={{ 
