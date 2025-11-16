@@ -8,7 +8,7 @@ export default function Footer() {
   const footerLinks = {
     Company: [
       { label: 'Our Story', href: '/story' },
-      { label: 'Artists', href: '/artists' },
+      { label: 'Talents', href: '/talents' },
       { label: 'Persona Program', href: '/personas' },
       { label: 'Blog', href: '/blog' },
     ],

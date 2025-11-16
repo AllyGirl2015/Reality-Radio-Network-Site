@@ -110,7 +110,7 @@ export default function DecendAlbumPage() {
                 <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-3 bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
                   {album.title}
                 </h1>
-                <Link href="/artists/chronix" className="text-xl sm:text-2xl text-gray-300 hover:text-indigo-400 transition-colors">
+                <Link href="/talents/chronix" className="text-xl sm:text-2xl text-gray-300 hover:text-indigo-400 transition-colors">
                   {album.artist}
                 </Link>
               </div>
@@ -163,7 +163,7 @@ export default function DecendAlbumPage() {
                   <Play className="w-5 h-5" aria-hidden="true" />
                   Listen on Radio
                 </a>
-                <Link href="/artists/chronix" className="px-6 py-3 border border-cyan-400/30 rounded-lg text-center text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-300">
+                <Link href="/talents/chronix" className="px-6 py-3 border border-cyan-400/30 rounded-lg text-center text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-300">
                   View Artist
                 </Link>
               </div>
@@ -279,7 +279,7 @@ export default function DecendAlbumPage() {
             Dive deeper into the experimental sonic world of Chronix and discover the philosophy behind the music.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/artists/chronix" className="btn-neon-purple">
+            <Link href="/talents/chronix" className="btn-neon-purple">
               View Artist Profile
             </Link>
             <Link href="/store/albums" className="btn-neon">

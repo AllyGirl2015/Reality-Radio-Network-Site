@@ -122,7 +122,7 @@ export default function GoldenHeartbreakAlbumPage() {
                 <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-3 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
                   {album.title}
                 </h1>
-                <Link href="/artists/johnathan-gold" className="text-xl sm:text-2xl text-gray-300 hover:text-yellow-400 transition-colors">
+                <Link href="/talents/johnathan-gold" className="text-xl sm:text-2xl text-gray-300 hover:text-yellow-400 transition-colors">
                   {album.artist}
                 </Link>
               </div>
@@ -175,7 +175,7 @@ export default function GoldenHeartbreakAlbumPage() {
                   <Play className="w-5 h-5" aria-hidden="true" />
                   Listen on Radio
                 </a>
-                <Link href="/artists/johnathan-gold" className="px-6 py-3 border border-cyan-400/30 rounded-lg text-center text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-300">
+                <Link href="/talents/johnathan-gold" className="px-6 py-3 border border-cyan-400/30 rounded-lg text-center text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-300">
                   View Artist
                 </Link>
               </div>
@@ -287,7 +287,7 @@ export default function GoldenHeartbreakAlbumPage() {
             Discover his complete discography and the story behind Guilded Hearts.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/artists/johnathan-gold" className="btn-neon-purple">
+            <Link href="/talents/johnathan-gold" className="btn-neon-purple">
               View Artist Profile
             </Link>
             <Link href="/store/albums" className="btn-neon">
