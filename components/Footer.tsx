@@ -20,7 +20,6 @@ export default function Footer() {
     ],
     Radio: [
       { label: 'All Stations', href: '/radio' },
-      { label: 'Reality Central', href: '/radio/central' },
       { label: 'Schedule', href: '/radio#schedule' },
       { label: 'Listen Live', href: '/#listen' },
     ],
