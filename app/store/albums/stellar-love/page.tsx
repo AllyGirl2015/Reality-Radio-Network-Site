@@ -35,7 +35,7 @@ export default function StellarLoveAlbumPage() {
     { number: 8, title: 'Fisher', duration: '3:38' },
     { number: 9, title: 'Confidential', duration: '3:25' },
     { number: 10, title: 'Chaos Love', duration: '3:48', featured: true },
-    { number: 11, title: 'Devils Number', duration: '4:12' },
+    { number: 11, title: "Devil's Number", duration: '4:12' },
   ];
 
   return (
@@ -133,7 +133,7 @@ export default function StellarLoveAlbumPage() {
                   <p className="text-3xl font-bold text-white mb-2">${album.digitalPrice.toFixed(2)}</p>
                   <p className="text-xs text-gray-400 mb-3">Instant delivery • High-quality MP3</p>
                   <a 
-                    href="https://square.link/u/cY1R9Yas?src=embed"
+                    href="https://square.link/u/gctD7ugw"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full btn-neon-purple flex items-center justify-center gap-2 text-sm"
@@ -148,7 +148,7 @@ export default function StellarLoveAlbumPage() {
                   <p className="text-3xl font-bold text-white mb-2">${album.physicalPrice.toFixed(2)}</p>
                   <p className="text-xs text-gray-400 mb-3">Shipped • Includes digital copy</p>
                   <a 
-                    href="https://square.link/u/cY1R9Yas?src=embed"
+                    href="https://square.link/u/TuUw7VjD"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full btn-neon flex items-center justify-center gap-2 text-sm"

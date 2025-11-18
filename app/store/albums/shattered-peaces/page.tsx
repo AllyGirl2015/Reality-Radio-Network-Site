@@ -15,7 +15,7 @@ export default function ShatteredPeacesAlbumPage() {
     artist: 'Mathew Cage',
     genre: 'Alt Rock / Emotional Rock',
     year: 2025,
-    duration: '42:15',
+    duration: '47:00',
     digitalPrice: 8.99,
     physicalPrice: 19.99,
     catalog: 'RRN-MC-SP',
@@ -34,6 +34,7 @@ export default function ShatteredPeacesAlbumPage() {
     { number: 8, title: 'Soulbound', duration: '3:52' },
     { number: 9, title: 'Corruption', duration: '4:38' },
     { number: 10, title: 'Opening', duration: '4:20' },
+    { number: 11, title: "In the Devil's Name I Pray", duration: '4:45', featured: true },
   ];
 
   return (
@@ -130,7 +131,7 @@ export default function ShatteredPeacesAlbumPage() {
                   </p>
                 </div>
                 <a 
-                  href="https://square.link/u/VrGeO94l?src=embed"
+                  href="https://square.link/u/VrGeO94l"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full btn-neon-purple flex items-center justify-center gap-2"
@@ -151,7 +152,7 @@ export default function ShatteredPeacesAlbumPage() {
                   </p>
                 </div>
                 <a 
-                  href="https://square.link/u/9ZDDsbZv?src=embed"
+                  href="https://square.link/u/9ZDDsbZv"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full btn-neon flex items-center justify-center gap-2"

@@ -137,7 +137,7 @@ export default function AmericasChangedAlbumPage() {
                   </p>
                 </div>
               <a 
-                href="https://square.link/u/K9ICMSLk?src=embed"
+                href="https://square.link/u/K9ICMSLk"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full btn-neon-purple flex items-center justify-center gap-2"
@@ -158,7 +158,7 @@ export default function AmericasChangedAlbumPage() {
                   </p>
                 </div>
               <a 
-                href="https://square.link/u/VLZjSQAs?src=embed"
+                href="https://square.link/u/VLZjSQAs"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full btn-neon flex items-center justify-center gap-2"

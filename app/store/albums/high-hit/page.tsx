@@ -28,7 +28,7 @@ export default function HighHitAlbumPage() {
     { number: 1, title: 'Scraps', duration: '4:12', featured: true },
     { number: 2, title: 'One Drink', duration: '3:45' },
     { number: 3, title: 'Fallen Dust', duration: '4:28' },
-    { number: 4, title: 'Drown It Out', duration: '3:52', featured: true },
+    { number: 4, title: 'Drown it Out', duration: '3:52', featured: true },
     { number: 5, title: 'Chronicles', duration: '4:05' },
     { number: 6, title: 'Reflection', duration: '3:38' },
     { number: 7, title: 'Hollow Leaning', duration: '4:18' },
@@ -132,7 +132,7 @@ export default function HighHitAlbumPage() {
                   <p className="text-3xl font-bold text-white mb-2">${album.digitalPrice.toFixed(2)}</p>
                   <p className="text-xs text-gray-400 mb-3">Instant delivery • High-quality MP3</p>
                   <a 
-                    href="https://square.link/u/cY1R9Yas?src=embed"
+                    href="https://square.link/u/WFGoukMq"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full btn-neon-purple flex items-center justify-center gap-2 text-sm"
@@ -147,7 +147,7 @@ export default function HighHitAlbumPage() {
                   <p className="text-3xl font-bold text-white mb-2">${album.physicalPrice.toFixed(2)}</p>
                   <p className="text-xs text-gray-400 mb-3">Shipped • Includes digital copy</p>
                   <a 
-                    href="https://square.link/u/cY1R9Yas?src=embed"
+                    href="https://square.link/u/hvET0Bha"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full btn-neon flex items-center justify-center gap-2 text-sm"

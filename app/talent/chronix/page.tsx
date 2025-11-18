@@ -25,7 +25,7 @@ export default function ChronixPage() {
 
   const albums = [
     {
-      title: 'Decend',
+      title: 'Descend',
       slug: 'decend',
       year: 2025,
       image: '/Decend.svg',

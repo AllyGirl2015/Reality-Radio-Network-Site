@@ -115,6 +115,7 @@ export default function Footer() {
             <div className="text-center md:text-left">
               <p className="mb-1">© {currentYear} Reality Radio Network. All rights reserved.</p>
               <p className="text-xs text-gray-600">A Reality Builders Entertainment Works Property</p>
+              <p className="text-xs text-gray-600 mt-1">Developed by <span className="text-purple-400">Emerson Rodrigues</span></p>
             </div>
             <nav aria-label="Legal links">
               <div className="flex flex-wrap justify-center gap-4 sm:gap-6">

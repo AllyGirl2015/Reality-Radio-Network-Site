@@ -108,7 +108,7 @@ export default function AlbumsPage() {
     },
     {
       slug: 'decend',
-      title: 'Decend',
+      title: 'Descend',
       artist: 'Chronix',
       genre: 'Experimental Electronic',
       year: 2025,

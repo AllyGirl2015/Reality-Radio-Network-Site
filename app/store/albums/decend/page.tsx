@@ -5,13 +5,13 @@ import { ShoppingCart, Play, Music, Clock, Calendar, Tag, ArrowLeft, ExternalLin
 import Section from '@/components/Section';
 
 export const metadata: Metadata = {
-  title: 'Decend | Chronix',
-  description: "Buy Decend album by Chronix. The mind descends into darkness so easily, but sometimes it also grows in the darkness. Descend into it, and rise out stronger than ever. Digital $8.99 / Physical $14.99",
+  title: 'Descend | Chronix',
+  description: "Buy Descend album by Chronix. The mind descends into darkness so easily, but sometimes it also grows in the darkness. Descend into it, and rise out stronger than ever. Digital $8.99 / Physical $14.99",
 };
 
 export default function DecendAlbumPage() {
   const album = {
-    title: 'Decend',
+    title: 'Descend',
     artist: 'Chronix',
     genre: 'Experimental Electronic / Dark Ambient',
     year: 2025,
@@ -21,7 +21,7 @@ export default function DecendAlbumPage() {
     physicalPrice: 14.99,
     catalog: 'RRN-CHX-DEC',
     image: '/Decend.svg',
-    description: 'The mind descends into darkness so easily, but sometimes it also grows in the darkness rather than falling to it. Decend is an immersive sonic journey through the depths of human consciousness, exploring the transformative power of embracing our shadows. Chronix creates a soundscape where darkness becomes a space for growth, introspection, and ultimately, emergence.',
+    description: 'The mind descends into darkness so easily, but sometimes it also grows in the darkness rather than falling to it. Descend is an immersive sonic journey through the depths of human consciousness, exploring the transformative power of embracing our shadows. Chronix creates a soundscape where darkness becomes a space for growth, introspection, and ultimately, emergence.',
   };
 
   const tracklist = [
@@ -34,7 +34,7 @@ export default function DecendAlbumPage() {
     { number: 7, title: 'Love No More', duration: '4:32', featured: true },
     { number: 8, title: 'Kinship', duration: '4:28' },
     { number: 9, title: 'The Skies', duration: '5:18', featured: true },
-    { number: 10, title: 'Decend', duration: '4:45' },
+    { number: 10, title: 'Descend', duration: '4:45' },
   ];
 
   return (
@@ -132,7 +132,7 @@ export default function DecendAlbumPage() {
                   <p className="text-3xl font-bold text-white mb-2">${album.digitalPrice.toFixed(2)}</p>
                   <p className="text-xs text-gray-400 mb-3">Instant delivery • High-quality MP3</p>
                   <a 
-                    href="https://square.link/u/cY1R9Yas?src=embed"
+                    href="https://square.link/u/XcnNyAXm"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full btn-neon-purple flex items-center justify-center gap-2 text-sm"
@@ -147,7 +147,7 @@ export default function DecendAlbumPage() {
                   <p className="text-3xl font-bold text-white mb-2">${album.physicalPrice.toFixed(2)}</p>
                   <p className="text-xs text-gray-400 mb-3">Shipped • Includes digital copy</p>
                   <a 
-                    href="https://square.link/u/cY1R9Yas?src=embed"
+                    href="https://square.link/u/QOfoVU7T"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full btn-neon flex items-center justify-center gap-2 text-sm"
@@ -218,13 +218,13 @@ export default function DecendAlbumPage() {
             <div>
               <h3 className="text-xl font-bold text-white mb-4">About This Album</h3>
               <p className="text-gray-300 leading-relaxed mb-4">
-                <span className="text-indigo-400 font-semibold">Decend</span> marks Chronix's ambitious debut, offering listeners 
+                <span className="text-indigo-400 font-semibold">Descend</span> marks Chronix's ambitious debut, offering listeners 
                 an immersive 52-minute journey through the landscapes of consciousness. This isn't background music. It's an 
                 experience that demands attention and rewards introspection.
               </p>
               <p className="text-gray-300 leading-relaxed mb-4">
                 The album's narrative arc follows a deliberate descent into psychological darkness, but unlike traditional "dark" 
-                electronic music, Decend presents this descent as an opportunity for growth rather than despair. Each track represents 
+                electronic music, Descend presents this descent as an opportunity for growth rather than despair. Each track represents 
                 a different stage of the journey, from the initial "First Light Fades" through the transformative "Metamorphosis" 
                 to the triumphant "Emergence."
               </p>

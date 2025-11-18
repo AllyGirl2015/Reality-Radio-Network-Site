@@ -134,7 +134,7 @@ export default function HeartfeltRebellionAlbumPage() {
                   </p>
                 </div>
                 <a 
-                  href="https://square.link/u/RC8iXmY6?src=embed"
+                  href="https://square.link/u/RC8iXmY6"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full btn-neon-purple flex items-center justify-center gap-2"
@@ -155,7 +155,7 @@ export default function HeartfeltRebellionAlbumPage() {
                   </p>
                 </div>
                 <a 
-                  href="https://square.link/u/ekPAXcLE?src=embed"
+                  href="https://square.link/u/ekPAXcLE"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full btn-neon flex items-center justify-center gap-2"

@@ -34,13 +34,13 @@ export default function GoldenHeartbreakAlbumPage() {
     { number: 7, title: 'Country Tangled', duration: '3:48' },
     { number: 8, title: 'The Stash', duration: '3:25' },
     { number: 9, title: 'Truckbed', duration: '3:32' },
-    { number: 10, title: 'Night On the Farm', duration: '3:55' },
+    { number: 10, title: 'Night on the Farm', duration: '3:55' },
     { number: 11, title: 'Innocent Love', duration: '3:40' },
     { number: 12, title: 'Country Breakup', duration: '3:48' },
     { number: 13, title: 'I Choose the Truck', duration: '3:35', featured: true },
     { number: 14, title: 'Muddy Mistake', duration: '3:42' },
     { number: 15, title: 'Drunk Love', duration: '3:28' },
-    { number: 16, title: 'The Barn Is a Secret', duration: '4:05' },
+    { number: 16, title: 'The Barn is a Secret', duration: '4:05' },
     { number: 17, title: 'The Old You and Me', duration: '3:52' },
     { number: 18, title: 'Heartbreak Song', duration: '4:15', featured: true },
     { number: 19, title: 'Young Love', duration: '3:38' },
@@ -144,7 +144,7 @@ export default function GoldenHeartbreakAlbumPage() {
                   <p className="text-3xl font-bold text-white mb-2">${album.digitalPrice.toFixed(2)}</p>
                   <p className="text-xs text-gray-400 mb-3">Instant delivery • High-quality MP3</p>
                   <a 
-                    href="https://square.link/u/cY1R9Yas?src=embed"
+                    href="https://square.link/u/BW8KT7V9"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full btn-neon-purple flex items-center justify-center gap-2 text-sm"
@@ -155,11 +155,11 @@ export default function GoldenHeartbreakAlbumPage() {
                 </div>
 
                 <div className="bg-gradient-to-r from-orange-600/20 to-yellow-600/20 border border-orange-400/30 rounded-lg p-6">
-                  <h3 className="text-sm text-gray-400 mb-1">Physical CD</h3>
+                  <h3 className="text-sm text-gray-400 mb-1">Physical CD Bundle</h3>
                   <p className="text-3xl font-bold text-white mb-2">${album.physicalPrice.toFixed(2)}</p>
-                  <p className="text-xs text-gray-400 mb-3">Shipped • Includes digital copy</p>
+                  <p className="text-xs text-gray-400 mb-3">Vol 1 & 2 Bundle • Shipped</p>
                   <a 
-                    href="https://square.link/u/cY1R9Yas?src=embed"
+                    href="https://square.link/u/27uIXqSY"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full btn-neon flex items-center justify-center gap-2 text-sm"

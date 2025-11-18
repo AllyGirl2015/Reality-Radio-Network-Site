@@ -50,7 +50,7 @@ export default function Live365Player({
                 Live365 201.5-RCR
               </a>
               <a
-                href="https://streaming.live365.com/a47993"
+                href="https://das-edge62-live365-dal03.cdnstream.com/a47993"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-neon text-sm px-4 py-2 inline-flex items-center justify-center gap-2 whitespace-nowrap"

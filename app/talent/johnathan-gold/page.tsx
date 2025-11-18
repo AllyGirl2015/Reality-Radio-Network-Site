@@ -133,7 +133,7 @@ export default function JohnathanGoldPage() {
               >
                 <div className="aspect-square rounded-lg mb-6 overflow-hidden relative">
                   <Image
-                    src={`/${album.title}.png`}
+                    src={album.title === "Golden Heartbreak" ? `/${album.title}.svg` : `/${album.title}.png`}
                     alt={album.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform"

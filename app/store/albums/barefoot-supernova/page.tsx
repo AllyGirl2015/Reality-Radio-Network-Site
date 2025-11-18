@@ -15,7 +15,7 @@ export default function BarefootSupernovaAlbumPage() {
     artist: 'Kaira Heartfelt',
     genre: 'Country-Pop',
     year: 2025,
-    duration: '45:20',
+    duration: '48:58',
     digitalPrice: 8.99,
     physicalPrice: 14.99,
     catalog: 'RRN-KH-BS',
@@ -28,15 +28,16 @@ export default function BarefootSupernovaAlbumPage() {
     { number: 2, title: 'Country Girl', duration: '3:25' },
     { number: 3, title: 'Barefoot Change', duration: '3:42' },
     { number: 4, title: 'Lovestruck', duration: '3:15' },
-    { number: 5, title: 'He Cheated (Main)', duration: '3:38' },
-    { number: 6, title: 'His Best was Better', duration: '3:28' },
-    { number: 7, title: 'Beautiful Broken Love (Ft. Johnathan Gold)', duration: '4:05', featured: true },
-    { number: 8, title: 'Firefly Nights', duration: '3:32' },
-    { number: 9, title: 'Steering Faith', duration: '3:48' },
-    { number: 10, title: "Daddy's Girl", duration: '4:12' },
-    { number: 11, title: 'Colder Nights', duration: '3:55' },
-    { number: 12, title: 'He Cheated (Slow Alt)', duration: '3:52' },
-    { number: 13, title: 'Small Town Supernova (Slow Alt)', duration: '3:10' },
+    { number: 5, title: 'Evil Love', duration: '3:38', featured: true },
+    { number: 6, title: 'He Cheated (Main)', duration: '3:28' },
+    { number: 7, title: 'His Best Was Better', duration: '3:45' },
+    { number: 8, title: 'Beautiful Broken Love (Ft. Johnathan Gold)', duration: '4:05', featured: true },
+    { number: 9, title: 'Firefly Nights', duration: '3:32' },
+    { number: 10, title: 'Steering Faith', duration: '3:48' },
+    { number: 11, title: "Daddy's Girl", duration: '4:12' },
+    { number: 12, title: 'Colder Nights', duration: '3:55' },
+    { number: 13, title: 'He Cheated (Slow Alt)', duration: '3:52' },
+    { number: 14, title: 'Small Town Supernova (Slow Alt)', duration: '3:10' },
   ];
 
   return (
@@ -133,7 +134,7 @@ export default function BarefootSupernovaAlbumPage() {
                   </p>
                 </div>
                 <a 
-                  href="https://square.link/u/knPuKLgy?src=embed"
+                  href="https://square.link/u/knPuKLgy"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full btn-neon-purple flex items-center justify-center gap-2"
@@ -154,7 +155,7 @@ export default function BarefootSupernovaAlbumPage() {
                   </p>
                 </div>
                 <a 
-                  href="https://square.link/u/ausCOXq7?src=embed"
+                  href="https://square.link/u/ausCOXq7"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full btn-neon flex items-center justify-center gap-2"
