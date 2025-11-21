@@ -32,6 +32,7 @@ export default function SearchBar() {
     { id: '2', title: 'Heartfelt Rebellion', subtitle: 'Johnathan Gold', type: 'album', href: '/store/albums/heartfelt-rebellion', image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=200&h=200&fit=crop' },
     { id: '3', title: 'Shattered Peaces', subtitle: 'Mathew Cage', type: 'album', href: '/store/albums/shattered-peaces', image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=200&h=200&fit=crop' },
     { id: '4', title: 'Barefoot Supernova', subtitle: 'Kaira Heartfelt', type: 'album', href: '/store/albums/barefoot-supernova', image: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=200&h=200&fit=crop' },
+    { id: '14', title: 'Descend', subtitle: 'Chronix', type: 'album', href: '/store/albums/descend', image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&h=200&fit=crop' },
     
     // Singles
     { id: '5', title: 'Chaos Country', subtitle: 'Johnathan Gold', type: 'single', href: '/store/singles/chaos-country', image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&h=200&fit=crop' },
@@ -45,6 +46,7 @@ export default function SearchBar() {
     { id: '11', title: 'Johnathan Gold & Guilded Hearts', subtitle: 'Country / Americana', type: 'artist', href: '/talent/johnathan-gold', image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200&h=200&fit=crop' },
     { id: '12', title: 'Mathew Cage', subtitle: 'Alt Rock / Emotional Rock', type: 'artist', href: '/talent/mathew-cage', image: 'https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=200&h=200&fit=crop' },
     { id: '13', title: 'Kaira Heartfelt', subtitle: 'Country-Pop', type: 'artist', href: '/talent/kaira-heartfelt', image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&h=200&fit=crop' },
+    { id: '15', title: 'Chronix', subtitle: 'Electronic / Synthwave', type: 'artist', href: '/talent/chronix', image: '/Chronix.svg' },
   ];
 
   // Close on outside click

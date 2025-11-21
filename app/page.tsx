@@ -88,7 +88,7 @@ export default function Home() {
                 <div className="text-xs sm:text-sm text-gray-400 mt-1">Artists</div>
               </div>
               <div>
-                <div className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">9</div>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">10</div>
                 <div className="text-xs sm:text-sm text-gray-400 mt-1">Radio Stations</div>
               </div>
               <div>
@@ -271,6 +271,10 @@ export default function Home() {
                     <span className="text-cyan-400">•</span>
                     <strong>207.1 – Real Talk</strong> | "Talk the talk… but be sure to walk the walk."
                   </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-purple-400">•</span>
+                    <strong>111.3 – The Radio Demon's Lair</strong> | "Where your Soul Resides."
+                  </li>
                 </ul>
               </div>
             </div>
@@ -287,6 +291,77 @@ export default function Home() {
               <p className="text-xl font-semibold text-purple-400">
                 You deserve a network that gets it. Welcome to the Reality Radio Network. 🎧
               </p>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* New Station Highlight */}
+      <Section background="solid">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center mb-6 md:mb-8">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-3">
+              <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Coming Soon</span>
+            </h2>
+            <p className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto">
+              Get ready for our newest addition to the Reality Radio Network
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center">
+            <div className="order-2 lg:order-1">
+              <div className="relative max-w-sm mx-auto lg:mx-0">
+                <div className="aspect-square rounded-lg overflow-hidden relative border-2 border-purple-500/30 hover:border-purple-400 transition-all shadow-lg shadow-purple-500/20">
+                  <div className="w-full h-full bg-gradient-to-br from-purple-900/40 via-black to-pink-900/40 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="text-4xl md:text-6xl font-bold text-purple-400 mb-2 opacity-20">111.3</div>
+                      <div className="text-lg md:text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        FM
+                      </div>
+                    </div>
+                  </div>
+                  <div className="absolute top-3 right-3">
+                    <span className="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs font-bold rounded-full border border-yellow-500/30 animate-pulse">
+                      Coming Soon
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="order-1 lg:order-2">
+              <div className="mb-4">
+                <div className="text-sm text-purple-400 font-mono mb-1">111.3 FM</div>
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+                  The Radio Demon's Lair
+                </h3>
+                <p className="text-lg md:text-xl text-gray-300 italic mb-4">
+                  "Where your Soul Resides"
+                </p>
+              </div>
+
+              <p className="text-sm md:text-base text-gray-300 leading-relaxed mb-4">
+                Prepare yourself for an otherworldly experience. The Radio Demon's Lair is our newest station,
+                bringing you music that transcends the ordinary. From haunting melodies to soul-stirring anthems,
+                this station will take you on a journey through the depths of musical expression.
+              </p>
+
+              <p className="text-sm md:text-base text-gray-300 leading-relaxed mb-6">
+                We're crafting something truly special – a sonic sanctuary where every track tells a story,
+                every beat resonates with meaning, and every listener finds their place in the darkness.
+              </p>
+
+              <div className="flex flex-wrap gap-3">
+                <div className="px-3 py-1 bg-purple-500/10 border border-purple-500/30 rounded-lg">
+                  <span className="text-purple-400 font-semibold text-sm">Coming Soon</span>
+                </div>
+                <div className="px-3 py-1 bg-pink-500/10 border border-pink-500/30 rounded-lg">
+                  <span className="text-pink-400 font-semibold text-sm">Exclusive Content</span>
+                </div>
+                <div className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-lg">
+                  <span className="text-cyan-400 font-semibold text-sm">Soul-Stirring Music</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
