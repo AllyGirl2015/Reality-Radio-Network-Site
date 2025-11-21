@@ -312,14 +312,12 @@ export default function Home() {
             <div className="order-2 lg:order-1">
               <div className="relative max-w-sm mx-auto lg:mx-0">
                 <div className="aspect-square rounded-lg overflow-hidden relative border-2 border-purple-500/30 hover:border-purple-400 transition-all shadow-lg shadow-purple-500/20">
-                  <div className="w-full h-full bg-gradient-to-br from-purple-900/40 via-black to-pink-900/40 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="text-4xl md:text-6xl font-bold text-purple-400 mb-2 opacity-20">111.3</div>
-                      <div className="text-lg md:text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                        FM
-                      </div>
-                    </div>
-                  </div>
+                  <Image
+                    src="/radio-demon.png"
+                    alt="The Radio Demon's Lair - 111.3 FM"
+                    fill
+                    className="object-cover"
+                  />
                   <div className="absolute top-3 right-3">
                     <span className="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs font-bold rounded-full border border-yellow-500/30 animate-pulse">
                       Coming Soon
