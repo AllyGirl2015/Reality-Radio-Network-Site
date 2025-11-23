@@ -14,6 +14,78 @@
   to = "/admin/index.html"
   status = 200
 
+# Redirects explícitos para rotas do cliente (evitar redirect para home)
+[[redirects]]
+  from = "/artists"
+  to = "/artists"
+  status = 200
+
+[[redirects]]
+  from = "/blog"
+  to = "/blog"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact"
+  status = 200
+
+[[redirects]]
+  from = "/cookies"
+  to = "/cookies"
+  status = 200
+
+[[redirects]]
+  from = "/faq"
+  to = "/faq"
+  status = 200
+
+[[redirects]]
+  from = "/licensing"
+  to = "/licensing"
+  status = 200
+
+[[redirects]]
+  from = "/personas"
+  to = "/personas"
+  status = 200
+
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy"
+  status = 200
+
+[[redirects]]
+  from = "/radio"
+  to = "/radio"
+  status = 200
+
+[[redirects]]
+  from = "/store"
+  to = "/store"
+  status = 200
+
+[[redirects]]
+  from = "/story"
+  to = "/story"
+  status = 200
+
+[[redirects]]
+  from = "/talent"
+  to = "/talent"
+  status = 200
+
+[[redirects]]
+  from = "/terms"
+  to = "/terms"
+  status = 200
+
+# Regra SPA (Catch-all)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]
