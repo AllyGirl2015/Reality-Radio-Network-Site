@@ -1,0 +1,57 @@
+[
+  {
+    "id": "johnathan-gold",
+    "slug": "johnathan-gold",
+    "name": "Johnathan Gold & Guilded Hearts",
+    "genre": "Country / Americana",
+    "bio": "Johnathan Gold brings heartland truths with raw emotion, balancing modern country roots and bold lyrical honesty.",
+    "image": "/Johnathan Gold.png",
+    "accentColor": "purple",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "kaira-heartfelt",
+    "slug": "kaira-heartfelt",
+    "name": "Kaira Heartfelt",
+    "genre": "Pop / Electronic",
+    "bio": "Kaira Heartfelt delivers emotionally charged pop anthems with electronic undertones that resonate with the soul.",
+    "image": "/Kaira Heartfelt.png",
+    "accentColor": "pink",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "mathew-cage",
+    "slug": "mathew-cage",
+    "name": "Mathew Cage",
+    "genre": "Rock / Alternative",
+    "bio": "Mathew Cage delivers powerful rock anthems that challenge conventions and speak truth to power.",
+    "image": "/Mathew Cage.png",
+    "accentColor": "red",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "chronix",
+    "slug": "chronix",
+    "name": "Chronix",
+    "genre": "Electronic / Synthwave",
+    "bio": "Chronix creates immersive electronic soundscapes that transport listeners through time and space.",
+    "image": "/Chronix.png",
+    "accentColor": "indigo",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "daina-vein",
+    "slug": "daina-vein",
+    "name": "Daina Vein",
+    "genre": "Electronic / Industrial",
+    "bio": "Daina Vein delivers explosive electronic intensity with raw emotional power. Each track ignites with industrial beats and ethereal vocals.",
+    "image": "/Daina Vein.png",
+    "accentColor": "red",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z"
+  }
+]

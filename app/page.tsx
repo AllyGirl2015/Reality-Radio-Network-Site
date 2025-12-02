@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Play, ShoppingBag, Users, Zap, Music2, Sparkles, ArrowRight, Calendar, BookOpen, Radio } from 'lucide-react';
+import { Play, ShoppingBag, Users, Zap, Music2, Sparkles, ArrowRight, Calendar, BookOpen, Radio, Megaphone } from 'lucide-react';
 import Live365Player from '@/components/Live365Player';
 import Section from '@/components/Section';
 import { getAllPosts } from '@/lib/blog';
@@ -622,6 +622,43 @@ export default function Home() {
             Read Our Full Story
             <ArrowRight className="w-5 h-5" />
           </Link>
+        </div>
+      </Section>
+
+      {/* Advertising CTA */}
+      <Section background="solid">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gradient-to-r from-purple-600/20 via-cyan-600/20 to-purple-600/20 border border-purple-400/30 rounded-2xl p-8 md:p-12">
+            <div className="text-center">
+              <Megaphone className="w-12 h-12 md:w-16 md:h-16 text-purple-400 mx-auto mb-4" />
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+                  Advertise With Us
+                </span>
+              </h2>
+              <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto">
+                Promote your business across the entire RRN station network. Reach local audiences in San Antonio 
+                and international listeners worldwide with affordable, professional radio advertising.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
+                <div className="bg-black/40 border border-cyan-500/30 rounded-lg px-4 py-2">
+                  <span className="text-2xl font-bold text-cyan-400">$50</span>
+                  <span className="text-gray-400 text-sm ml-1">/ week</span>
+                  <p className="text-xs text-gray-500">Bring Your Own Ad</p>
+                </div>
+                <div className="bg-black/40 border border-purple-500/30 rounded-lg px-4 py-2">
+                  <span className="text-2xl font-bold text-purple-400">$100</span>
+                  <span className="text-gray-400 text-sm ml-1">/ week</span>
+                  <p className="text-xs text-gray-500">Full Production</p>
+                </div>
+              </div>
+              <Link href="/advertising" className="btn-neon-purple inline-flex items-center gap-2">
+                <Megaphone className="w-5 h-5" />
+                View Advertising Packages
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </div>
         </div>
       </Section>
 

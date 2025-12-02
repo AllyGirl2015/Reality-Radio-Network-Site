@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingCart, Play, Music, Clock, Calendar, Tag, ArrowLeft, ExternalLink, Heart } from 'lucide-react';
 import Section from '@/components/Section';
+import TracklistPlayer from '@/components/TracklistPlayer';
 
 export const metadata: Metadata = {
   title: 'Golden Heartbreak | Johnathan Gold & Guilded Hearts',
@@ -25,28 +26,28 @@ export default function GoldenHeartbreakAlbumPage() {
   };
 
   const tracklist = [
-    { number: 1, title: 'Back When We Fell', duration: '3:42', featured: true },
-    { number: 2, title: 'City Girl', duration: '3:28' },
-    { number: 3, title: 'Country Looks', duration: '3:35' },
-    { number: 4, title: 'Tractor Heart', duration: '3:45', featured: true },
-    { number: 5, title: "Country Lovin'", duration: '3:52' },
-    { number: 6, title: 'Backroad Love', duration: '3:38' },
-    { number: 7, title: 'Country Tangled', duration: '3:48' },
-    { number: 8, title: 'The Stash', duration: '3:25' },
-    { number: 9, title: 'Truckbed', duration: '3:32' },
-    { number: 10, title: 'Night on the Farm', duration: '3:55' },
-    { number: 11, title: 'Innocent Love', duration: '3:40' },
-    { number: 12, title: 'Country Breakup', duration: '3:48' },
-    { number: 13, title: 'I Choose the Truck', duration: '3:35', featured: true },
-    { number: 14, title: 'Muddy Mistake', duration: '3:42' },
-    { number: 15, title: 'Drunk Love', duration: '3:28' },
-    { number: 16, title: 'The Barn is a Secret', duration: '4:05' },
-    { number: 17, title: 'The Old You and Me', duration: '3:52' },
-    { number: 18, title: 'Heartbreak Song', duration: '4:15', featured: true },
-    { number: 19, title: 'Young Love', duration: '3:38' },
-    { number: 20, title: "Family Livin'", duration: '3:45' },
-    { number: 21, title: 'Tractor Tango', duration: '3:55' },
-    { number: 22, title: 'Golden Heartbreak', duration: '4:32', featured: true },
+    { number: 1, title: 'Back When We Fell', duration: '3:42', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/01%20Back%20When%20We%20Fell.mp3', purchaseUrl: 'https://square.link/u/wX1OkEC7' },
+    { number: 2, title: 'City Girl', duration: '3:28', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/02%20City%20Girl.mp3', purchaseUrl: 'https://square.link/u/rseytD6W' },
+    { number: 3, title: 'Country Looks', duration: '3:35', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/03%20Country%20Looks.mp3', purchaseUrl: 'https://square.link/u/FT28aIJZ' },
+    { number: 4, title: 'Tractor Heart', duration: '3:45', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/04%20Tractor%20Heart.mp3', purchaseUrl: 'https://square.link/u/yc0nV212' },
+    { number: 5, title: "Country Lovin'", duration: '3:52', previewUrl: "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/05%20Country%20Lovin'.mp3", purchaseUrl: 'https://square.link/u/SnTml1ps' },
+    { number: 6, title: 'Backroad Love', duration: '3:38', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/06%20Backroad%20Love.mp3', purchaseUrl: 'https://square.link/u/14e5l2p6' },
+    { number: 7, title: 'Country Tangled', duration: '3:48', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/07%20Country%20Tangled.mp3', purchaseUrl: 'https://square.link/u/UN5iXDrE' },
+    { number: 8, title: 'The Stash', duration: '3:25', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/08%20The%20Stash.mp3', purchaseUrl: 'https://square.link/u/gZ9LdWRe' },
+    { number: 9, title: 'Truckbed', duration: '3:32', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/09%20Truckbed.mp3', purchaseUrl: 'https://square.link/u/QhtXJbYx' },
+    { number: 10, title: 'Night on the Farm', duration: '3:55', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/10%20Night%20On%20the%20Farm.mp3', purchaseUrl: 'https://square.link/u/NiuiZitK' },
+    { number: 11, title: 'Innocent Love', duration: '3:40', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/11%20Innocent%20Love.mp3', purchaseUrl: 'https://square.link/u/1ztXzbuu' },
+    { number: 12, title: 'Country Breakup', duration: '3:48', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/12%20Country%20Breakup.mp3', purchaseUrl: 'https://square.link/u/QzW1bYfl' },
+    { number: 13, title: 'I Choose the Truck', duration: '3:35', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/13%20I%20Choose%20the%20Truck.mp3', purchaseUrl: 'https://square.link/u/yoVxzSMt' },
+    { number: 14, title: 'Muddy Mistake', duration: '3:42', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/14%20Muddy%20Mistake.mp3', purchaseUrl: 'https://square.link/u/eGGOw13e' },
+    { number: 15, title: 'Drunk Love', duration: '3:28', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/15%20Drunk%20Love.mp3', purchaseUrl: 'https://square.link/u/pjnaC8Sw' },
+    { number: 16, title: 'The Barn is a Secret', duration: '4:05', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/16%20The%20Barn%20Is%20a%20Secret.mp3', purchaseUrl: 'https://square.link/u/dYj0rvWO' },
+    { number: 17, title: 'The Old You and Me', duration: '3:52', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/17%20The%20Old%20You%20and%20Me.mp3', purchaseUrl: 'https://square.link/u/N0bDGyKx' },
+    { number: 18, title: 'Heartbreak Song', duration: '4:15', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/18%20Heartbreak%20Song.mp3', purchaseUrl: 'https://square.link/u/UiIMPsRM' },
+    { number: 19, title: 'Young Love', duration: '3:38', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/19%20Young%20Love.mp3', purchaseUrl: 'https://square.link/u/tVeSuAoC' },
+    { number: 20, title: "Family Livin'", duration: '3:45', previewUrl: "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/20%20Family%20Livin'.mp3", purchaseUrl: 'https://square.link/u/0iah9h9s' },
+    { number: 21, title: 'Tractor Tango', duration: '3:55', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/21%20Tractor%20Tango.mp3', purchaseUrl: 'https://square.link/u/FsUC9ejz' },
+    { number: 22, title: 'Golden Heartbreak', duration: '4:32', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/22%20Golden%20Heartbreak.mp3', purchaseUrl: 'https://square.link/u/qaj4NSW0' },
   ];
 
   return (
@@ -138,34 +139,66 @@ export default function GoldenHeartbreakAlbumPage() {
                 <p className="text-yellow-400 text-sm mt-2">— Johnathan Gold</p>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                <div className="bg-gradient-to-r from-yellow-600/20 to-orange-600/20 border border-yellow-400/30 rounded-lg p-6">
-                  <h3 className="text-sm text-gray-400 mb-1">Digital Download</h3>
-                  <p className="text-3xl font-bold text-white mb-2">${album.digitalPrice.toFixed(2)}</p>
-                  <p className="text-xs text-gray-400 mb-3">Instant delivery • High-quality MP3</p>
+              {/* Digital Download */}
+              <div className="bg-gradient-to-r from-yellow-600/20 to-orange-600/20 border border-yellow-400/30 rounded-lg p-6 mb-4">
+                <h3 className="text-sm text-gray-400 mb-1">Digital Download (Vol 1 & 2)</h3>
+                <p className="text-3xl font-bold text-white mb-2">${album.digitalPrice.toFixed(2)}</p>
+                <p className="text-xs text-gray-400 mb-3">Instant delivery • High-quality MP3 • All 22 Tracks</p>
+                <a 
+                  href="https://square.link/u/BW8KT7V9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full btn-neon-purple flex items-center justify-center gap-2 text-sm"
+                >
+                  <ShoppingCart className="w-4 h-4" aria-hidden="true" />
+                  Buy Digital Album
+                </a>
+              </div>
+
+              {/* Physical CD Options */}
+              <div className="grid sm:grid-cols-3 gap-4 mb-6">
+                <div className="bg-gradient-to-r from-orange-600/20 to-yellow-600/20 border border-orange-400/30 rounded-lg p-4">
+                  <h3 className="text-sm text-gray-400 mb-1">Vol 1 CD</h3>
+                  <p className="text-2xl font-bold text-white mb-2">$9.99</p>
+                  <p className="text-xs text-gray-400 mb-3">12 Tracks • Shipped</p>
                   <a 
-                    href="https://square.link/u/BW8KT7V9"
+                    href="https://square.link/u/1nvKDsyS"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full btn-neon-purple flex items-center justify-center gap-2 text-sm"
+                    className="w-full btn-neon flex items-center justify-center gap-2 text-xs py-2"
                   >
                     <ShoppingCart className="w-4 h-4" aria-hidden="true" />
-                    Buy Digital
+                    Buy Vol 1
                   </a>
                 </div>
 
-                <div className="bg-gradient-to-r from-orange-600/20 to-yellow-600/20 border border-orange-400/30 rounded-lg p-6">
-                  <h3 className="text-sm text-gray-400 mb-1">Physical CD Bundle</h3>
-                  <p className="text-3xl font-bold text-white mb-2">${album.physicalPrice.toFixed(2)}</p>
-                  <p className="text-xs text-gray-400 mb-3">Vol 1 & 2 Bundle • Shipped</p>
+                <div className="bg-gradient-to-r from-orange-600/20 to-yellow-600/20 border border-orange-400/30 rounded-lg p-4">
+                  <h3 className="text-sm text-gray-400 mb-1">Vol 2 CD</h3>
+                  <p className="text-2xl font-bold text-white mb-2">$9.99</p>
+                  <p className="text-xs text-gray-400 mb-3">10 Tracks • Shipped</p>
+                  <a 
+                    href="https://square.link/u/PqMPghF9"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full btn-neon flex items-center justify-center gap-2 text-xs py-2"
+                  >
+                    <ShoppingCart className="w-4 h-4" aria-hidden="true" />
+                    Buy Vol 2
+                  </a>
+                </div>
+
+                <div className="bg-gradient-to-r from-yellow-600/20 to-orange-600/20 border border-yellow-400/30 rounded-lg p-4">
+                  <h3 className="text-sm text-gray-400 mb-1">Bundle (Vol 1 & 2)</h3>
+                  <p className="text-2xl font-bold text-white mb-2">$14.99</p>
+                  <p className="text-xs text-gray-400 mb-3">22 Tracks • Save $5</p>
                   <a 
                     href="https://square.link/u/27uIXqSY"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full btn-neon flex items-center justify-center gap-2 text-sm"
+                    className="w-full btn-neon-yellow flex items-center justify-center gap-2 text-xs py-2"
                   >
                     <ShoppingCart className="w-4 h-4" aria-hidden="true" />
-                    Buy Physical
+                    Buy Bundle
                   </a>
                 </div>
               </div>
@@ -191,32 +224,7 @@ export default function GoldenHeartbreakAlbumPage() {
             <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">Tracklist</span>
           </h2>
           
-          <div className="bg-black/40 border border-yellow-500/30 rounded-lg overflow-hidden">
-            {tracklist.map((track, index) => (
-              <div
-                key={track.number}
-                className={`flex items-center justify-between p-4 hover:bg-yellow-500/5 transition-colors ${
-                  index !== tracklist.length - 1 ? 'border-b border-yellow-500/20' : ''
-                }`}
-              >
-                <div className="flex items-center gap-4 flex-1 min-w-0">
-                  <span className="text-gray-500 font-mono text-sm w-6 text-right flex-shrink-0">{track.number}</span>
-                  <div className="flex items-center gap-3 flex-1 min-w-0">
-                    <div className="w-8 h-8 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded flex items-center justify-center flex-shrink-0">
-                      <Play className="w-4 h-4 text-yellow-400" aria-hidden="true" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-white font-semibold truncate">{track.title}</h3>
-                      {track.featured && (
-                        <span className="text-xs text-yellow-400">Featured Track</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <span className="text-gray-400 text-sm ml-4 flex-shrink-0">{track.duration}</span>
-              </div>
-            ))}
-          </div>
+          <TracklistPlayer tracks={tracklist} accentColor="yellow" />
         </div>
       </Section>
 

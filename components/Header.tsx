@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { Menu, X, Radio, ShoppingBag, Users, Music, BookOpen, Mail, BookText, ChevronDown } from 'lucide-react';
+import { Menu, X, Radio, ShoppingBag, Users, Music, BookOpen, Mail, BookText, ChevronDown, Heart, MoreHorizontal } from 'lucide-react';
 import SearchBar from './SearchBar';
 
 export default function Header() {
@@ -24,6 +24,9 @@ export default function Header() {
 
   const navLinks = [
     { href: '/radio', label: 'Radio Stations', icon: Radio },
+  ];
+
+  const moreLinks = [
     { href: '/story', label: 'About', icon: BookOpen },
     { href: '/blog', label: 'Blog', icon: BookText },
     { href: '/contact', label: 'Contact', icon: Mail },
@@ -144,10 +147,52 @@ export default function Header() {
               </div>
             </div>
 
+            {/* More Dropdown (About, Blog, Contact) */}
+            <div 
+              className="relative more-dropdown group"
+            >
+              <button
+                className="text-gray-300 hover:text-purple-400 transition-colors duration-300 font-medium flex items-center gap-1 whitespace-nowrap cursor-pointer"
+                aria-label="More"
+              >
+                <MoreHorizontal className="w-4 h-4" aria-hidden="true" />
+                <span>More</span>
+                <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" aria-hidden="true" />
+              </button>
+              
+              <div 
+                className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+              >
+                <div className="w-48 bg-black/95 backdrop-blur-md border border-purple-500/30 rounded-lg shadow-2xl shadow-purple-500/30 py-2">
+                  {moreLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="block px-4 py-3 text-gray-300 hover:text-purple-400 hover:bg-purple-500/10 transition-colors duration-300 font-medium flex items-center gap-2"
+                      aria-label={link.label}
+                    >
+                      <link.icon className="w-4 h-4" aria-hidden="true" />
+                      <span>{link.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             {/* Search Bar */}
             <div className="flex-shrink-0">
               <SearchBar />
             </div>
+
+            {/* Donate Button */}
+            <Link
+              href="/donate"
+              className="btn-neon-purple flex items-center gap-2 text-sm px-4 py-2 whitespace-nowrap flex-shrink-0"
+              aria-label="Support RRN - Donate"
+            >
+              <Heart className="w-4 h-4" aria-hidden="true" />
+              <span className="hidden xl:inline">Donate</span>
+            </Link>
 
             {/* Listen Now Button */}
             <Link
@@ -289,8 +334,37 @@ export default function Header() {
                 </div>
               </div>
 
+              {/* More Section Mobile (About, Blog, Contact) */}
+              <div className="border-t border-purple-500/20 pt-2 mt-1">
+                <div className="px-2 py-2">
+                  <div className="text-purple-400 font-semibold text-xs uppercase tracking-wide mb-2 px-2">More</div>
+                  {moreLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block text-gray-300 hover:text-purple-400 transition-colors duration-300 font-medium flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-purple-500/10 active:bg-purple-500/20"
+                      role="menuitem"
+                      aria-label={link.label}
+                    >
+                      <link.icon className="w-5 h-5" aria-hidden="true" />
+                      <span className="text-base">{link.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
               {/* Listen Now Mobile */}
-              <div className="border-t border-purple-500/20 pt-3 mt-2 px-2">
+              <div className="border-t border-purple-500/20 pt-3 mt-2 px-2 space-y-3">
+                <Link
+                  href="/donate"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="btn-neon-purple w-full flex items-center justify-center gap-2 py-3"
+                  aria-label="Support RRN - Donate"
+                >
+                  <Heart className="w-5 h-5" aria-hidden="true" />
+                  Donate
+                </Link>
                 <Link
                   href="https://live365.com/station/201-5-Reality-Central-Radio-a47993"
                   target="_blank"

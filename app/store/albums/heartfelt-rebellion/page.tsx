@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingCart, Play, Music, Clock, Calendar, Tag, ArrowLeft, ExternalLink } from 'lucide-react';
 import Section from '@/components/Section';
+import TracklistPlayer from '@/components/TracklistPlayer';
 
 export const metadata: Metadata = {
   title: 'Heartfelt Rebellion | Johnathan Gold & Guilded Hearts',
@@ -25,19 +26,19 @@ export default function HeartfeltRebellionAlbumPage() {
   };
 
   const tracklist = [
-    { number: 1, title: 'Heartfelt Rebellion', duration: '3:28', featured: true },
-    { number: 2, title: 'Country Bonfire', duration: '3:48' },
-    { number: 3, title: 'Screens', duration: '3:22' },
-    { number: 4, title: 'Forgotten Sons', duration: '4:18' },
-    { number: 5, title: 'Chaos Country', duration: '3:55', featured: true },
-    { number: 6, title: 'Lifeline', duration: '3:38' },
-    { number: 7, title: 'Connections', duration: '3:42' },
-    { number: 8, title: 'Country Style', duration: '3:28' },
-    { number: 9, title: 'Civilization Outlaw', duration: '4:25' },
-    { number: 10, title: 'Religious Truth', duration: '4:32' },
-    { number: 11, title: 'Unspoken Words', duration: '3:55' },
-    { number: 12, title: 'Truth is What You Make It', duration: '4:12' },
-    { number: 13, title: 'Empathy', duration: '4:13' },
+    { number: 1, title: 'Heartfelt Rebellion', duration: '3:28', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/01%20Heartfelt%20Rebellion.mp3', purchaseUrl: 'https://square.link/u/XabI1gG5' },
+    { number: 2, title: 'Country Bonfire', duration: '3:48', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/02%20Country%20Bonfire.mp3', purchaseUrl: 'https://square.link/u/wqT7BO6v' },
+    { number: 3, title: 'Screens', duration: '3:22', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/03%20Screens.mp3', purchaseUrl: 'https://square.link/u/c8Gi0DAC' },
+    { number: 4, title: 'Forgotten Sons', duration: '4:18', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/04%20Forgotten%20Sons.mp3', purchaseUrl: 'https://square.link/u/4X4F5rfO' },
+    { number: 5, title: 'Chaos Country', duration: '3:55', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/05%20Chaos%20Country.mp3', purchaseUrl: 'https://square.link/u/2ZQY92lI' },
+    { number: 6, title: 'Lifeline', duration: '3:38', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/06%20Lifeline.mp3', purchaseUrl: 'https://square.link/u/hwnbiib5' },
+    { number: 7, title: 'Connections', duration: '3:42', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/07%20Connections.mp3', purchaseUrl: 'https://square.link/u/vN1ritIY' },
+    { number: 8, title: 'Country Style', duration: '3:28', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/08%20Country%20Style.mp3', purchaseUrl: 'https://square.link/u/3FBthDir' },
+    { number: 9, title: 'Civilization Outlaw', duration: '4:25', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/09%20Civilization%20Outlaw.mp3', purchaseUrl: 'https://square.link/u/XRwfPcK3' },
+    { number: 10, title: 'Religious Truth', duration: '4:32', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/10%20Religious%20Truth.mp3', purchaseUrl: 'https://square.link/u/4lBRiXbf' },
+    { number: 11, title: 'Unspoken Words', duration: '3:55', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/11%20Unspoken%20Words.mp3', purchaseUrl: 'https://square.link/u/7XuZrS9t' },
+    { number: 12, title: 'Truth is What You Make It', duration: '4:12', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/12%20Truth%20is%20What%20You%20Make%20It.mp3', purchaseUrl: 'https://square.link/u/aF2dRvVr' },
+    { number: 13, title: 'Empathy', duration: '4:13', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/13%20Empathy.mp3', purchaseUrl: 'https://square.link/u/zW3GN3Rm' },
   ];
 
   return (
@@ -180,53 +181,19 @@ export default function HeartfeltRebellionAlbumPage() {
       </Section>
 
       <Section background="solid">
-        <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-          <Music className="w-8 h-8 text-purple-400" aria-hidden="true" />
-          <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Tracklist</span>
-        </h2>
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
+            <Music className="w-8 h-8 text-purple-400" aria-hidden="true" />
+            <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Tracklist</span>
+          </h2>
 
-        <div className="max-w-4xl space-y-2">
-          {tracklist.map((track) => (
-            <div
-              key={track.number}
-              className={`group flex items-center gap-4 p-4 rounded-lg transition-all duration-300 ${
-                track.featured
-                  ? 'bg-purple-500/10 border border-purple-400/30 hover:bg-purple-500/20'
-                  : 'bg-black/40 border border-gray-700/30 hover:bg-black/60 hover:border-purple-400/30'
-              }`}
-            >
-              <div className="flex-shrink-0 w-8 text-center">
-                <span className="text-gray-400 font-mono">{track.number}</span>
-              </div>
+          <TracklistPlayer tracks={tracklist} accentColor="purple" />
 
-              <div className="flex-shrink-0">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500/20 to-cyan-500/20 flex items-center justify-center border border-purple-400/30 group-hover:border-purple-400 group-hover:scale-110 transition-all">
-                  <Play className="w-4 h-4 text-purple-400" aria-hidden="true" />
-                </div>
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-white group-hover:text-purple-300 transition-colors truncate">
-                  {track.title}
-                  {track.featured && (
-                    <span className="ml-2 text-xs bg-purple-500/20 border border-purple-400/30 px-2 py-0.5 rounded-full text-purple-400">
-                      FEATURED
-                    </span>
-                  )}
-                </h3>
-              </div>
-
-              <div className="flex-shrink-0 text-gray-400 text-sm font-mono">
-                {track.duration}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-8 text-center">
-          <p className="text-gray-400 text-sm">
-            Total Duration: <span className="text-white font-semibold">{album.duration}</span>
-          </p>
+          <div className="mt-8 text-center">
+            <p className="text-gray-400 text-sm">
+              Total Duration: <span className="text-white font-semibold">{album.duration}</span>
+            </p>
+          </div>
         </div>
       </Section>
 

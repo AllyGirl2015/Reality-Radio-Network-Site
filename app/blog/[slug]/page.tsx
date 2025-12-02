@@ -128,58 +128,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </header>
 
           {/* Content */}
-          <div className="prose prose-invert prose-purple max-w-none
-            prose-headings:font-bold
-            prose-headings:mb-6
-            prose-headings:mt-10
-            prose-h1:text-3xl sm:prose-h1:text-4xl
-            prose-h1:bg-gradient-to-r prose-h1:from-cyan-400 prose-h1:to-purple-400 prose-h1:bg-clip-text prose-h1:text-transparent
-            prose-h2:text-2xl sm:prose-h2:text-3xl
-            prose-h2:bg-gradient-to-r prose-h2:from-purple-400 prose-h2:to-pink-400 prose-h2:bg-clip-text prose-h2:text-transparent
-            prose-h2:border-b prose-h2:border-purple-500/20 prose-h2:pb-3
-            prose-h3:text-xl sm:prose-h3:text-2xl
-            prose-h3:text-purple-300
-            prose-p:text-gray-300 
-            prose-p:leading-relaxed
-            prose-p:mb-6
-            prose-p:text-base sm:prose-p:text-lg
-            prose-a:text-purple-400 
-            prose-a:no-underline 
-            prose-a:font-medium
-            hover:prose-a:text-purple-300
-            hover:prose-a:underline
-            prose-strong:text-white
-            prose-strong:font-semibold
-            prose-code:text-purple-400
-            prose-code:bg-purple-500/10
-            prose-code:px-2
-            prose-code:py-1
-            prose-code:rounded
-            prose-code:text-sm
-            prose-pre:bg-black/60
-            prose-pre:border
-            prose-pre:border-purple-500/30
-            prose-pre:p-4
-            prose-pre:rounded-lg
-            prose-pre:overflow-x-auto
-            prose-blockquote:border-l-4
-            prose-blockquote:border-l-purple-400
-            prose-blockquote:text-gray-300
-            prose-blockquote:pl-6
-            prose-blockquote:italic
-            prose-blockquote:my-6
-            prose-ul:text-gray-300
-            prose-ul:my-6
-            prose-ul:space-y-2
-            prose-ol:text-gray-300
-            prose-ol:my-6
-            prose-ol:space-y-2
-            prose-li:text-base sm:prose-li:text-lg
-            prose-li:leading-relaxed
-            prose-li:marker:text-purple-400
-            prose-hr:border-purple-500/30
-            prose-hr:my-12
-          ">
+          <div className="blog-content">
             <ReactMarkdown>{post.content}</ReactMarkdown>
           </div>
 

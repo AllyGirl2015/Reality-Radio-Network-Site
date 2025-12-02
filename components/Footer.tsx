@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Radio, Facebook, Twitter, Instagram, Youtube, Mail } from 'lucide-react';
+import { Radio, Facebook, Instagram, Youtube, Linkedin, Mail } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -11,21 +11,25 @@ export default function Footer() {
       { label: 'Talents', href: '/talent' },
       { label: 'Persona Program', href: '/personas' },
       { label: 'Blog', href: '/blog' },
+      { label: 'Our Promise', href: '/promise' },
     ],
     Store: [
       { label: 'Albums', href: '/store/albums' },
       { label: 'Singles', href: '/store/singles' },
-      { label: 'Physical Products', href: '/store' },
       { label: 'Licensing', href: '/licensing' },
+      { label: 'Returns & Refunds', href: '/returns' },
+      { label: 'Disclaimer', href: '/disclaimer' },
     ],
     Radio: [
       { label: 'All Stations', href: '/radio' },
       { label: 'Schedule', href: '/radio#schedule' },
       { label: 'Listen Live', href: '/#listen' },
+      { label: 'Advertising', href: '/advertising' },
     ],
     Support: [
       { label: 'Contact Us', href: '/contact' },
       { label: 'FAQ', href: '/faq' },
+      { label: 'Donate', href: '/donate' },
       { label: 'Privacy', href: '/privacy' },
     ],
   };
@@ -45,20 +49,26 @@ export default function Footer() {
               The future of music. Original artists, real emotions, authentic sound.
             </p>
             <nav aria-label="Social media links">
-              <div className="flex space-x-4 justify-center sm:justify-start">
-                <a href="https://www.instagram.com/rbentertainmemtworks?igsh=a3VvbGFqNmxzMWRx" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors p-2 hover:bg-purple-500/10 rounded-lg" aria-label="Instagram">
+              <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
+                <a href="https://www.facebook.com/share/19uwsoszER/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors p-2 hover:bg-purple-500/10 rounded-lg" aria-label="Facebook">
+                  <Facebook className="w-5 h-5" aria-hidden="true" />
+                </a>
+                <a href="https://www.instagram.com/rbentertainmemtworks" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors p-2 hover:bg-purple-500/10 rounded-lg" aria-label="Instagram">
                   <Instagram className="w-5 h-5" aria-hidden="true" />
                 </a>
-                <a href="https://www.tiktok.com/@rbentertainmentworks?_r=1&_t=ZT-91KyKneaFRn" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors p-2 hover:bg-purple-500/10 rounded-lg" aria-label="TikTok">
+                <a href="https://www.tiktok.com/@rbentertainmentworks" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors p-2 hover:bg-purple-500/10 rounded-lg" aria-label="TikTok">
                   <svg className="w-5 h-5" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
                   </svg>
                 </a>
-                <a href="https://youtube.com/@r.b.e.w.?si=xq82NUDk5HaDz755" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors p-2 hover:bg-purple-500/10 rounded-lg" aria-label="YouTube - Main Company">
+                <a href="https://youtube.com/@r.b.e.w." target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors p-2 hover:bg-purple-500/10 rounded-lg" aria-label="YouTube - RBEW">
                   <Youtube className="w-5 h-5" aria-hidden="true" />
                 </a>
-                <a href="https://youtube.com/@rbewrrn?si=4P81JDgKlYuaZAR-" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition-colors p-2 hover:bg-cyan-500/10 rounded-lg" aria-label="YouTube - RRN Channel">
+                <a href="https://youtube.com/@rbewrrn" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition-colors p-2 hover:bg-cyan-500/10 rounded-lg" aria-label="YouTube - RRN">
                   <Radio className="w-5 h-5" aria-hidden="true" />
+                </a>
+                <a href="https://www.linkedin.com/company/reality-builders-entertainment-works-llc/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-400 transition-colors p-2 hover:bg-purple-500/10 rounded-lg" aria-label="LinkedIn">
+                  <Linkedin className="w-5 h-5" aria-hidden="true" />
                 </a>
               </div>
             </nav>

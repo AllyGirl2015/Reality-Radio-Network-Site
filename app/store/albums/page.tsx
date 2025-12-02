@@ -119,6 +119,19 @@ export default function AlbumsPage() {
       image: '/Decend.svg',
       description: 'The mind descends into darkness, but sometimes grows in it. An immersive sonic journey through consciousness.',
     },
+    {
+      slug: 'warmth-of-chaos',
+      title: 'Warmth of Chaos',
+      artist: 'Daina Vein',
+      genre: 'Electronic / Industrial',
+      year: 2025,
+      tracks: 6,
+      duration: '28:45',
+      digitalPrice: 8.99,
+      physicalPrice: 14.99,
+      image: '/Warmth of Chaos.svg',
+      description: 'An explosive debut blending electronic intensity with raw emotional power. Each track ignites with industrial beats and ethereal vocals.',
+    },
   ];
 
   return (

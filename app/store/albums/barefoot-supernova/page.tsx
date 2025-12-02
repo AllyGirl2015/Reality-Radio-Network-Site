@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingCart, Play, Music, Clock, Calendar, Tag, ArrowLeft, ExternalLink } from 'lucide-react';
 import Section from '@/components/Section';
+import TracklistPlayer from '@/components/TracklistPlayer';
 
 export const metadata: Metadata = {
   title: 'Barefoot Supernova | Kaira Heartfelt',
@@ -24,20 +25,20 @@ export default function BarefootSupernovaAlbumPage() {
   };
 
   const tracklist = [
-    { number: 1, title: 'Small Town Supernova', duration: '3:18', featured: true },
-    { number: 2, title: 'Country Girl', duration: '3:25' },
-    { number: 3, title: 'Barefoot Change', duration: '3:42' },
-    { number: 4, title: 'Lovestruck', duration: '3:15' },
-    { number: 5, title: 'Evil Love', duration: '3:38', featured: true },
-    { number: 6, title: 'He Cheated (Main)', duration: '3:28' },
-    { number: 7, title: 'His Best Was Better', duration: '3:45' },
-    { number: 8, title: 'Beautiful Broken Love (Ft. Johnathan Gold)', duration: '4:05', featured: true },
-    { number: 9, title: 'Firefly Nights', duration: '3:32' },
-    { number: 10, title: 'Steering Faith', duration: '3:48' },
-    { number: 11, title: "Daddy's Girl", duration: '4:12' },
-    { number: 12, title: 'Colder Nights', duration: '3:55' },
-    { number: 13, title: 'He Cheated (Slow Alt)', duration: '3:52' },
-    { number: 14, title: 'Small Town Supernova (Slow Alt)', duration: '3:10' },
+    { number: 1, title: 'Small Town Supernova', duration: '3:18', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/01%20Small%20Town%20Supernova.mp3', purchaseUrl: 'https://square.link/u/5RtJRMKv' },
+    { number: 2, title: 'Country Girl', duration: '3:25', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/02%20Country%20Girl.mp3', purchaseUrl: 'https://square.link/u/l6cgNAC8' },
+    { number: 3, title: 'Barefoot Change', duration: '3:42', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/03%20Barefoot%20Change.mp3', purchaseUrl: 'https://square.link/u/PQH2CVWU' },
+    { number: 4, title: 'Lovestruck', duration: '3:15', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/04%20Lovestruck.mp3', purchaseUrl: 'https://square.link/u/4fIryxQD' },
+    { number: 5, title: 'Evil Love', duration: '3:38', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/05%20Evil%20Love.mp3', purchaseUrl: 'https://square.link/u/OY5xgAwz' },
+    { number: 6, title: 'He Cheated (Main)', duration: '3:28', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/06%20He%20Cheated%20(Main).mp3', purchaseUrl: 'https://square.link/u/7sPdOXvi' },
+    { number: 7, title: 'His Best Was Better', duration: '3:45', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/07%20His%20Best%20was%20Better.mp3', purchaseUrl: 'https://square.link/u/jzoP6GPh' },
+    { number: 8, title: 'Beautiful Broken Love (Ft. Johnathan Gold)', duration: '4:05', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/08%20Beautiful%20Broken%20Love%20(ft.%20Johnathan%20Gold).mp3', purchaseUrl: 'https://square.link/u/YlPc1uI1' },
+    { number: 9, title: 'Firefly Nights', duration: '3:32', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/09%20Firefly%20Nights.mp3', purchaseUrl: 'https://square.link/u/d0Xux4fY' },
+    { number: 10, title: 'Steering Faith', duration: '3:48', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/10%20Steering%20Faith.mp3', purchaseUrl: 'https://square.link/u/WS2JhhRH' },
+    { number: 11, title: "Daddy's Girl", duration: '4:12', previewUrl: "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/11%20Daddy's%20Girl.mp3", purchaseUrl: 'https://square.link/u/YlOQWVSw' },
+    { number: 12, title: 'Colder Nights', duration: '3:55', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/12%20Colder%20Nights.mp3', purchaseUrl: 'https://square.link/u/T8dcgmzd' },
+    { number: 13, title: 'He Cheated (Slow Alt)', duration: '3:52', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/13%20He%20Cheated%20(Slow%20Alt).mp3', purchaseUrl: 'https://square.link/u/FgU9De98' },
+    { number: 14, title: 'Small Town Supernova (Slow Alt)', duration: '3:10', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/14%20Small%20Town%20Supernova%20(Slow%20Alt).mp3', purchaseUrl: 'https://square.link/u/AGj1sQsJ' },
   ];
 
   return (
@@ -180,53 +181,19 @@ export default function BarefootSupernovaAlbumPage() {
       </Section>
 
       <Section background="solid">
-        <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-          <Music className="w-8 h-8 text-purple-400" aria-hidden="true" />
-          <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Tracklist</span>
-        </h2>
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
+            <Music className="w-8 h-8 text-purple-400" aria-hidden="true" />
+            <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Tracklist</span>
+          </h2>
 
-        <div className="max-w-4xl space-y-2">
-          {tracklist.map((track) => (
-            <div
-              key={track.number}
-              className={`group flex items-center gap-4 p-4 rounded-lg transition-all duration-300 ${
-                track.featured
-                  ? 'bg-purple-500/10 border border-purple-400/30 hover:bg-purple-500/20'
-                  : 'bg-black/40 border border-gray-700/30 hover:bg-black/60 hover:border-purple-400/30'
-              }`}
-            >
-              <div className="flex-shrink-0 w-8 text-center">
-                <span className="text-gray-400 font-mono">{track.number}</span>
-              </div>
+          <TracklistPlayer tracks={tracklist} accentColor="pink" />
 
-              <div className="flex-shrink-0">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500/20 to-cyan-500/20 flex items-center justify-center border border-purple-400/30 group-hover:border-purple-400 group-hover:scale-110 transition-all">
-                  <Play className="w-4 h-4 text-purple-400" aria-hidden="true" />
-                </div>
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-white group-hover:text-purple-300 transition-colors truncate">
-                  {track.title}
-                  {track.featured && (
-                    <span className="ml-2 text-xs bg-purple-500/20 border border-purple-400/30 px-2 py-0.5 rounded-full text-purple-400">
-                      FEATURED
-                    </span>
-                  )}
-                </h3>
-              </div>
-
-              <div className="flex-shrink-0 text-gray-400 text-sm font-mono">
-                {track.duration}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-8 text-center">
-          <p className="text-gray-400 text-sm">
-            Total Duration: <span className="text-white font-semibold">{album.duration}</span>
-          </p>
+          <div className="mt-8 text-center">
+            <p className="text-gray-400 text-sm">
+              Total Duration: <span className="text-white font-semibold">{album.duration}</span>
+            </p>
+          </div>
         </div>
       </Section>
 

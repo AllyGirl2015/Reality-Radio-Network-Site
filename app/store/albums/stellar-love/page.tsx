@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingCart, Play, Music, Clock, Calendar, Tag, ArrowLeft, ExternalLink } from 'lucide-react';
 import Section from '@/components/Section';
+import TracklistPlayer from '@/components/TracklistPlayer';
 
 export const metadata: Metadata = {
   title: 'Stellar Love | Kaira Heartfelt',
@@ -25,17 +26,17 @@ export default function StellarLoveAlbumPage() {
   };
 
   const tracklist = [
-    { number: 1, title: 'Lustful Love', duration: '3:28', featured: true },
-    { number: 2, title: 'Love Killer', duration: '3:45' },
-    { number: 3, title: 'The Stars Above', duration: '3:52' },
-    { number: 4, title: 'Take My Love', duration: '3:18' },
-    { number: 5, title: 'Rebound', duration: '3:35' },
-    { number: 6, title: 'Heart Call', duration: '3:42' },
-    { number: 7, title: 'Catcall', duration: '4:05', featured: true },
-    { number: 8, title: 'Fisher', duration: '3:38' },
-    { number: 9, title: 'Confidential', duration: '3:25' },
-    { number: 10, title: 'Chaos Love', duration: '3:48', featured: true },
-    { number: 11, title: "Devil's Number", duration: '4:12' },
+    { number: 1, title: 'Lustful Love', duration: '3:28', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/01%20Lustful%20Love.mp3', purchaseUrl: 'https://square.link/u/7Z7NtdOx' },
+    { number: 2, title: 'Love Killer', duration: '3:45', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/02%20Love%20Killer.mp3', purchaseUrl: 'https://square.link/u/YkZwnMzA' },
+    { number: 3, title: 'The Stars Above', duration: '3:52', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/03%20The%20Stars%20Above.mp3', purchaseUrl: 'https://square.link/u/1vJh1PwJ' },
+    { number: 4, title: 'Take My Love', duration: '3:18', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/04%20Take%20My%20Love.mp3', purchaseUrl: 'https://square.link/u/8kANPQUF' },
+    { number: 5, title: 'Rebound', duration: '3:35', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/05%20Rebound.mp3', purchaseUrl: 'https://square.link/u/HaZTz5xe' },
+    { number: 6, title: 'Heart Call', duration: '3:42', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/06%20Heart%20Call.mp3', purchaseUrl: 'https://square.link/u/O4PioY92' },
+    { number: 7, title: 'Catcall', duration: '4:05', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/07%20Catcall.mp3', purchaseUrl: 'https://square.link/u/xXVJu6EJ' },
+    { number: 8, title: 'Fisher', duration: '3:38', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/08%20Fisher.mp3', purchaseUrl: 'https://square.link/u/6EAJJTol' },
+    { number: 9, title: 'Confidential', duration: '3:25', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/09%20Confidential.mp3', purchaseUrl: 'https://square.link/u/lfs9e6sC' },
+    { number: 10, title: 'Chaos Love', duration: '3:48', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/10%20Chaos%20Love.mp3', purchaseUrl: 'https://square.link/u/Z864AJ0B' },
+    { number: 11, title: "Devil's Number", duration: '4:12', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/11%20Devils%20Number.mp3', purchaseUrl: 'https://square.link/u/a6D5Cfmh' },
   ];
 
   return (
@@ -180,32 +181,7 @@ export default function StellarLoveAlbumPage() {
             <span className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">Tracklist</span>
           </h2>
           
-          <div className="bg-black/40 border border-pink-500/30 rounded-lg overflow-hidden">
-            {tracklist.map((track, index) => (
-              <div
-                key={track.number}
-                className={`flex items-center justify-between p-4 hover:bg-pink-500/5 transition-colors ${
-                  index !== tracklist.length - 1 ? 'border-b border-pink-500/20' : ''
-                }`}
-              >
-                <div className="flex items-center gap-4 flex-1 min-w-0">
-                  <span className="text-gray-500 font-mono text-sm w-6 text-right flex-shrink-0">{track.number}</span>
-                  <div className="flex items-center gap-3 flex-1 min-w-0">
-                    <div className="w-8 h-8 bg-gradient-to-br from-pink-500/20 to-purple-500/20 rounded flex items-center justify-center flex-shrink-0">
-                      <Play className="w-4 h-4 text-pink-400" aria-hidden="true" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-white font-semibold truncate">{track.title}</h3>
-                      {track.featured && (
-                        <span className="text-xs text-pink-400">Featured Track</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <span className="text-gray-400 text-sm ml-4 flex-shrink-0">{track.duration}</span>
-              </div>
-            ))}
-          </div>
+          <TracklistPlayer tracks={tracklist} accentColor="pink" />
         </div>
       </Section>
 

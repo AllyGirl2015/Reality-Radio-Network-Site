@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingCart, Play, Music, Clock, Calendar, Tag, ArrowLeft, ExternalLink } from 'lucide-react';
 import Section from '@/components/Section';
+import TracklistPlayer from '@/components/TracklistPlayer';
 
 export const metadata: Metadata = {
   title: 'Descend | Chronix',
@@ -25,16 +26,16 @@ export default function DecendAlbumPage() {
   };
 
   const tracklist = [
-    { number: 1, title: 'Starting Line', duration: '4:12', featured: true },
-    { number: 2, title: 'Power of the Few', duration: '4:38' },
-    { number: 3, title: 'Rags No More', duration: '4:05' },
-    { number: 4, title: 'Hate No More', duration: '4:22', featured: true },
-    { number: 5, title: 'Mark Me Down', duration: '4:48' },
-    { number: 6, title: 'No Mistakes', duration: '3:55' },
-    { number: 7, title: 'Love No More', duration: '4:32', featured: true },
-    { number: 8, title: 'Kinship', duration: '4:28' },
-    { number: 9, title: 'The Skies', duration: '5:18', featured: true },
-    { number: 10, title: 'Descend', duration: '4:45' },
+    { number: 1, title: 'Starting Line', duration: '4:12', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/01%20Starting%20Line.mp3', purchaseUrl: 'https://square.link/u/EQCSb9Zm' },
+    { number: 2, title: 'Power of the Few', duration: '4:38', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/02%20Power%20of%20the%20Few.mp3', purchaseUrl: 'https://square.link/u/gILHmo6H' },
+    { number: 3, title: 'Rags No More', duration: '4:05', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/03%20Rags%20No%20More.mp3', purchaseUrl: 'https://square.link/u/tW4GpZEt' },
+    { number: 4, title: 'Hate No More', duration: '4:22', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/04%20Hate%20No%20More.mp3', purchaseUrl: 'https://square.link/u/GoUQUJXA' },
+    { number: 5, title: 'Mark Me Down', duration: '4:48', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/05%20Mark%20Me%20Down.mp3', purchaseUrl: 'https://square.link/u/1vzafXZ0' },
+    { number: 6, title: 'No Mistakes', duration: '3:55', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/06%20No%20Mistakes.mp3', purchaseUrl: 'https://square.link/u/uoLk32wj' },
+    { number: 7, title: 'Love No More', duration: '4:32', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/07%20Love%20No%20More.mp3', purchaseUrl: 'https://square.link/u/e4Ap86kt' },
+    { number: 8, title: 'Kinship', duration: '4:28', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/08%20Kinship.mp3', purchaseUrl: 'https://square.link/u/nKLxawg1' },
+    { number: 9, title: 'The Skies', duration: '5:18', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/09%20The%20Skies.mp3', purchaseUrl: 'https://square.link/u/2W1BFTCQ' },
+    { number: 10, title: 'Descend', duration: '4:45', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/10%20Decend.mp3', purchaseUrl: 'https://square.link/u/2u6rpcSr' },
   ];
 
   return (
@@ -179,32 +180,7 @@ export default function DecendAlbumPage() {
             <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Tracklist</span>
           </h2>
           
-          <div className="bg-black/40 border border-indigo-500/30 rounded-lg overflow-hidden">
-            {tracklist.map((track, index) => (
-              <div
-                key={track.number}
-                className={`flex items-center justify-between p-4 hover:bg-indigo-500/5 transition-colors ${
-                  index !== tracklist.length - 1 ? 'border-b border-indigo-500/20' : ''
-                }`}
-              >
-                <div className="flex items-center gap-4 flex-1 min-w-0">
-                  <span className="text-gray-500 font-mono text-sm w-6 text-right flex-shrink-0">{track.number}</span>
-                  <div className="flex items-center gap-3 flex-1 min-w-0">
-                    <div className="w-8 h-8 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded flex items-center justify-center flex-shrink-0">
-                      <Play className="w-4 h-4 text-indigo-400" aria-hidden="true" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-white font-semibold truncate">{track.title}</h3>
-                      {track.featured && (
-                        <span className="text-xs text-indigo-400">Featured Track</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <span className="text-gray-400 text-sm ml-4 flex-shrink-0">{track.duration}</span>
-              </div>
-            ))}
-          </div>
+          <TracklistPlayer tracks={tracklist} accentColor="indigo" />
         </div>
       </Section>
 

@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { ShoppingCart, Play, Music, Clock, Calendar, Tag, ArrowLeft, Disc } from 'lucide-react';
 import Section from '@/components/Section';
+import MusicPreviewPlayer from '@/components/MusicPreviewPlayer';
 
 export const metadata: Metadata = {
   title: "America's Changed | Johnathan Gold & Guilded Hearts",
@@ -102,6 +103,19 @@ export default function AmericasChangedSinglePage() {
 
               <div className="bg-black/60 border-l-4 border-purple-400 rounded-r-lg p-4 mb-8">
                 <p className="text-gray-300 italic">{single.quote}</p>
+              </div>
+
+              {/* Preview Player */}
+              <div className="mb-8">
+                <h3 className="text-xl font-bold mb-4 text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                  Preview Track
+                </h3>
+                <MusicPreviewPlayer
+                  trackTitle="America's Changed"
+                  artist="Johnathan Gold & Guilded Hearts"
+                  previewUrl="https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/01%20America's%20Changed.mp3"
+                  duration={15}
+                />
               </div>
 
               <div className="bg-gradient-to-r from-purple-600/20 to-cyan-600/20 border border-purple-400/30 rounded-lg p-6 mb-6">

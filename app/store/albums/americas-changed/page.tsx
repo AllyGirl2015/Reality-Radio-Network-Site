@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingCart, Play, Music, Clock, Calendar, Tag, ArrowLeft, ExternalLink } from 'lucide-react';
 import Section from '@/components/Section';
+import TracklistPlayer from '@/components/TracklistPlayer';
 
 export const metadata: Metadata = {
   title: "America's Changed | Johnathan Gold & Guilded Hearts",
@@ -25,16 +26,16 @@ export default function AmericasChangedAlbumPage() {
   };
 
   const tracklist = [
-    { number: 1, title: "America's Changed", duration: '3:42', featured: true },
-    { number: 2, title: 'Goodbye Mainstreet', duration: '3:35' },
-    { number: 3, title: 'She Wore Red, I Wore Blue', duration: '4:05' },
-    { number: 4, title: 'God Blessed the Silent Ones', duration: '3:58' },
-    { number: 5, title: 'Gas Station Prayers', duration: '4:12' },
-    { number: 6, title: 'Generations', duration: '3:45' },
-    { number: 7, title: 'Country Fireflies', duration: '3:28' },
-    { number: 8, title: 'Tractor Man', duration: '3:52' },
-    { number: 9, title: 'Young Ones', duration: '4:18' },
-    { number: 10, title: 'Unspoken Hero', duration: '4:47' },
+    { number: 1, title: "America's Changed", duration: '3:42', featured: true, previewUrl: "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/01%20America's%20Changed.mp3", purchaseUrl: "https://square.link/u/cY1R9Yas" },
+    { number: 2, title: 'Goodbye Mainstreet', duration: '3:35', previewUrl: "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/02%20Goodbye%20Mainstreet.mp3", purchaseUrl: "https://square.link/u/LOuRjMBD" },
+    { number: 3, title: 'She Wore Red, I Wore Blue', duration: '4:05', previewUrl: "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/03%20She%20Wore%20Red%2C%20I%20wore%20Blue.mp3", purchaseUrl: "https://square.link/u/U5l7NWyv" },
+    { number: 4, title: 'God Blessed the Silent Ones', duration: '3:58', previewUrl: "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/04%20God%20Blessed%20the%20Silent%20Ones.mp3", purchaseUrl: "https://square.link/u/CRptBh7b" },
+    { number: 5, title: 'Gas Station Prayers', duration: '4:12', previewUrl: "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/05%20Gas%20Station%20Prayers.mp3", purchaseUrl: "https://square.link/u/mO1DOqHN" },
+    { number: 6, title: 'Generations', duration: '3:45', previewUrl: "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/06%20Generations.mp3", purchaseUrl: "https://square.link/u/IPBKC8O7" },
+    { number: 7, title: 'Country Fireflies', duration: '3:28', previewUrl: "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/07%20Country%20Fireflies.mp3", purchaseUrl: "https://square.link/u/8aPThHjV" },
+    { number: 8, title: 'Tractor Man', duration: '3:52', previewUrl: "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/08%20Tractor%20Man.mp3", purchaseUrl: "https://square.link/u/8HXmUmvF" },
+    { number: 9, title: 'Young Ones', duration: '4:18', previewUrl: "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/09%20Young%20Ones.mp3", purchaseUrl: "https://square.link/u/NUHvRUL8" },
+    { number: 10, title: 'Unspoken Hero', duration: '4:47', previewUrl: "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/10%20Unspoken%20Hero.mp3", purchaseUrl: "https://square.link/u/b0y5MXpr" },
   ];
 
   return (
@@ -189,43 +190,16 @@ export default function AmericasChangedAlbumPage() {
           <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Tracklist</span>
         </h2>
 
-        <div className="max-w-4xl space-y-2">
-          {tracklist.map((track) => (
-            <div
-              key={track.number}
-              className={`group flex items-center gap-4 p-4 rounded-lg transition-all duration-300 ${
-                track.featured
-                  ? 'bg-purple-500/10 border border-purple-400/30 hover:bg-purple-500/20'
-                  : 'bg-black/40 border border-gray-700/30 hover:bg-black/60 hover:border-purple-400/30'
-              }`}
-            >
-              <div className="flex-shrink-0 w-8 text-center">
-                <span className="text-gray-400 font-mono">{track.number}</span>
-              </div>
+        <p className="text-gray-400 text-sm mb-6">
+          Click the play button to hear a 15-second preview of each track.
+        </p>
 
-              <div className="flex-shrink-0">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500/20 to-cyan-500/20 flex items-center justify-center border border-purple-400/30 group-hover:border-purple-400 group-hover:scale-110 transition-all">
-                  <Play className="w-4 h-4 text-purple-400" aria-hidden="true" />
-                </div>
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-white group-hover:text-purple-300 transition-colors truncate">
-                  {track.title}
-                  {track.featured && (
-                    <span className="ml-2 text-xs bg-purple-500/20 border border-purple-400/30 px-2 py-0.5 rounded-full text-purple-400">
-                      FEATURED
-                    </span>
-                  )}
-                </h3>
-              </div>
-
-              <div className="flex-shrink-0 text-gray-400 text-sm font-mono">
-                {track.duration}
-              </div>
-            </div>
-          ))}
-        </div>
+        <TracklistPlayer
+          tracks={tracklist}
+          artist={album.artist}
+          previewDuration={15}
+          accentColor="purple"
+        />
 
         <div className="mt-8 text-center">
           <p className="text-gray-400 text-sm">

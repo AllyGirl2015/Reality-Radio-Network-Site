@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingCart, Play, Music, Clock, Calendar, Tag, ArrowLeft, ExternalLink } from 'lucide-react';
 import Section from '@/components/Section';
+import TracklistPlayer from '@/components/TracklistPlayer';
 
 export const metadata: Metadata = {
   title: 'Shattered Peaces | Mathew Cage',
@@ -24,17 +25,17 @@ export default function ShatteredPeacesAlbumPage() {
   };
 
   const tracklist = [
-    { number: 1, title: 'World of Gold', duration: '3:06', featured: true },
-    { number: 2, title: 'Fractured Signal', duration: '4:02' },
-    { number: 3, title: 'The Line Was Crossed', duration: '3:58' },
-    { number: 4, title: 'Echoes of the Cage', duration: '4:28' },
-    { number: 5, title: 'Shattered', duration: '3:45' },
-    { number: 6, title: 'Broken Peace', duration: '4:15' },
-    { number: 7, title: 'Fallen Flag', duration: '5:05', featured: true },
-    { number: 8, title: 'Soulbound', duration: '3:52' },
-    { number: 9, title: 'Corruption', duration: '4:38' },
-    { number: 10, title: 'Opening', duration: '4:20' },
-    { number: 11, title: "In the Devil's Name I Pray", duration: '4:45', featured: true },
+    { number: 1, title: 'World of Gold', duration: '3:06', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/01%20World%20of%20Gold.mp3', purchaseUrl: 'https://square.link/u/ioeRiwvN' },
+    { number: 2, title: 'Fractured Signal', duration: '4:02', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/02%20Fractured%20Signal.mp3', purchaseUrl: 'https://square.link/u/2OwcTGU3' },
+    { number: 3, title: 'The Line Was Crossed', duration: '3:58', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/03%20The%20Line%20was%20Crossed.mp3', purchaseUrl: 'https://square.link/u/VOSlMOow' },
+    { number: 4, title: 'Echoes of the Cage', duration: '4:28', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/04%20Echoes%20of%20the%20Cage.mp3', purchaseUrl: 'https://square.link/u/zwQRJCwe' },
+    { number: 5, title: 'Shattered', duration: '3:45', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/05%20Shattered.mp3', purchaseUrl: 'https://square.link/u/TGkYjuXg' },
+    { number: 6, title: 'Broken Peace', duration: '4:15', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/06%20Broken%20Peace.mp3', purchaseUrl: 'https://square.link/u/dRzsmiHE' },
+    { number: 7, title: 'Fallen Flag', duration: '5:05', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/07%20Fallen%20Flag.mp3', purchaseUrl: 'https://square.link/u/VEMs3Tdc' },
+    { number: 8, title: 'Soulbound', duration: '3:52', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/08%20Soulbound.mp3', purchaseUrl: 'https://square.link/u/gJAtDs7Y' },
+    { number: 9, title: 'Corruption', duration: '4:38', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/09%20Corruption.mp3', purchaseUrl: 'https://square.link/u/8Atz8bI9' },
+    { number: 10, title: 'Opening', duration: '4:20', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/10%20Opening.mp3', purchaseUrl: 'https://square.link/u/X00dkH2B' },
+    { number: 11, title: "In the Devil's Name I Pray", duration: '4:45', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/11%20In%20the%20Devils%20Name%20I%20Pray.mp3', purchaseUrl: 'https://square.link/u/OaRH2hfE' },
   ];
 
   return (
@@ -177,53 +178,19 @@ export default function ShatteredPeacesAlbumPage() {
       </Section>
 
       <Section background="solid">
-        <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-          <Music className="w-8 h-8 text-purple-400" aria-hidden="true" />
-          <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Tracklist</span>
-        </h2>
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
+            <Music className="w-8 h-8 text-purple-400" aria-hidden="true" />
+            <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Tracklist</span>
+          </h2>
 
-        <div className="max-w-4xl space-y-2">
-          {tracklist.map((track) => (
-            <div
-              key={track.number}
-              className={`group flex items-center gap-4 p-4 rounded-lg transition-all duration-300 ${
-                track.featured
-                  ? 'bg-purple-500/10 border border-purple-400/30 hover:bg-purple-500/20'
-                  : 'bg-black/40 border border-gray-700/30 hover:bg-black/60 hover:border-purple-400/30'
-              }`}
-            >
-              <div className="flex-shrink-0 w-8 text-center">
-                <span className="text-gray-400 font-mono">{track.number}</span>
-              </div>
+          <TracklistPlayer tracks={tracklist} accentColor="purple" />
 
-              <div className="flex-shrink-0">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500/20 to-cyan-500/20 flex items-center justify-center border border-purple-400/30 group-hover:border-purple-400 group-hover:scale-110 transition-all">
-                  <Play className="w-4 h-4 text-purple-400" aria-hidden="true" />
-                </div>
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-white group-hover:text-purple-300 transition-colors truncate">
-                  {track.title}
-                  {track.featured && (
-                    <span className="ml-2 text-xs bg-purple-500/20 border border-purple-400/30 px-2 py-0.5 rounded-full text-purple-400">
-                      FEATURED
-                    </span>
-                  )}
-                </h3>
-              </div>
-
-              <div className="flex-shrink-0 text-gray-400 text-sm font-mono">
-                {track.duration}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-8 text-center">
-          <p className="text-gray-400 text-sm">
-            Total Duration: <span className="text-white font-semibold">{album.duration}</span>
-          </p>
+          <div className="mt-8 text-center">
+            <p className="text-gray-400 text-sm">
+              Total Duration: <span className="text-white font-semibold">{album.duration}</span>
+            </p>
+          </div>
         </div>
       </Section>
 

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingCart, Play, Music, Clock, Calendar, Tag, ArrowLeft, ExternalLink } from 'lucide-react';
 import Section from '@/components/Section';
+import TracklistPlayer from '@/components/TracklistPlayer';
 
 export const metadata: Metadata = {
   title: 'High Hit | Mathew Cage',
@@ -25,16 +26,16 @@ export default function HighHitAlbumPage() {
   };
 
   const tracklist = [
-    { number: 1, title: 'Scraps', duration: '4:12', featured: true },
-    { number: 2, title: 'One Drink', duration: '3:45' },
-    { number: 3, title: 'Fallen Dust', duration: '4:28' },
-    { number: 4, title: 'Drown it Out', duration: '3:52', featured: true },
-    { number: 5, title: 'Chronicles', duration: '4:05' },
-    { number: 6, title: 'Reflection', duration: '3:38' },
-    { number: 7, title: 'Hollow Leaning', duration: '4:18' },
-    { number: 8, title: 'Youth', duration: '4:42', featured: true },
-    { number: 9, title: 'High Hit', duration: '3:55', featured: true },
-    { number: 10, title: 'Made Us', duration: '4:25' },
+    { number: 1, title: 'Scraps', duration: '4:12', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/01%20Scraps.mp3', purchaseUrl: 'https://square.link/u/Nk4Sjd9j' },
+    { number: 2, title: 'One Drink', duration: '3:45', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/02%20One%20Drink.mp3', purchaseUrl: 'https://square.link/u/POxETfEH' },
+    { number: 3, title: 'Fallen Dust', duration: '4:28', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/03%20Fallen%20Dust.mp3', purchaseUrl: 'https://square.link/u/zsgL3N5e' },
+    { number: 4, title: 'Drown it Out', duration: '3:52', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/04%20Drown%20It%20Out.mp3', purchaseUrl: 'https://square.link/u/KCOOq0Jr' },
+    { number: 5, title: 'Chronicles', duration: '4:05', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/05%20Chronicles.mp3', purchaseUrl: 'https://square.link/u/kEfKJCIE' },
+    { number: 6, title: 'Reflection', duration: '3:38', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/06%20Reflection.mp3', purchaseUrl: 'https://square.link/u/CwdgT7a5' },
+    { number: 7, title: 'Hollow Leaning', duration: '4:18', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/07%20Hollow%20Leaning.mp3', purchaseUrl: 'https://square.link/u/1AWKrlg8' },
+    { number: 8, title: 'Youth', duration: '4:42', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/08%20Youth.mp3', purchaseUrl: 'https://square.link/u/ZbdCOF4m' },
+    { number: 9, title: 'High Hit', duration: '3:55', featured: true, previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/09%20High%20Hit.mp3', purchaseUrl: 'https://square.link/u/8PETjt8w' },
+    { number: 10, title: 'Made Us', duration: '4:25', previewUrl: 'https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/10%20Made%20Us.mp3', purchaseUrl: 'https://square.link/u/DpgfBHdm' },
   ];
 
   return (
@@ -179,32 +180,7 @@ export default function HighHitAlbumPage() {
             <span className="bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">Tracklist</span>
           </h2>
           
-          <div className="bg-black/40 border border-red-500/30 rounded-lg overflow-hidden">
-            {tracklist.map((track, index) => (
-              <div
-                key={track.number}
-                className={`flex items-center justify-between p-4 hover:bg-red-500/5 transition-colors ${
-                  index !== tracklist.length - 1 ? 'border-b border-red-500/20' : ''
-                }`}
-              >
-                <div className="flex items-center gap-4 flex-1 min-w-0">
-                  <span className="text-gray-500 font-mono text-sm w-6 text-right flex-shrink-0">{track.number}</span>
-                  <div className="flex items-center gap-3 flex-1 min-w-0">
-                    <div className="w-8 h-8 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded flex items-center justify-center flex-shrink-0">
-                      <Play className="w-4 h-4 text-red-400" aria-hidden="true" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-white font-semibold truncate">{track.title}</h3>
-                      {track.featured && (
-                        <span className="text-xs text-red-400">Featured Track</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <span className="text-gray-400 text-sm ml-4 flex-shrink-0">{track.duration}</span>
-              </div>
-            ))}
-          </div>
+          <TracklistPlayer tracks={tracklist} accentColor="red" />
         </div>
       </Section>
 

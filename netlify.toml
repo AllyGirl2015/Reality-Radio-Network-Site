@@ -14,6 +14,12 @@
   to = "/admin/index.html"
   status = 200
 
+# Redirects explícitos para rotas do cliente
+[[redirects]]
+  from = "/donate"
+  to = "/donate"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]
