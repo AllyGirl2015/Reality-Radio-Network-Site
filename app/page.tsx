@@ -214,6 +214,29 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* About Reality Radio Network */}
+      <Section className="py-12 md:py-16">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4">
+              About <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Reality Radio Network</span>
+            </h2>
+          </div>
+
+          <div className="bg-black/40 border border-purple-500/30 rounded-lg p-6 md:p-8 hover:border-purple-400 transition-all">
+            <p className="text-base md:text-lg text-gray-300 leading-relaxed mb-4">
+              Reality Radio Network (RRN) is a human-curated online radio network featuring original music, independent artists, and thematic programming across multiple genres.
+            </p>
+            <p className="text-base md:text-lg text-gray-300 leading-relaxed mb-4">
+              Unlike algorithm-driven playlists, RRN is built around intentional programming, real hosts, and structured broadcasts designed to feel alive rather than automated.
+            </p>
+            <p className="text-base md:text-lg text-gray-300 leading-relaxed">
+              RRN serves as the audio division of Reality Builders Entertainment Works and functions as both a listening platform and a launch point for original creative projects.
+            </p>
+          </div>
+        </div>
+      </Section>
+
       {/* What is RRN */}
       <Section className="py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-4">
@@ -313,7 +336,7 @@ export default function Home() {
               <div className="relative max-w-sm mx-auto lg:mx-0">
                 <div className="aspect-square rounded-lg overflow-hidden relative border-2 border-purple-500/30 hover:border-purple-400 transition-all shadow-lg shadow-purple-500/20">
                   <Image
-                    src="/radio-demon.png"
+                    src="/theradiodemonslair.png"
                     alt="The Radio Demon's Lair - 111.3 FM"
                     fill
                     className="object-cover"
