@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Save, Plus, Trash2, Music } from 'lucide-react';
+import UploadImage from '@/components/UploadImage';
 
 interface Track {
   number: number;
@@ -17,6 +18,7 @@ export default function NewAlbumPage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   
   const [formData, setFormData] = useState({
     title: '',
@@ -261,6 +263,41 @@ export default function NewAlbumPage() {
                 <label htmlFor="featured" className="text-sm font-medium text-gray-300">
                   Featured Album
                 </label>
+              </div>
+            </div>
+
+            {/* Album Cover Upload */}
+            <div className="mt-6">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Album Cover Image
+              </label>
+              <div className="flex gap-4 items-start">
+                <div className="flex-1">
+                  <UploadImage
+                    onUploadSuccess={(url) => {
+                      setFormData(prev => ({ ...prev, image: url }));
+                      setImagePreview(url);
+                    }}
+                    onUploadError={setError}
+                  />
+                  <input
+                    type="text"
+                    name="image"
+                    value={formData.image}
+                    onChange={handleChange}
+                    placeholder="Or enter image URL/path manually"
+                    className="w-full mt-2 px-4 py-3 bg-gray-900/50 border border-purple-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-400"
+                  />
+                </div>
+                {imagePreview && (
+                  <div className="w-32 h-32 relative rounded-lg overflow-hidden border border-purple-500/30">
+                    <img
+                      src={imagePreview}
+                      alt="Album cover preview"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
               </div>
             </div>
 

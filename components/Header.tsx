@@ -28,6 +28,7 @@ export default function Header() {
 
   const moreLinks = [
     { href: '/story', label: 'About', icon: BookOpen },
+    { href: '/how-rrn-works', label: 'How RRN Works', icon: Radio },
     { href: '/blog', label: 'Blog', icon: BookText },
     { href: '/contact', label: 'Contact', icon: Mail },
   ];
@@ -49,6 +50,7 @@ export default function Header() {
         isScrolled ? 'bg-black/70 backdrop-blur-md border-b border-purple-500/30' : 'bg-transparent'
       }`}
       role="banner"
+      suppressHydrationWarning
     >
       <nav className="container mx-auto px-4 py-4" aria-label="Main navigation">
         <div className="flex items-center justify-between">
@@ -105,6 +107,7 @@ export default function Header() {
                       href={link.href}
                       className="block px-4 py-3 text-gray-300 hover:text-purple-400 hover:bg-purple-500/10 transition-colors duration-300 font-medium flex items-center gap-2"
                       aria-label={link.label}
+                      suppressHydrationWarning
                     >
                       <link.icon className="w-4 h-4" aria-hidden="true" />
                       <span>{link.label}</span>
@@ -138,6 +141,7 @@ export default function Header() {
                       href={link.href}
                       className="block px-4 py-3 text-gray-300 hover:text-purple-400 hover:bg-purple-500/10 transition-colors duration-300 font-medium flex items-center gap-2"
                       aria-label={link.label}
+                      suppressHydrationWarning
                     >
                       <link.icon className="w-4 h-4" aria-hidden="true" />
                       <span>{link.label}</span>
@@ -162,6 +166,7 @@ export default function Header() {
               
               <div 
                 className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+                suppressHydrationWarning
               >
                 <div className="w-48 bg-black/95 backdrop-blur-md border border-purple-500/30 rounded-lg shadow-2xl shadow-purple-500/30 py-2">
                   {moreLinks.map((link) => (
@@ -170,6 +175,7 @@ export default function Header() {
                       href={link.href}
                       className="block px-4 py-3 text-gray-300 hover:text-purple-400 hover:bg-purple-500/10 transition-colors duration-300 font-medium flex items-center gap-2"
                       aria-label={link.label}
+                      suppressHydrationWarning
                     >
                       <link.icon className="w-4 h-4" aria-hidden="true" />
                       <span>{link.label}</span>
