@@ -30,8 +30,10 @@ export default function TracklistPlayer({
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [trackDuration, setTrackDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const isPreview = previewDuration > 0;
 
   const colorClasses = {
     purple: {
@@ -116,10 +118,15 @@ export default function TracklistPlayer({
     
     progressIntervalRef.current = setInterval(() => {
       if (audioRef.current) {
-        const currentProgress = (audioRef.current.currentTime / previewDuration) * 100;
+        const effectiveDuration = isPreview
+          ? previewDuration
+          : (audioRef.current.duration || trackDuration || 0);
+        const currentProgress = effectiveDuration > 0
+          ? (audioRef.current.currentTime / effectiveDuration) * 100
+          : 0;
         setProgress(currentProgress);
-        
-        if (audioRef.current.currentTime >= previewDuration) {
+
+        if (isPreview && audioRef.current.currentTime >= previewDuration) {
           handleStop();
         }
       }
@@ -187,6 +194,11 @@ export default function TracklistPlayer({
       <audio
         ref={audioRef}
         preload="none"
+        onLoadedMetadata={() => {
+          if (audioRef.current) {
+            setTrackDuration(audioRef.current.duration || 0);
+          }
+        }}
         onEnded={handleStop}
         onError={() => {
           setIsLoading(false);
@@ -256,7 +268,7 @@ export default function TracklistPlayer({
                   </h3>
                   {isCurrentTrack && (
                     <p className="text-xs text-gray-400 mt-0.5">
-                      {isTrackPlaying ? 'Playing 15s preview...' : 'Paused'}
+                      {isTrackPlaying ? (isPreview ? `Playing ${previewDuration}s preview...` : 'Playing full track...') : 'Paused'}
                     </p>
                   )}
                 </div>
@@ -276,7 +288,7 @@ export default function TracklistPlayer({
                   )}
                   {hasPreview && (
                     <span className={`hidden sm:inline-block text-xs px-2 py-1 ${colors.badge} border rounded`}>
-                      15s
+                      {isPreview ? `${previewDuration}s` : 'FULL'}
                     </span>
                   )}
                   <span className="text-gray-400 text-sm font-mono">

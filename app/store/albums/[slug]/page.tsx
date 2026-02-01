@@ -256,6 +256,7 @@ export default async function AlbumPage({ params }: PageProps) {
           <h2 className="text-2xl font-bold text-white mb-6">Tracklist</h2>
             <TracklistPlayer 
               tracks={tracklistData} 
+              previewDuration={0}
               accentColor={(album as any).accentColor as 'purple' | 'pink' | 'red' | 'indigo'}
             />
         </Section>

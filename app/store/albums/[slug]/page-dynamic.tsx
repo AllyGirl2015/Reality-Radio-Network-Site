@@ -247,13 +247,13 @@ export default async function DynamicAlbumPage({ params }: Props) {
         </h2>
 
         <p className="text-gray-400 text-sm mb-6">
-          Click the play button to hear a 15-second preview of each track.
+          Click the play button to hear the full track.
         </p>
 
         <TracklistPlayer
           tracks={album.tracklist}
           artist={album.artist}
-          previewDuration={15}
+          previewDuration={0}
           accentColor={album.accentColor}
         />
 

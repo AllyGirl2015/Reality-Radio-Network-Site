@@ -182,6 +182,7 @@ export default async function SinglePage({ params }: PageProps) {
                   previewUrl={(single as any).previewUrl ?? (single as any).preview_url} 
                   trackTitle={single.title}
                   artist={(single as any).artist ?? (single as any).artist_name}
+                  duration={0}
                 />
               </div>
             )}

@@ -26,6 +26,7 @@ export default function MusicPreviewPlayer({
   const [volume, setVolume] = useState(0.7);
   const [isMuted, setIsMuted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [trackDuration, setTrackDuration] = useState(0);
   
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -58,7 +59,7 @@ export default function MusicPreviewPlayer({
         setCurrentTime(audioRef.current.currentTime);
         
         // Auto-stop after preview duration
-        if (audioRef.current.currentTime >= duration) {
+        if (duration > 0 && audioRef.current.currentTime >= duration) {
           handleStop();
         }
       }
@@ -159,7 +160,8 @@ export default function MusicPreviewPlayer({
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const progress = (currentTime / duration) * 100;
+  const effectiveDuration = duration > 0 ? duration : trackDuration;
+  const progress = effectiveDuration > 0 ? (currentTime / effectiveDuration) * 100 : 0;
 
   if (!previewUrl) {
     return (
@@ -176,6 +178,11 @@ export default function MusicPreviewPlayer({
         src={previewUrl}
         preload="metadata"
         onEnded={handleStop}
+        onLoadedMetadata={() => {
+          if (audioRef.current) {
+            setTrackDuration(audioRef.current.duration || 0);
+          }
+        }}
         onError={() => setError('Failed to load preview')}
       />
 
@@ -192,7 +199,7 @@ export default function MusicPreviewPlayer({
         </div>
         <div className="text-xs text-gray-500 flex-shrink-0">
           <span className="inline-block px-2 py-1 bg-purple-500/20 rounded text-purple-400 border border-purple-400/30">
-            30s Preview
+            {duration > 0 ? `${duration}s Preview` : 'Full Track'}
           </span>
         </div>
       </div>
@@ -204,11 +211,11 @@ export default function MusicPreviewPlayer({
           <input
             type="range"
             min="0"
-            max={duration}
+            max={effectiveDuration || 1}
             step="0.1"
             value={currentTime}
             onChange={handleSeek}
-            disabled={!previewUrl || isLoading}
+            disabled={!previewUrl || isLoading || effectiveDuration <= 0}
             className="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
               background: `linear-gradient(to right, rgb(168, 85, 247) 0%, rgb(168, 85, 247) ${progress}%, rgb(55, 65, 81) ${progress}%, rgb(55, 65, 81) 100%)`,
@@ -216,7 +223,7 @@ export default function MusicPreviewPlayer({
           />
           <div className="flex justify-between text-xs text-gray-500">
             <span>{formatTime(currentTime)}</span>
-            <span>{formatTime(duration)}</span>
+            <span>{formatTime(effectiveDuration || 0)}</span>
           </div>
         </div>
 
