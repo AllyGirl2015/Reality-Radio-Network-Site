@@ -6,6 +6,7 @@ import { ShoppingCart, Clock, Calendar, Tag, ArrowLeft, ExternalLink, Play, Disc
 import Section from '@/components/Section';
 import MusicPreviewPlayer from '@/components/MusicPreviewPlayer';
 import { getSingleBySlug, getAllSingles } from '@/lib/services/singles';
+import { getImageUrl } from '@/lib/storage';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -28,13 +29,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Single Not Found' };
   }
 
+  const artistName = (single as any).artist ?? (single as any).artist_name;
+  const imageUrlMeta = getImageUrl((single as any).image ?? (single as any).image);
   return {
-    title: `${single.title} | ${single.artist_name}`,
-    description: `Buy ${single.title} by ${single.artist_name}. ${single.description}. $${single.price}`,
+    title: `${single.title} | ${artistName}`,
+    description: `Buy ${single.title} by ${artistName}. ${single.description}. $${single.price}`,
     openGraph: {
-      title: `${single.title} | ${single.artist_name}`,
+      title: `${single.title} | ${artistName}`,
       description: single.description,
-      images: single.image ? [single.image] : [],
+      images: imageUrlMeta ? [imageUrlMeta] : [],
     },
   };
 }
@@ -79,7 +82,8 @@ export default async function SinglePage({ params }: PageProps) {
     notFound();
   }
 
-  const colors = accentColors[single.accent_color] || accentColors.purple;
+  const colors = accentColors[(single as any).accentColor ?? (single as any).accent_color] || accentColors.purple;
+  const singleImage = getImageUrl((single as any).image ?? (single as any).image);
 
   return (
     <main className="min-h-screen pt-24">
@@ -100,9 +104,9 @@ export default async function SinglePage({ params }: PageProps) {
           {/* Single Cover */}
           <div className="relative">
             <div className={`relative aspect-square rounded-lg overflow-hidden border-2 ${colors.border} shadow-2xl ${colors.shadow}`}>
-              {single.image ? (
+              {singleImage ? (
                 <Image
-                  src={single.image}
+                  src={singleImage}
                   alt={`${single.title} single cover`}
                   fill
                   className="object-cover"
@@ -139,17 +143,17 @@ export default async function SinglePage({ params }: PageProps) {
                   </p>
                   <p className="text-white font-semibold">{single.duration}</p>
                 </div>
-                {single.album_title && (
+                {((single as any).album || (single as any).album_title) && (
                   <div>
                     <p className="text-gray-400 mb-1 flex items-center gap-2">
                       <Disc className="w-4 h-4" aria-hidden="true" />
                       From Album
                     </p>
                     <Link 
-                      href={`/store/albums/${single.album_slug}`}
+                      href={`/store/albums/${(single as any).albumSlug ?? (single as any).album_slug}`}
                       className={`${colors.text} font-semibold hover:underline`}
                     >
-                      {single.album_title}
+                      {(single as any).album ?? (single as any).album_title}
                     </Link>
                   </div>
                 )}
@@ -160,8 +164,8 @@ export default async function SinglePage({ params }: PageProps) {
           {/* Single Info */}
           <div>
             <p className={`${colors.text} font-medium mb-2`}>
-              <Link href={`/talent/${single.artist_slug}`} className="hover:underline">
-                {single.artist_name}
+              <Link href={`/talent/${(single as any).artistSlug ?? (single as any).artist_slug}`} className="hover:underline">
+                {(single as any).artist ?? (single as any).artist_name}
               </Link>
             </p>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{single.title}</h1>
@@ -171,20 +175,20 @@ export default async function SinglePage({ params }: PageProps) {
             <p className="text-gray-500 text-sm mb-6">Catalog: {single.catalog}</p>
 
             {/* Preview Player */}
-            {single.preview_url && (
+            {((single as any).previewUrl || (single as any).preview_url) && (
               <div className="mb-8">
                 <h3 className="text-white font-semibold mb-4">Preview</h3>
                 <MusicPreviewPlayer 
-                  previewUrl={single.preview_url} 
+                  previewUrl={(single as any).previewUrl ?? (single as any).preview_url} 
                   trackTitle={single.title}
-                  artist={single.artist_name}
+                  artist={(single as any).artist ?? (single as any).artist_name}
                 />
               </div>
             )}
 
             {/* Purchase */}
             <a
-              href={single.buy_link}
+              href={(single as any).buyLink ?? (single as any).buy_link}
               target="_blank"
               rel="noopener noreferrer"
               className={`flex items-center justify-between p-4 rounded-lg border ${colors.border} bg-black/40 hover:bg-black/60 transition-colors group`}
@@ -198,45 +202,48 @@ export default async function SinglePage({ params }: PageProps) {
                 <ShoppingCart className={`w-5 h-5 ${colors.text} group-hover:scale-110 transition-transform`} />
               </div>
             </a>
-
             {/* Streaming Links */}
-            {single.streaming_links && Object.keys(single.streaming_links).length > 0 && (
-              <div className="mt-8">
-                <h3 className="text-white font-semibold mb-4">Also available on:</h3>
-                <div className="flex flex-wrap gap-3">
-                  {single.streaming_links.spotify && (
-                    <a
-                      href={single.streaming_links.spotify}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 rounded-full border border-gray-600 text-gray-300 hover:text-white hover:border-green-500 transition-colors flex items-center gap-2"
-                    >
-                      Spotify <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
-                  {single.streaming_links.apple_music && (
-                    <a
-                      href={single.streaming_links.apple_music}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 rounded-full border border-gray-600 text-gray-300 hover:text-white hover:border-pink-500 transition-colors flex items-center gap-2"
-                    >
-                      Apple Music <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
-                  {single.streaming_links.youtube_music && (
-                    <a
-                      href={single.streaming_links.youtube_music}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 rounded-full border border-gray-600 text-gray-300 hover:text-white hover:border-red-500 transition-colors flex items-center gap-2"
-                    >
-                      YouTube Music <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
+            {(() => {
+              const streaming = (single as any).streamingLinks || (single as any).streaming_links;
+              if (!streaming || Object.keys(streaming).length === 0) return null;
+              return (
+                <div className="mt-8">
+                  <h3 className="text-white font-semibold mb-4">Also available on:</h3>
+                  <div className="flex flex-wrap gap-3">
+                    {streaming.spotify && (
+                      <a
+                        href={streaming.spotify}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 rounded-full border border-gray-600 text-gray-300 hover:text-white hover:border-green-500 transition-colors flex items-center gap-2"
+                      >
+                        Spotify <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                    {streaming.apple_music && (
+                      <a
+                        href={streaming.apple_music}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 rounded-full border border-gray-600 text-gray-300 hover:text-white hover:border-pink-500 transition-colors flex items-center gap-2"
+                      >
+                        Apple Music <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                    {streaming.youtube_music && (
+                      <a
+                        href={streaming.youtube_music}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 rounded-full border border-gray-600 text-gray-300 hover:text-white hover:border-red-500 transition-colors flex items-center gap-2"
+                      >
+                        YouTube Music <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
           </div>
         </div>
       </Section>

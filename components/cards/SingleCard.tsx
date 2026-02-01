@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Play, ShoppingCart, Disc, Clock } from 'lucide-react';
-import { Single } from '@/types/database';
+import { Single } from '@/lib/database';
 
 interface SingleCardProps {
   single: Single;
@@ -37,7 +37,7 @@ const accentColors: Record<string, { border: string; text: string; bg: string; s
 };
 
 export default function SingleCard({ single, variant = 'compact' }: SingleCardProps) {
-  const colors = accentColors[single.accent_color] || accentColors.purple;
+  const colors = accentColors[(single as any).accentColor ?? (single as any).accent_color] || accentColors.purple;
 
   if (variant === 'featured') {
     return (
@@ -54,16 +54,16 @@ export default function SingleCard({ single, variant = 'compact' }: SingleCardPr
               <span className={`text-xs font-semibold ${colors.text} uppercase tracking-wider`}>
                 Featured
               </span>
-              {single.album_title && (
+              {((single as any).album || (single as any).album_title) && (
                 <span className="text-xs text-gray-500">
-                  • From {single.album_title}
+                  • From {(single as any).album ?? (single as any).album_title}
                 </span>
               )}
             </div>
             <h3 className="text-xl font-bold text-white mb-1 group-hover:text-cyan-400 transition-colors line-clamp-1">
               {single.title}
             </h3>
-            <p className="text-gray-400 text-sm mb-2">{single.artist_name}</p>
+            <p className="text-gray-400 text-sm mb-2">{(single as any).artist ?? (single as any).artist_name}</p>
             <p className="text-gray-300 text-sm line-clamp-2 mb-3">{single.description}</p>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4 text-sm text-gray-400">
@@ -73,7 +73,7 @@ export default function SingleCard({ single, variant = 'compact' }: SingleCardPr
                 </span>
                 <span>{single.genre}</span>
               </div>
-              <span className={`font-bold ${colors.text}`}>${single.price}</span>
+                <span className={`font-bold ${colors.text}`}>${single.price}</span>
             </div>
           </div>
         </div>
@@ -94,9 +94,9 @@ export default function SingleCard({ single, variant = 'compact' }: SingleCardPr
           <h3 className="font-semibold text-white group-hover:text-cyan-400 transition-colors line-clamp-1">
             {single.title}
           </h3>
-          <p className="text-sm text-gray-400 line-clamp-1">{single.artist_name}</p>
-          {single.album_title && (
-            <p className="text-xs text-gray-500 line-clamp-1">From: {single.album_title}</p>
+          <p className="text-sm text-gray-400 line-clamp-1">{(single as any).artist ?? (single as any).artist_name}</p>
+          {((single as any).album || (single as any).album_title) && (
+            <p className="text-xs text-gray-500 line-clamp-1">From: {(single as any).album ?? (single as any).album_title}</p>
           )}
         </div>
         <div className="text-right flex-shrink-0">

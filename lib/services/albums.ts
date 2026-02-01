@@ -1,10 +1,12 @@
 import { getSupabase, getSupabaseAdmin } from '@/lib/supabase';
-import { Album, AlbumFormData, Track, TrackFormData } from '@/types/database';
+import { Album, AlbumFormData, Track, TrackFormData, getAllAlbums as dbGetAllAlbums, getAlbumById as dbGetAlbumById } from '@/lib/database';
 
 // === FETCH ALBUMS (Public) ===
 export async function getAllAlbums(): Promise<Album[]> {
   const supabase = getSupabase();
-  if (!supabase) return [];
+  if (!supabase) {
+    return dbGetAllAlbums();
+  }
   
   const { data, error } = await supabase
     .from('albums')
@@ -13,15 +15,15 @@ export async function getAllAlbums(): Promise<Album[]> {
 
   if (error) {
     console.error('Error fetching albums:', error);
-    return [];
+    return dbGetAllAlbums();
   }
-
-  return data || [];
+  
+  return data || dbGetAllAlbums();
 }
 
 export async function getFeaturedAlbums(): Promise<Album[]> {
   const supabase = getSupabase();
-  if (!supabase) return [];
+  if (!supabase) return dbGetAllAlbums().filter(a => a.featured);
   
   const { data, error } = await supabase
     .from('albums')
@@ -31,15 +33,17 @@ export async function getFeaturedAlbums(): Promise<Album[]> {
 
   if (error) {
     console.error('Error fetching featured albums:', error);
-    return [];
+    return dbGetAllAlbums().filter(a => a.featured);
   }
-
-  return data || [];
+  
+  return data || dbGetAllAlbums().filter(a => a.featured);
 }
 
 export async function getAlbumBySlug(slug: string): Promise<Album | null> {
   const supabase = getSupabase();
-  if (!supabase) return null;
+  if (!supabase) {
+    return dbGetAllAlbums().find(a => a.slug === slug) || null;
+  }
   
   const { data, error } = await supabase
     .from('albums')
@@ -49,7 +53,7 @@ export async function getAlbumBySlug(slug: string): Promise<Album | null> {
 
   if (error) {
     console.error('Error fetching album:', error);
-    return null;
+    return dbGetAllAlbums().find(a => a.slug === slug) || null;
   }
 
   return data;
@@ -57,7 +61,7 @@ export async function getAlbumBySlug(slug: string): Promise<Album | null> {
 
 export async function getAlbumById(id: string): Promise<Album | null> {
   const supabase = getSupabase();
-  if (!supabase) return null;
+  if (!supabase) return dbGetAlbumById(id) || null;
   
   const { data, error } = await supabase
     .from('albums')
@@ -67,7 +71,7 @@ export async function getAlbumById(id: string): Promise<Album | null> {
 
   if (error) {
     console.error('Error fetching album:', error);
-    return null;
+    return dbGetAlbumById(id) || null;
   }
 
   return data;
@@ -75,7 +79,7 @@ export async function getAlbumById(id: string): Promise<Album | null> {
 
 export async function getAlbumsByArtist(artistId: string): Promise<Album[]> {
   const supabase = getSupabase();
-  if (!supabase) return [];
+  if (!supabase) return dbGetAllAlbums().filter(a => a.artist === artistId || a.artistSlug === artistId);
   
   const { data, error } = await supabase
     .from('albums')
@@ -85,16 +89,19 @@ export async function getAlbumsByArtist(artistId: string): Promise<Album[]> {
 
   if (error) {
     console.error('Error fetching albums by artist:', error);
-    return [];
+    return dbGetAllAlbums().filter(a => a.artist === artistId || a.artistSlug === artistId);
   }
-
-  return data || [];
+  
+  return data || dbGetAllAlbums().filter(a => a.artist === artistId || a.artistSlug === artistId);
 }
 
 // === FETCH TRACKS (Public) ===
 export async function getTracksByAlbum(albumId: string): Promise<Track[]> {
   const supabase = getSupabase();
-  if (!supabase) return [];
+  if (!supabase) {
+    const album = dbGetAllAlbums().find(a => a.id === albumId || a.slug === albumId);
+    return album ? (album.tracklist as Track[]) : [];
+  }
   
   const { data, error } = await supabase
     .from('tracks')
@@ -104,7 +111,8 @@ export async function getTracksByAlbum(albumId: string): Promise<Track[]> {
 
   if (error) {
     console.error('Error fetching tracks:', error);
-    return [];
+    const album = dbGetAllAlbums().find(a => a.id === albumId || a.slug === albumId);
+    return album ? (album.tracklist as Track[]) : [];
   }
 
   return data || [];

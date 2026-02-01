@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingCart, Music, ArrowRight } from 'lucide-react';
-import { Album } from '@/types/database';
+import { Album } from '@/lib/database';
 import { getImageUrl } from '@/lib/storage';
 
 interface AlbumCardProps {
@@ -39,7 +39,8 @@ const accentColors: Record<string, { border: string; text: string; bg: string; s
 };
 
 export default function AlbumCard({ album, variant = 'default' }: AlbumCardProps) {
-  const colors = accentColors[album.accent_color] || accentColors.purple;
+  const colors = accentColors[album.accentColor as string] || accentColors.purple;
+  const imageUrl = getImageUrl((album as any).image ?? (album as any).image);
 
   if (variant === 'compact') {
     return (
@@ -48,17 +49,23 @@ export default function AlbumCard({ album, variant = 'default' }: AlbumCardProps
         className={`group bg-black/40 border ${colors.border} rounded-lg overflow-hidden hover:shadow-2xl ${colors.shadow} transition-all duration-300 block`}
       >
         <div className="relative aspect-square">
-          <Image
-            src={getImageUrl(album.image)}
-            alt={`${album.title} album cover`}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
-          />
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt={`${album.title} album cover`}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
+              <Music className="w-10 h-10 text-white/20" />
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-4">
             <h3 className="text-lg font-bold text-white mb-1 line-clamp-1">{album.title}</h3>
-            <p className="text-sm text-gray-300 line-clamp-1">{album.artist_name}</p>
-            <p className={`text-sm ${colors.text} mt-2`}>${album.digital_price}</p>
+            <p className="text-sm text-gray-300 line-clamp-1">{album.artist}</p>
+            <p className={`text-sm ${colors.text} mt-2`}>${album.digitalPrice}</p>
           </div>
         </div>
       </Link>
@@ -100,7 +107,7 @@ export default function AlbumCard({ album, variant = 'default' }: AlbumCardProps
             {album.title}
           </h2>
           
-          <p className="text-gray-400 mb-4">{album.artist_name}</p>
+          <p className="text-gray-400 mb-4">{album.artist}</p>
 
           <p className="text-gray-300 text-sm leading-relaxed mb-4 flex-1 line-clamp-3">
             {album.description}
@@ -117,11 +124,11 @@ export default function AlbumCard({ album, variant = 'default' }: AlbumCardProps
             <div className="flex gap-6">
               <div>
                 <p className="text-xs text-gray-400 mb-1">Digital</p>
-                <p className={`text-lg font-bold ${colors.text}`}>${album.digital_price}</p>
+                <p className={`text-lg font-bold ${colors.text}`}>${album.digitalPrice}</p>
               </div>
               <div>
                 <p className="text-xs text-gray-400 mb-1">Physical CD</p>
-                <p className="text-lg font-bold text-cyan-400">${album.physical_price}</p>
+                <p className="text-lg font-bold text-cyan-400">${album.physicalPrice}</p>
               </div>
             </div>
             

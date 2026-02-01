@@ -6,7 +6,7 @@ import { ShoppingCart, Clock, Calendar, Tag, ArrowLeft, ExternalLink, Music } fr
 import Section from '@/components/Section';
 import TracklistPlayer from '@/components/TracklistPlayer';
 import { getAlbumBySlug, getTracksByAlbum, getAllAlbums } from '@/lib/services/albums';
-import { Album, Track } from '@/types/database';
+import { Album, Track } from '@/lib/database';
 import { getImageUrl } from '@/lib/storage';
 
 interface PageProps {
@@ -31,10 +31,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `${album.title} | ${album.artist_name}`,
-    description: `Buy ${album.title} album by ${album.artist_name}. ${album.description}. Digital $${album.digital_price} / Physical $${album.physical_price}`,
+    title: `${album.title} | ${album.artist}`,
+    description: `Buy ${album.title} album by ${album.artist}. ${album.description}. Digital $${album.digitalPrice} / Physical $${album.physicalPrice}`,
     openGraph: {
-      title: `${album.title} | ${album.artist_name}`,
+      title: `${album.title} | ${album.artist}`,
       description: album.description,
       images: [getImageUrl(album.image)],
     },
@@ -78,16 +78,16 @@ export default async function AlbumPage({ params }: PageProps) {
   }
 
   const tracks = await getTracksByAlbum(album.id);
-  const colors = accentColors[album.accent_color] || accentColors.purple;
+  const colors = accentColors[album.accentColor as string] || accentColors.purple;
 
   // Transform tracks for TracklistPlayer
   const tracklistData = tracks.map((track) => ({
-    number: track.track_number,
+    number: (track as any).number ?? (track as any).track_number,
     title: track.title,
     duration: track.duration,
     featured: track.featured,
-    previewUrl: track.preview_url,
-    purchaseUrl: track.purchase_url,
+    previewUrl: (track as any).previewUrl ?? (track as any).preview_url,
+    purchaseUrl: (track as any).purchaseUrl ?? (track as any).purchase_url,
   }));
 
   return (
@@ -113,6 +113,7 @@ export default async function AlbumPage({ params }: PageProps) {
                 src={getImageUrl(album.image)}
                 alt={`${album.title} album cover`}
                 fill
+                sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover"
                 priority
               />
@@ -156,8 +157,8 @@ export default async function AlbumPage({ params }: PageProps) {
           {/* Album Info */}
           <div>
             <p className={`${colors.text} font-medium mb-2`}>
-              <Link href={`/talent/${album.artist_slug}`} className="hover:underline">
-                {album.artist_name}
+              <Link href={`/talent/${(album as any).artistSlug ?? (album as any).artist_slug}`} className="hover:underline">
+                {(album as any).artist ?? (album as any).artist_name}
               </Link>
             </p>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{album.title}</h1>
@@ -170,7 +171,7 @@ export default async function AlbumPage({ params }: PageProps) {
             <div className="space-y-4">
               {/* Digital */}
               <a
-                href={album.digital_buy_link}
+                href={(album as any).digitalBuyLink ?? (album as any).digital_buy_link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`flex items-center justify-between p-4 rounded-lg border ${colors.border} bg-black/40 hover:bg-black/60 transition-colors group`}
@@ -180,14 +181,14 @@ export default async function AlbumPage({ params }: PageProps) {
                   <p className="text-gray-400 text-sm">MP3 320kbps</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className={`${colors.text} text-xl font-bold`}>${album.digital_price.toFixed(2)}</span>
+                  <span className={`${colors.text} text-xl font-bold`}>${((album as any).digitalPrice ?? (album as any).digital_price).toFixed(2)}</span>
                   <ShoppingCart className={`w-5 h-5 ${colors.text} group-hover:scale-110 transition-transform`} />
                 </div>
               </a>
 
               {/* Physical */}
               <a
-                href={album.physical_buy_link}
+                href={(album as any).physicalBuyLink ?? (album as any).physical_buy_link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`flex items-center justify-between p-4 rounded-lg border ${colors.border} bg-black/40 hover:bg-black/60 transition-colors group`}
@@ -197,50 +198,54 @@ export default async function AlbumPage({ params }: PageProps) {
                   <p className="text-gray-400 text-sm">Includes digital download</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className={`${colors.text} text-xl font-bold`}>${album.physical_price.toFixed(2)}</span>
+                  <span className={`${colors.text} text-xl font-bold`}>${((album as any).physicalPrice ?? (album as any).physical_price).toFixed(2)}</span>
                   <ShoppingCart className={`w-5 h-5 ${colors.text} group-hover:scale-110 transition-transform`} />
                 </div>
               </a>
             </div>
 
             {/* Streaming Links */}
-            {album.streaming_links && Object.keys(album.streaming_links).length > 0 && (
-              <div className="mt-8">
-                <h3 className="text-white font-semibold mb-4">Also available on:</h3>
-                <div className="flex flex-wrap gap-3">
-                  {album.streaming_links.spotify && (
-                    <a
-                      href={album.streaming_links.spotify}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 rounded-full border border-gray-600 text-gray-300 hover:text-white hover:border-green-500 transition-colors flex items-center gap-2"
-                    >
-                      Spotify <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
-                  {album.streaming_links.apple_music && (
-                    <a
-                      href={album.streaming_links.apple_music}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 rounded-full border border-gray-600 text-gray-300 hover:text-white hover:border-pink-500 transition-colors flex items-center gap-2"
-                    >
-                      Apple Music <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
-                  {album.streaming_links.youtube_music && (
-                    <a
-                      href={album.streaming_links.youtube_music}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 rounded-full border border-gray-600 text-gray-300 hover:text-white hover:border-red-500 transition-colors flex items-center gap-2"
-                    >
-                      YouTube Music <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
+            {(() => {
+              const streaming = (album as any).streamingLinks || (album as any).streaming_links;
+              if (!streaming || Object.keys(streaming).length === 0) return null;
+              return (
+                <div className="mt-8">
+                  <h3 className="text-white font-semibold mb-4">Also available on:</h3>
+                  <div className="flex flex-wrap gap-3">
+                    {streaming.spotify && (
+                      <a
+                        href={streaming.spotify}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 rounded-full border border-gray-600 text-gray-300 hover:text-white hover:border-green-500 transition-colors flex items-center gap-2"
+                      >
+                        Spotify <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                    {streaming.apple_music && (
+                      <a
+                        href={streaming.apple_music}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 rounded-full border border-gray-600 text-gray-300 hover:text-white hover:border-pink-500 transition-colors flex items-center gap-2"
+                      >
+                        Apple Music <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                    {streaming.youtube_music && (
+                      <a
+                        href={streaming.youtube_music}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 rounded-full border border-gray-600 text-gray-300 hover:text-white hover:border-red-500 transition-colors flex items-center gap-2"
+                      >
+                        YouTube Music <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
           </div>
         </div>
       </Section>
@@ -249,10 +254,10 @@ export default async function AlbumPage({ params }: PageProps) {
       {tracks.length > 0 && (
         <Section>
           <h2 className="text-2xl font-bold text-white mb-6">Tracklist</h2>
-          <TracklistPlayer 
-            tracks={tracklistData} 
-            accentColor={album.accent_color as 'purple' | 'pink' | 'red' | 'indigo'}
-          />
+            <TracklistPlayer 
+              tracks={tracklistData} 
+              accentColor={(album as any).accentColor as 'purple' | 'pink' | 'red' | 'indigo'}
+            />
         </Section>
       )}
     </main>

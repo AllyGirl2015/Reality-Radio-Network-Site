@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Music, ArrowRight, User } from 'lucide-react';
-import { Artist } from '@/types/database';
+import { Artist } from '@/lib/database';
+import { getImageUrl } from '@/lib/storage';
 
 interface ArtistCardProps {
   artist: Artist;
@@ -43,7 +44,8 @@ const accentColors: Record<string, { border: string; text: string; bg: string; s
 };
 
 export default function ArtistCard({ artist, albumCount = 0, singleCount = 0 }: ArtistCardProps) {
-  const colors = accentColors[artist.accent_color] || accentColors.purple;
+  const colors = accentColors[(artist as any).accentColor ?? (artist as any).accent_color] || accentColors.purple;
+  const imageUrl = getImageUrl((artist as any).image ?? (artist as any).image);
 
   return (
     <Link
@@ -52,9 +54,9 @@ export default function ArtistCard({ artist, albumCount = 0, singleCount = 0 }: 
     >
       {/* Background Image */}
       <div className={`relative aspect-[4/3] bg-gradient-to-br ${colors.gradient}`}>
-        {artist.image ? (
+        {imageUrl ? (
           <Image
-            src={artist.image}
+            src={imageUrl}
             alt={artist.name}
             fill
             className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"

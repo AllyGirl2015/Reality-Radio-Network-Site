@@ -1,10 +1,10 @@
 import { getSupabase, getSupabaseAdmin, isSupabaseEnabled } from '@/lib/supabase';
-import { Artist, ArtistFormData } from '@/types/database';
+import { Artist, ArtistFormData, getAllArtists as dbGetAllArtists } from '@/lib/database';
 
 // === FETCH (Public) ===
 export async function getAllArtists(): Promise<Artist[]> {
   const supabase = getSupabase();
-  if (!supabase) return [];
+  if (!supabase) return dbGetAllArtists();
   
   const { data, error } = await supabase
     .from('artists')
@@ -13,15 +13,15 @@ export async function getAllArtists(): Promise<Artist[]> {
 
   if (error) {
     console.error('Error fetching artists:', error);
-    return [];
+    return dbGetAllArtists();
   }
-
-  return data || [];
+  
+  return data || dbGetAllArtists();
 }
 
 export async function getArtistBySlug(slug: string): Promise<Artist | null> {
   const supabase = getSupabase();
-  if (!supabase) return null;
+  if (!supabase) return dbGetAllArtists().find(a => a.slug === slug) || null;
   
   const { data, error } = await supabase
     .from('artists')
@@ -31,7 +31,7 @@ export async function getArtistBySlug(slug: string): Promise<Artist | null> {
 
   if (error) {
     console.error('Error fetching artist:', error);
-    return null;
+    return dbGetAllArtists().find(a => a.slug === slug) || null;
   }
 
   return data;
@@ -39,7 +39,7 @@ export async function getArtistBySlug(slug: string): Promise<Artist | null> {
 
 export async function getArtistById(id: string): Promise<Artist | null> {
   const supabase = getSupabase();
-  if (!supabase) return null;
+  if (!supabase) return dbGetAllArtists().find(a => a.id === id) || null;
   
   const { data, error } = await supabase
     .from('artists')
@@ -49,7 +49,7 @@ export async function getArtistById(id: string): Promise<Artist | null> {
 
   if (error) {
     console.error('Error fetching artist:', error);
-    return null;
+    return dbGetAllArtists().find(a => a.id === id) || null;
   }
 
   return data;

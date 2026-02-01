@@ -28,8 +28,8 @@ export default async function TalentsPage() {
 
   // Calculate album and single counts per artist
   const artistStats = artists.map(artist => {
-    const albumCount = albums.filter(a => a.artist_id === artist.id).length;
-    const singleCount = singles.filter(s => s.artist_id === artist.id).length;
+    const albumCount = albums.filter(a => a.artistSlug === artist.slug || a.artist === artist.name).length;
+    const singleCount = singles.filter(s => s.artistSlug === artist.slug || s.artist === artist.name).length;
     return { artist, albumCount, singleCount };
   });
 

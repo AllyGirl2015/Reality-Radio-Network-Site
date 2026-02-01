@@ -2,6 +2,9 @@
 import fs from 'fs';
 import path from 'path';
 
+// Re-export admin form types from central types so services can import from lib/database
+export type { ArtistFormData, AlbumFormData, SingleFormData, TrackFormData, BlogFormData } from '@/types/database';
+
 // Types
 export interface Album {
   id: string;
@@ -32,6 +35,7 @@ export interface Track {
   duration: string;
   featured?: boolean;
   previewUrl?: string;
+  purchaseUrl?: string;
 }
 
 export interface Single {
@@ -50,6 +54,7 @@ export interface Single {
   description: string;
   quote?: string;
   buyLink: string;
+  image?: string;
   previewUrl?: string;
   youtubeId?: string;
   accentColor: 'purple' | 'pink' | 'red' | 'indigo';

@@ -13,11 +13,92 @@
     "catalog": "RRN-JG-AC",
     "image": "/America's Changed.png",
     "description": "A powerful country album about the changing face of America",
-    "digitalBuyLink": "https://square.link/u/8vYPUPDl",
-    "physicalBuyLink": "https://square.link/u/NB6AhAuq",
+    "digitalBuyLink": "https://square.link/u/lTECnNco",
+    "physicalBuyLink": "https://square.link/u/rRlBnYDU",
     "accentColor": "purple",
     "featured": true,
-    "tracklist": [],
+    "tracklist": [
+      {
+        "number": 1,
+        "title": "America's Changed",
+        "duration": "3:42",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/01%20America's%20Changed.mp3",
+        "purchaseUrl": "https://square.link/u/qdNf4PIB"
+      },
+      {
+        "number": 2,
+        "title": "Goodbye Mainstreet",
+        "duration": "3:35",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/02%20Goodbye%20Mainstreet.mp3",
+        "purchaseUrl": "https://square.link/u/HRcO4W2v"
+      },
+      {
+        "number": 3,
+        "title": "She Wore Red, I Wore Blue",
+        "duration": "4:05",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/03%20She%20Wore%20Red%2C%20I%20wore%20Blue.mp3",
+        "purchaseUrl": "https://square.link/u/WW26LUbW"
+      },
+      {
+        "number": 4,
+        "title": "God Blessed the Silent Ones",
+        "duration": "3:58",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/04%20God%20Blessed%20the%20Silent%20Ones.mp3",
+        "purchaseUrl": "https://square.link/u/4IAqR0fw"
+      },
+      {
+        "number": 5,
+        "title": "Gas Station Prayers",
+        "duration": "4:12",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/05%20Gas%20Station%20Prayers.mp3",
+        "purchaseUrl": "https://square.link/u/8KDMl25W"
+      },
+      {
+        "number": 6,
+        "title": "Generations",
+        "duration": "3:45",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/06%20Generations.mp3",
+        "purchaseUrl": "https://square.link/u/NvPmGPW9"
+      },
+      {
+        "number": 7,
+        "title": "Country Fireflies",
+        "duration": "3:28",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/07%20Country%20Fireflies.mp3",
+        "purchaseUrl": "https://square.link/u/TWAmxuVW"
+      },
+      {
+        "number": 8,
+        "title": "Tractor Man",
+        "duration": "3:52",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/08%20Tractor%20Man.mp3",
+        "purchaseUrl": "https://square.link/u/sU1NncHt"
+      },
+      {
+        "number": 9,
+        "title": "Young Ones",
+        "duration": "4:18",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/09%20Young%20Ones.mp3",
+        "purchaseUrl": "https://square.link/u/RIxG1Riu"
+      },
+      {
+        "number": 10,
+        "title": "Unspoken Hero",
+        "duration": "4:47",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/America's%20Changed/10%20Unspoken%20Hero.mp3",
+        "purchaseUrl": "https://square.link/u/8BIPjGnt"
+      }
+    ],
     "createdAt": "2025-01-01T00:00:00.000Z",
     "updatedAt": "2025-01-01T00:00:00.000Z"
   },
@@ -25,21 +106,126 @@
     "id": "heartfelt-rebellion",
     "slug": "heartfelt-rebellion",
     "title": "Heartfelt Rebellion",
-    "artist": "Kaira Heartfelt",
-    "artistSlug": "kaira-heartfelt",
-    "genre": "Country-Pop",
+    "artist": "Johnathan Gold",
+    "artistSlug": "johnathan-gold",
+    "genre": "Country Rock",
     "year": 2025,
     "duration": "52:00",
     "digitalPrice": 8.99,
     "physicalPrice": 14.99,
-    "catalog": "RRN-KH-HR",
-    "image": "/Heartfelt Rebellion.svg",
+    "catalog": "RRN-JGGH-HR",
+    "image": "/Heartfelt Rebellion.png",
     "description": "A rebellious country-pop journey through love and independence",
-    "digitalBuyLink": "https://square.link/u/hpERvq5a",
-    "physicalBuyLink": "https://square.link/u/I0y2neFk",
-    "accentColor": "pink",
+    "digitalBuyLink": "https://square.link/u/K4nCEn2C",
+    "physicalBuyLink": "https://square.link/u/ewsI2Qu8",
+    "accentColor": "purple",
     "featured": true,
-    "tracklist": [],
+    "tracklist": [
+      {
+        "number": 1,
+        "title": "Heartfelt Rebellion",
+        "duration": "3:28",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/01%20Heartfelt%20Rebellion.mp3",
+        "purchaseUrl": "https://square.link/u/UPjc3HBj"
+      },
+      {
+        "number": 2,
+        "title": "Country Bonfire",
+        "duration": "3:48",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/02%20Country%20Bonfire.mp3",
+        "purchaseUrl": "https://square.link/u/l6dpRQ0Z"
+      },
+      {
+        "number": 3,
+        "title": "Screens",
+        "duration": "3:22",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/03%20Screens.mp3",
+        "purchaseUrl": "https://square.link/u/siw5dlTV"
+      },
+      {
+        "number": 4,
+        "title": "Forgotten Sons",
+        "duration": "4:18",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/04%20Forgotten%20Sons.mp3",
+        "purchaseUrl": "https://square.link/u/GEBSbUcq"
+      },
+      {
+        "number": 5,
+        "title": "Chaos Country",
+        "duration": "3:55",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/05%20Chaos%20Country.mp3",
+        "purchaseUrl": "https://square.link/u/tBcqCQMo"
+      },
+      {
+        "number": 6,
+        "title": "Lifeline",
+        "duration": "3:38",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/06%20Lifeline.mp3",
+        "purchaseUrl": "https://square.link/u/oC29uWqE"
+      },
+      {
+        "number": 7,
+        "title": "Connections",
+        "duration": "3:42",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/07%20Connections.mp3",
+        "purchaseUrl": "https://square.link/u/ve5ZQQI6"
+      },
+      {
+        "number": 8,
+        "title": "Country Style",
+        "duration": "3:28",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/08%20Country%20Style.mp3",
+        "purchaseUrl": "https://square.link/u/x1wjS3b3"
+      },
+      {
+        "number": 9,
+        "title": "Civilization Outlaw",
+        "duration": "4:25",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/09%20Civilization%20Outlaw.mp3",
+        "purchaseUrl": "https://square.link/u/ZIse5K8t"
+      },
+      {
+        "number": 10,
+        "title": "Religious Truth",
+        "duration": "4:32",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/10%20Religious%20Truth.mp3",
+        "purchaseUrl": "https://square.link/u/Qp0IOaRb"
+      },
+      {
+        "number": 11,
+        "title": "Unspoken Words",
+        "duration": "3:55",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/11%20Unspoken%20Words.mp3",
+        "purchaseUrl": "https://square.link/u/G4DEcfbR"
+      },
+      {
+        "number": 12,
+        "title": "Truth is What You Make It",
+        "duration": "4:12",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/12%20Truth%20is%20What%20You%20Make%20It.mp3",
+        "purchaseUrl": "https://square.link/u/rLIuYpnS"
+      },
+      {
+        "number": 13,
+        "title": "Empathy",
+        "duration": "4:13",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Heartfelt%20Rebellion/13%20Empathy.mp3",
+        "purchaseUrl": "https://square.link/u/lu3tLA9A"
+      }
+    ],
     "createdAt": "2025-01-01T00:00:00.000Z",
     "updatedAt": "2025-01-01T00:00:00.000Z"
   },
@@ -55,13 +241,192 @@
     "digitalPrice": 12.99,
     "physicalPrice": 24.99,
     "catalog": "RRN-JG-GH",
-    "image": "/Golden Heartbreak.png",
+    "image": "/Golden Heartbreak.svg",
     "description": "A double album of heartbreak and redemption",
-    "digitalBuyLink": "https://square.link/u/M5p4wqPq",
-    "physicalBuyLink": "https://square.link/u/Fxnf3Vdv",
+    "digitalBuyLink": "https://square.link/u/FDRgWPES",
+    "physicalBuyLink": "https://square.link/u/FDRgWPES",
+    "physicalBuyLinkVol1": "https://square.link/u/CA7KPk2d",
+    "physicalBuyLinkVol2": "https://square.link/u/EUK7pjYu",
     "accentColor": "purple",
     "featured": true,
-    "tracklist": [],
+    "tracklist": [
+      {
+        "number": 1,
+        "title": "Back When We Fell",
+        "duration": "3:42",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/01%20Back%20When%20We%20Fell.mp3",
+        "purchaseUrl": "https://square.link/u/uYE5moPN"
+      },
+      {
+        "number": 2,
+        "title": "City Girl",
+        "duration": "3:28",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/02%20City%20Girl.mp3",
+        "purchaseUrl": "https://square.link/u/1tjYtYPN"
+      },
+      {
+        "number": 3,
+        "title": "Country Looks",
+        "duration": "3:35",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/03%20Country%20Looks.mp3",
+        "purchaseUrl": "https://square.link/u/1ysdYMgr"
+      },
+      {
+        "number": 4,
+        "title": "Tractor Heart",
+        "duration": "3:45",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/04%20Tractor%20Heart.mp3",
+        "purchaseUrl": "https://square.link/u/GiO5kPS0"
+      },
+      {
+        "number": 5,
+        "title": "Country Lovin'",
+        "duration": "3:52",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/05%20Country%20Lovin'.mp3",
+        "purchaseUrl": "https://square.link/u/77ekVWyU"
+      },
+      {
+        "number": 6,
+        "title": "Backroad Love",
+        "duration": "3:38",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/06%20Backroad%20Love.mp3",
+        "purchaseUrl": "https://square.link/u/KhYzcHvV"
+      },
+      {
+        "number": 7,
+        "title": "Country Tangled",
+        "duration": "3:48",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/07%20Country%20Tangled.mp3",
+        "purchaseUrl": "https://square.link/u/vyzwo8Ie"
+      },
+      {
+        "number": 8,
+        "title": "The Stash",
+        "duration": "3:25",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/08%20The%20Stash.mp3",
+        "purchaseUrl": "https://square.link/u/XTXMAe6r"
+      },
+      {
+        "number": 9,
+        "title": "Truckbed",
+        "duration": "3:32",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/09%20Truckbed.mp3",
+        "purchaseUrl": "https://square.link/u/jFkndmY3"
+      },
+      {
+        "number": 10,
+        "title": "Night on the Farm",
+        "duration": "3:55",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/10%20Night%20On%20the%20Farm.mp3",
+        "purchaseUrl": "https://square.link/u/luYbBSDs"
+      },
+      {
+        "number": 11,
+        "title": "Innocent Love",
+        "duration": "3:40",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/11%20Innocent%20Love.mp3",
+        "purchaseUrl": "https://square.link/u/2t3bLjQW"
+      },
+      {
+        "number": 12,
+        "title": "Country Breakup",
+        "duration": "3:48",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/12%20Country%20Breakup.mp3",
+        "purchaseUrl": "https://square.link/u/sfVSSC6A"
+      },
+      {
+        "number": 13,
+        "title": "I Choose the Truck",
+        "duration": "3:35",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/13%20I%20Choose%20the%20Truck.mp3",
+        "purchaseUrl": "https://square.link/u/SqNdCuZY"
+      },
+      {
+        "number": 14,
+        "title": "Muddy Mistake",
+        "duration": "3:42",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/14%20Muddy%20Mistake.mp3",
+        "purchaseUrl": "https://square.link/u/vydRQkMC"
+      },
+      {
+        "number": 15,
+        "title": "Drunk Love",
+        "duration": "3:28",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/15%20Drunk%20Love.mp3",
+        "purchaseUrl": "https://square.link/u/67npptrL"
+      },
+      {
+        "number": 16,
+        "title": "The Barn is a Secret",
+        "duration": "4:05",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/16%20The%20Barn%20Is%20a%20Secret.mp3",
+        "purchaseUrl": "https://square.link/u/AfE196qH"
+      },
+      {
+        "number": 17,
+        "title": "The Old You and Me",
+        "duration": "3:52",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/17%20The%20Old%20You%20and%20Me.mp3",
+        "purchaseUrl": "https://square.link/u/8CnpJsxV"
+      },
+      {
+        "number": 18,
+        "title": "Heartbreak Song",
+        "duration": "4:15",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/18%20Heartbreak%20Song.mp3",
+        "purchaseUrl": "https://square.link/u/2b0wHaKX"
+      },
+      {
+        "number": 19,
+        "title": "Young Love",
+        "duration": "3:38",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/19%20Young%20Love.mp3",
+        "purchaseUrl": "https://square.link/u/qhuVQoex"
+      },
+      {
+        "number": 20,
+        "title": "Family Livin'",
+        "duration": "3:45",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/20%20Family%20Livin'.mp3",
+        "purchaseUrl": "https://square.link/u/JZLrlG18"
+      },
+      {
+        "number": 21,
+        "title": "Tractor Tango",
+        "duration": "3:55",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/21%20Tractor%20Tango.mp3",
+        "purchaseUrl": "https://square.link/u/QMB00ScG"
+      },
+      {
+        "number": 22,
+        "title": "Golden Heartbreak",
+        "duration": "4:32",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Johnathan%20Gold/Golden%20Heartbreak/22%20Golden%20Heartbreak.mp3",
+        "purchaseUrl": "https://square.link/u/SrsplBaX"
+      }
+    ],
     "createdAt": "2025-01-01T00:00:00.000Z",
     "updatedAt": "2025-01-01T00:00:00.000Z"
   },
@@ -69,21 +434,134 @@
     "id": "barefoot-supernova",
     "slug": "barefoot-supernova",
     "title": "Barefoot Supernova",
-    "artist": "Johnathan Gold",
-    "artistSlug": "johnathan-gold",
-    "genre": "Country / Rock",
+    "artist": "Kaira Heartfelt",
+    "artistSlug": "kaira-heartfelt",
+    "genre": "Country-Pop",
     "year": 2025,
     "duration": "56:00",
     "digitalPrice": 8.99,
     "physicalPrice": 14.99,
-    "catalog": "RRN-JG-BS",
+    "catalog": "RRN-KH-BS",
     "image": "/Barefoot Supernova.png",
     "description": "An explosive mix of country and rock",
-    "digitalBuyLink": "https://square.link/u/gu45gzwi",
-    "physicalBuyLink": "https://square.link/u/Zk8fGBle",
-    "accentColor": "purple",
+    "digitalBuyLink": "https://square.link/u/43JmwMuj",
+    "physicalBuyLink": "https://square.link/u/BQlpPC1V",
+    "accentColor": "pink",
     "featured": true,
-    "tracklist": [],
+    "tracklist": [
+      {
+        "number": 1,
+        "title": "Small Town Supernova",
+        "duration": "3:18",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/01%20Small%20Town%20Supernova.mp3",
+        "purchaseUrl": "https://square.link/u/v8fceqEn"
+      },
+      {
+        "number": 2,
+        "title": "Country Girl",
+        "duration": "3:25",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/02%20Country%20Girl.mp3",
+        "purchaseUrl": "https://square.link/u/TVQ5TDWc"
+      },
+      {
+        "number": 3,
+        "title": "Barefoot Change",
+        "duration": "3:42",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/03%20Barefoot%20Change.mp3",
+        "purchaseUrl": "https://square.link/u/31P4DIG2"
+      },
+      {
+        "number": 4,
+        "title": "Lovestruck",
+        "duration": "3:15",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/04%20Lovestruck.mp3",
+        "purchaseUrl": "https://square.link/u/RgDfvCre"
+      },
+      {
+        "number": 5,
+        "title": "Evil Love",
+        "duration": "3:38",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/05%20Evil%20Love.mp3",
+        "purchaseUrl": "https://square.link/u/vDLUi3SQ"
+      },
+      {
+        "number": 6,
+        "title": "He Cheated (Main)",
+        "duration": "3:28",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/06%20He%20Cheated%20(Main).mp3",
+        "purchaseUrl": "https://square.link/u/xnPnVNfT"
+      },
+      {
+        "number": 7,
+        "title": "His Best Was Better",
+        "duration": "3:45",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/07%20His%20Best%20was%20Better.mp3",
+        "purchaseUrl": "https://square.link/u/hKfPmHO1"
+      },
+      {
+        "number": 8,
+        "title": "Beautiful Broken Love (Ft. Johnathan Gold)",
+        "duration": "4:05",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/08%20Beautiful%20Broken%20Love%20(ft.%20Johnathan%20Gold).mp3",
+        "purchaseUrl": "https://square.link/u/p5EdP8zq"
+      },
+      {
+        "number": 9,
+        "title": "Firefly Nights",
+        "duration": "3:32",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/09%20Firefly%20Nights.mp3",
+        "purchaseUrl": "https://square.link/u/gYYw2mFt"
+      },
+      {
+        "number": 10,
+        "title": "Steering Faith",
+        "duration": "3:48",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/10%20Steering%20Faith.mp3",
+        "purchaseUrl": "https://square.link/u/pbl5vkdy"
+      },
+      {
+        "number": 11,
+        "title": "Daddy's Girl",
+        "duration": "4:12",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/11%20Daddy's%20Girl.mp3",
+        "purchaseUrl": "https://square.link/u/1UOcn2AE"
+      },
+      {
+        "number": 12,
+        "title": "Colder Nights",
+        "duration": "3:55",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/12%20Colder%20Nights.mp3",
+        "purchaseUrl": "https://square.link/u/yxaxNrV0"
+      },
+      {
+        "number": 13,
+        "title": "He Cheated (Slow Alt)",
+        "duration": "3:52",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/13%20He%20Cheated%20(Slow%20Alt).mp3",
+        "purchaseUrl": "https://square.link/u/vrJRmSeH"
+      },
+      {
+        "number": 14,
+        "title": "Small Town Supernova (Slow Alt)",
+        "duration": "3:10",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Barefoot%20Supernova/14%20Small%20Town%20Supernova%20(Slow%20Alt).mp3",
+        "purchaseUrl": "https://square.link/u/YeuNyhSS"
+      }
+    ],
     "createdAt": "2025-01-01T00:00:00.000Z",
     "updatedAt": "2025-01-01T00:00:00.000Z"
   },
@@ -101,11 +579,100 @@
     "catalog": "RRN-KH-SL",
     "image": "/Stellar Love.svg",
     "description": "A clashing of love, lust, and heartbreak",
-    "digitalBuyLink": "https://square.link/u/Txr1N34B",
-    "physicalBuyLink": "https://square.link/u/M2p3RQNg",
+    "digitalBuyLink": "https://square.link/u/WEtqKZWx",
+    "physicalBuyLink": "https://square.link/u/44VxO00i",
     "accentColor": "pink",
     "featured": true,
-    "tracklist": [],
+    "tracklist": [
+      {
+        "number": 1,
+        "title": "Lustful Love",
+        "duration": "3:28",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/01%20Lustful%20Love.mp3",
+        "purchaseUrl": "https://square.link/u/uCNgvD61"
+      },
+      {
+        "number": 2,
+        "title": "Love Killer",
+        "duration": "3:45",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/02%20Love%20Killer.mp3",
+        "purchaseUrl": "https://square.link/u/A9lcKAtJ"
+      },
+      {
+        "number": 3,
+        "title": "The Stars Above",
+        "duration": "3:52",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/03%20The%20Stars%20Above.mp3",
+        "purchaseUrl": "https://square.link/u/KY87KnDq"
+      },
+      {
+        "number": 4,
+        "title": "Take My Love",
+        "duration": "3:18",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/04%20Take%20My%20Love.mp3",
+        "purchaseUrl": "https://square.link/u/A6Z6eiMv"
+      },
+      {
+        "number": 5,
+        "title": "Rebound",
+        "duration": "3:35",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/05%20Rebound.mp3",
+        "purchaseUrl": "https://square.link/u/JHptln9y"
+      },
+      {
+        "number": 6,
+        "title": "Heart Call",
+        "duration": "3:42",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/06%20Heart%20Call.mp3",
+        "purchaseUrl": "https://square.link/u/BFzneRRf"
+      },
+      {
+        "number": 7,
+        "title": "Catcall",
+        "duration": "4:05",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/07%20Catcall.mp3",
+        "purchaseUrl": "https://square.link/u/RxtzKFdm"
+      },
+      {
+        "number": 8,
+        "title": "Fisher",
+        "duration": "3:38",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/08%20Fisher.mp3",
+        "purchaseUrl": "https://square.link/u/oZVYA111"
+      },
+      {
+        "number": 9,
+        "title": "Confidential",
+        "duration": "3:25",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/09%20Confidential.mp3",
+        "purchaseUrl": "https://square.link/u/UTEys2hR"
+      },
+      {
+        "number": 10,
+        "title": "Chaos Love",
+        "duration": "3:48",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/10%20Chaos%20Love.mp3",
+        "purchaseUrl": "https://square.link/u/J85qejie"
+      },
+      {
+        "number": 11,
+        "title": "Devil's Number",
+        "duration": "4:12",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Kaira%20Heatfelt/Stellar%20Love/11%20Devils%20Number.mp3",
+        "purchaseUrl": "https://square.link/u/Q1xXdWqV"
+      }
+    ],
     "createdAt": "2025-01-01T00:00:00.000Z",
     "updatedAt": "2025-01-01T00:00:00.000Z"
   },
@@ -123,11 +690,100 @@
     "catalog": "RRN-MC-SP",
     "image": "/Shattered Peaces.png",
     "description": "Alt rock journey through emotion, resilience, and identity",
-    "digitalBuyLink": "https://square.link/u/L2CIvC40",
-    "physicalBuyLink": "https://square.link/u/02cCRDCl",
+    "digitalBuyLink": "https://square.link/u/G4xsW6ge",
+    "physicalBuyLink": "https://square.link/u/l68D4H89",
     "accentColor": "red",
     "featured": true,
-    "tracklist": [],
+    "tracklist": [
+      {
+        "number": 1,
+        "title": "World of Gold",
+        "duration": "3:06",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/01%20World%20of%20Gold.mp3",
+        "purchaseUrl": "https://square.link/u/sFZgKz0H"
+      },
+      {
+        "number": 2,
+        "title": "Fractured Signal",
+        "duration": "4:02",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/02%20Fractured%20Signal.mp3",
+        "purchaseUrl": "https://square.link/u/9i1bEiGh"
+      },
+      {
+        "number": 3,
+        "title": "The Line Was Crossed",
+        "duration": "3:58",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/03%20The%20Line%20was%20Crossed.mp3",
+        "purchaseUrl": "https://square.link/u/kUW8TkQu"
+      },
+      {
+        "number": 4,
+        "title": "Echoes of the Cage",
+        "duration": "4:28",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/04%20Echoes%20of%20the%20Cage.mp3",
+        "purchaseUrl": "https://square.link/u/CIdphTPl"
+      },
+      {
+        "number": 5,
+        "title": "Shattered",
+        "duration": "3:45",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/05%20Shattered.mp3",
+        "purchaseUrl": "https://square.link/u/2Kwr9z6y"
+      },
+      {
+        "number": 6,
+        "title": "Broken Peace",
+        "duration": "4:15",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/06%20Broken%20Peace.mp3",
+        "purchaseUrl": "https://square.link/u/8uxmxecL"
+      },
+      {
+        "number": 7,
+        "title": "Fallen Flag",
+        "duration": "5:05",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/07%20Fallen%20Flag.mp3",
+        "purchaseUrl": "https://square.link/u/vXnEKB2q"
+      },
+      {
+        "number": 8,
+        "title": "Soulbound",
+        "duration": "3:52",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/08%20Soulbound.mp3",
+        "purchaseUrl": "https://square.link/u/gtVa8B9U"
+      },
+      {
+        "number": 9,
+        "title": "Corruption",
+        "duration": "4:38",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/09%20Corruption.mp3",
+        "purchaseUrl": "https://square.link/u/c0s8wz02"
+      },
+      {
+        "number": 10,
+        "title": "Opening",
+        "duration": "4:20",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/10%20Opening.mp3",
+        "purchaseUrl": "https://square.link/u/fUICLs2i"
+      },
+      {
+        "number": 11,
+        "title": "In the Devil's Name I Pray",
+        "duration": "4:45",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/Shattered%20Peaces/11%20In%20the%20Devils%20Name%20I%20Pray.mp3",
+        "purchaseUrl": "https://square.link/u/yrSvh9Jg"
+      }
+    ],
     "createdAt": "2025-01-01T00:00:00.000Z",
     "updatedAt": "2025-01-01T00:00:00.000Z"
   },
@@ -145,11 +801,92 @@
     "catalog": "RRN-MC-HH",
     "image": "/High Hit.svg",
     "description": "A multi-meaning album of fire and resolve. A voice for the people.",
-    "digitalBuyLink": "https://square.link/u/5dXvGxd4",
-    "physicalBuyLink": "https://square.link/u/wuLEwHwX",
+    "digitalBuyLink": "https://square.link/u/eA0Kiibe",
+    "physicalBuyLink": "https://square.link/u/vwoXRzyP",
     "accentColor": "red",
     "featured": true,
-    "tracklist": [],
+    "tracklist": [
+      {
+        "number": 1,
+        "title": "Scraps",
+        "duration": "4:12",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/01%20Scraps.mp3",
+        "purchaseUrl": "https://square.link/u/SGR5pleF"
+      },
+      {
+        "number": 2,
+        "title": "One Drink",
+        "duration": "3:45",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/02%20One%20Drink.mp3",
+        "purchaseUrl": "https://square.link/u/BvPUwD9D"
+      },
+      {
+        "number": 3,
+        "title": "Fallen Dust",
+        "duration": "4:28",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/03%20Fallen%20Dust.mp3",
+        "purchaseUrl": "https://square.link/u/w7AoMqVu"
+      },
+      {
+        "number": 4,
+        "title": "Drown it Out",
+        "duration": "3:52",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/04%20Drown%20It%20Out.mp3",
+        "purchaseUrl": "https://square.link/u/ySwHhOaF"
+      },
+      {
+        "number": 5,
+        "title": "Chronicles",
+        "duration": "4:05",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/05%20Chronicles.mp3",
+        "purchaseUrl": "https://square.link/u/6WsGeSlh"
+      },
+      {
+        "number": 6,
+        "title": "Reflection",
+        "duration": "3:38",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/06%20Reflection.mp3",
+        "purchaseUrl": "https://square.link/u/lgrR0Zgr"
+      },
+      {
+        "number": 7,
+        "title": "Hollow Leaning",
+        "duration": "4:18",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/07%20Hollow%20Leaning.mp3",
+        "purchaseUrl": "https://square.link/u/aFUCt7W9"
+      },
+      {
+        "number": 8,
+        "title": "Youth",
+        "duration": "4:42",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/08%20Youth.mp3",
+        "purchaseUrl": "https://square.link/u/nTanOuzg"
+      },
+      {
+        "number": 9,
+        "title": "High Hit",
+        "duration": "3:55",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/09%20High%20Hit.mp3",
+        "purchaseUrl": "https://square.link/u/yd8WBKGr"
+      },
+      {
+        "number": 10,
+        "title": "Made Us",
+        "duration": "4:25",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Mathew%20Cage/High%20Hit/10%20Made%20Us.mp3",
+        "purchaseUrl": "https://square.link/u/lqjnagJn"
+      }
+    ],
     "createdAt": "2025-01-01T00:00:00.000Z",
     "updatedAt": "2025-01-01T00:00:00.000Z"
   },
@@ -167,11 +904,92 @@
     "catalog": "RRN-CHX-DEC",
     "image": "/Decend.svg",
     "description": "The mind descends into darkness so easily, but sometimes it also grows in the darkness",
-    "digitalBuyLink": "https://square.link/u/Pil3gVkP",
-    "physicalBuyLink": "https://square.link/u/f9VJJDnj",
+    "digitalBuyLink": "https://square.link/u/L7yzCZMI",
+    "physicalBuyLink": "https://square.link/u/KgummHs8",
     "accentColor": "indigo",
     "featured": true,
-    "tracklist": [],
+    "tracklist": [
+      {
+        "number": 1,
+        "title": "Starting Line",
+        "duration": "4:12",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/01%20Starting%20Line.mp3",
+        "purchaseUrl": "https://square.link/u/zpxtfOAv"
+      },
+      {
+        "number": 2,
+        "title": "Power of the Few",
+        "duration": "4:38",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/02%20Power%20of%20the%20Few.mp3",
+        "purchaseUrl": "https://square.link/u/cbUd7WFb"
+      },
+      {
+        "number": 3,
+        "title": "Rags No More",
+        "duration": "4:05",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/03%20Rags%20No%20More.mp3",
+        "purchaseUrl": "https://square.link/u/OT1Igwz0"
+      },
+      {
+        "number": 4,
+        "title": "Hate No More",
+        "duration": "4:22",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/04%20Hate%20No%20More.mp3",
+        "purchaseUrl": "https://square.link/u/ww5flTua"
+      },
+      {
+        "number": 5,
+        "title": "Mark Me Down",
+        "duration": "4:48",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/05%20Mark%20Me%20Down.mp3",
+        "purchaseUrl": "https://square.link/u/YLDBzFse"
+      },
+      {
+        "number": 6,
+        "title": "No Mistakes",
+        "duration": "3:55",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/06%20No%20Mistakes.mp3",
+        "purchaseUrl": "https://square.link/u/FSCacaiZ"
+      },
+      {
+        "number": 7,
+        "title": "Love No More",
+        "duration": "4:32",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/07%20Love%20No%20More.mp3",
+        "purchaseUrl": "https://square.link/u/0buijFyt"
+      },
+      {
+        "number": 8,
+        "title": "Kinship",
+        "duration": "4:28",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/08%20Kinship.mp3",
+        "purchaseUrl": "https://square.link/u/kBFjAzRQ"
+      },
+      {
+        "number": 9,
+        "title": "The Skies",
+        "duration": "5:18",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/09%20The%20Skies.mp3",
+        "purchaseUrl": "https://square.link/u/VanCLWmY"
+      },
+      {
+        "number": 10,
+        "title": "Descend",
+        "duration": "4:45",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Chronix/Decend/10%20Decend.mp3",
+        "purchaseUrl": "https://square.link/u/21Utru2N"
+      }
+    ],
     "createdAt": "2025-01-01T00:00:00.000Z",
     "updatedAt": "2025-01-01T00:00:00.000Z"
   },
@@ -193,7 +1011,50 @@
     "physicalBuyLink": "",
     "accentColor": "red",
     "featured": false,
-    "tracklist": [],
+    "tracklist": [
+      {
+        "number": 1,
+        "title": "Break Me Up",
+        "duration": "4:32",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Daina%20Vein/Warmth%20of%20Chaos/01%20Break%20Me%20Up.mp3"
+      },
+      {
+        "number": 2,
+        "title": "Split Matrix",
+        "duration": "4:48",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Daina%20Vein/Warmth%20of%20Chaos/02%20Split%20Matrix.mp3"
+      },
+      {
+        "number": 3,
+        "title": "Chaos Sake",
+        "duration": "4:55",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Daina%20Vein/Warmth%20of%20Chaos/03%20Chaos%20Sake.mp3"
+      },
+      {
+        "number": 4,
+        "title": "Trial By Fire",
+        "duration": "5:02",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Daina%20Vein/Warmth%20of%20Chaos/04%20Trial%20By%20Fire.mp3"
+      },
+      {
+        "number": 5,
+        "title": "We Stand As One",
+        "duration": "4:38",
+        "featured": true,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Daina%20Vein/Warmth%20of%20Chaos/05%20We%20Stand%20As%20One.mp3"
+      },
+      {
+        "number": 6,
+        "title": "United They Fall",
+        "duration": "4:50",
+        "featured": false,
+        "previewUrl": "https://pub-0dcbd2c73f5146f187aa654aa50b8b5d.r2.dev/Music/Daina%20Vein/Warmth%20of%20Chaos/06%20United%20They%20Fall.mp3"
+      }
+    ],
     "createdAt": "2025-01-01T00:00:00.000Z",
     "updatedAt": "2025-01-01T00:00:00.000Z"
   }

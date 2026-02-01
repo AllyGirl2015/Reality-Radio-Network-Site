@@ -1,4 +1,4 @@
-import { getSupabase } from './supabase';
+import { getSupabase, isSupabaseEnabled } from './supabase';
 
 export interface UploadResult {
   success: boolean;
@@ -15,17 +15,41 @@ export function getImageUrl(imagePath: string): string {
   if (!imagePath) return '';
 
   // Se já é uma URL completa, retorna como está
+  // If Supabase isn't enabled, avoid returning remote URLs that will be fetched
+  // If the image is a full URL, return it regardless
   if (imagePath.startsWith('http')) {
     return imagePath;
   }
 
-  // Remove a barra inicial se existir
+  // If image exists in the local public folder (server only), return the local path to avoid remote fetches
   const fileName = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath;
+  if (typeof window === 'undefined') {
+    try {
+      // require Node modules at runtime to avoid bundling them into client code
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const fs = require('fs');
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const path = require('path');
+      const publicPath = path.join(process.cwd(), 'public', fileName);
+      const publicImagesPath = path.join(process.cwd(), 'public', 'images', fileName);
 
+      if (fs.existsSync(publicPath)) {
+        return `/${fileName}`;
+      }
+      if (fs.existsSync(publicImagesPath)) {
+        return `/images/${fileName}`;
+      }
+    } catch (err) {
+      // ignore fs errors and fall back to supabase behavior below
+    }
+  }
+
+  // If Supabase isn't enabled, return local public path to avoid empty src
+  if (!isSupabaseEnabled()) return `/${fileName}`;
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   if (!supabaseUrl) {
     console.warn('Supabase URL not configured');
-    return imagePath; // fallback
+    return `/${fileName}`;
   }
 
   return `${supabaseUrl}/storage/v1/object/public/images/${encodeURIComponent(fileName)}`;

@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation';
 import { getArtistBySlug, getAllArtists } from '@/lib/services/artists';
 import { getAlbumsByArtist } from '@/lib/services/albums';
 import { getSinglesByArtist } from '@/lib/services/singles';
+import { getImageUrl } from '@/lib/storage';
 import { AlbumCard, SingleCard } from '@/components/cards';
 
 interface PageProps {
@@ -84,7 +85,8 @@ export default async function TalentPage({ params }: PageProps) {
     getSinglesByArtist(artist.id),
   ]);
 
-  const colors = accentColors[artist.accent_color] || accentColors.purple;
+  const colors = accentColors[(artist as any).accentColor ?? (artist as any).accent_color] || accentColors.purple;
+  const artistImage = getImageUrl((artist as any).image ?? (artist as any).image);
 
   // Get featured singles (limit to 5)
   const featuredSingles = singles.filter(s => s.featured).slice(0, 5);
@@ -108,9 +110,9 @@ export default async function TalentPage({ params }: PageProps) {
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Artist Image */}
             <div className={`aspect-square bg-gradient-to-br ${colors.gradient} rounded-lg overflow-hidden relative`}>
-              {artist.image ? (
+              {artistImage ? (
                 <Image
-                  src={artist.image}
+                  src={artistImage}
                   alt={artist.name}
                   fill
                   className="object-cover"
