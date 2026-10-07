@@ -1,0 +1,173 @@
+name: Build RRN Official Android App
+
+on:
+  push:
+    branches: [rrn-official-app-v0.1]
+    paths:
+      - 'mobile/rrn_official/**'
+      - '.github/workflows/build-rrn-official-app.yml'
+  workflow_dispatch:
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Create Android project
+        shell: bash
+        run: |
+          set -euxo pipefail
+          rm -rf /tmp/rrn_mobile
+          flutter create --platforms=android --org com.rbew --project-name rrn_official /tmp/rrn_mobile
+          cp mobile/rrn_official/pubspec.yaml /tmp/rrn_mobile/pubspec.yaml
+          cp mobile/rrn_official/lib/main.dart /tmp/rrn_mobile/lib/main.dart
+
+      - name: Generate RRN app branding
+        shell: bash
+        run: |
+          set -euxo pipefail
+          python3 -m pip install --quiet pillow
+          mkdir -p /tmp/rrn_mobile/assets
+          python3 - <<'PY'
+          from PIL import Image, ImageDraw, ImageFont, ImageFilter
+          from pathlib import Path
+
+          def logo(size):
+              im = Image.new('RGB', (size, size), (3, 5, 12))
+              d = ImageDraw.Draw(im)
+              for r in range(size//2, 5, -4):
+                  t = r/(size/2)
+                  c = (int(236*(1-t)+0*t), int(72*(1-t)+243*t), int(153*(1-t)+255*t))
+                  box = (size//2-r, size//2-r, size//2+r, size//2+r)
+                  d.ellipse(box, outline=c, width=max(1,size//96))
+              # broadcast mast
+              cx=size//2
+              d.line((cx,size*.18,cx,size*.42), fill=(230,230,245), width=max(2,size//64))
+              d.line((cx,size*.22,size*.34,size*.42), fill=(0,243,255), width=max(2,size//80))
+              d.line((cx,size*.22,size*.66,size*.42), fill=(236,72,153), width=max(2,size//80))
+              # radio waves
+              for off in (0.10,0.16,0.22):
+                  d.arc((size*(.5-off),size*(.12-off/2),size*(.5+off),size*(.36+off/2)),200,340,fill=(0,243,255),width=max(2,size//90))
+              # center plate
+              d.rounded_rectangle((size*.16,size*.43,size*.84,size*.75),radius=size*.06,fill=(8,10,20),outline=(168,85,247),width=max(2,size//80))
+              try:
+                  font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', int(size*.25))
+              except:
+                  font=ImageFont.load_default()
+              text='RRN'
+              b=d.textbbox((0,0),text,font=font)
+              tw=b[2]-b[0]; th=b[3]-b[1]
+              d.text(((size-tw)/2,size*.47),text,font=font,fill=(240,242,250),stroke_width=max(1,size//100),stroke_fill=(168,85,247))
+              return im
+
+          assets=Path('/tmp/rrn_mobile/assets')
+          logo(512).save(assets/'rrn_logo.jpg', quality=92)
+          sizes={'mdpi':48,'hdpi':72,'xhdpi':96,'xxhdpi':144,'xxxhdpi':192}
+          for bucket,sz in sizes.items():
+              p=Path('/tmp/rrn_mobile/android/app/src/main/res')/f'mipmap-{bucket}'
+              p.mkdir(parents=True, exist_ok=True)
+              logo(sz).save(p/'ic_launcher.png')
+          PY
+
+      - name: Enable background audio and Android Auto media integration
+        shell: bash
+        run: |
+          set -euxo pipefail
+          cat > /tmp/rrn_mobile/android/app/src/main/kotlin/com/rbew/rrn_official/MainActivity.kt <<'EOF'
+          package com.rbew.rrn_official
+          import com.ryanheise.audioservice.AudioServiceActivity
+          class MainActivity: AudioServiceActivity()
+          EOF
+
+          mkdir -p /tmp/rrn_mobile/android/app/src/main/res/xml
+          cat > /tmp/rrn_mobile/android/app/src/main/res/xml/automotive_app_desc.xml <<'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <automotiveApp>
+              <uses name="media" />
+          </automotiveApp>
+          EOF
+
+          cat > /tmp/rrn_mobile/android/app/src/main/AndroidManifest.xml <<'EOF'
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+              <uses-permission android:name="android.permission.INTERNET" />
+              <uses-permission android:name="android.permission.WAKE_LOCK" />
+              <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+              <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+              <application
+                  android:label="Reality Radio Network"
+                  android:name="${applicationName}"
+                  android:icon="@mipmap/ic_launcher"
+                  android:usesCleartextTraffic="false">
+                  <activity
+                      android:name=".MainActivity"
+                      android:exported="true"
+                      android:launchMode="singleTop"
+                      android:theme="@style/LaunchTheme"
+                      android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+                      android:hardwareAccelerated="true"
+                      android:windowSoftInputMode="adjustResize">
+                      <meta-data android:name="io.flutter.embedding.android.NormalTheme" android:resource="@style/NormalTheme" />
+                      <intent-filter>
+                          <action android:name="android.intent.action.MAIN" />
+                          <category android:name="android.intent.category.LAUNCHER" />
+                      </intent-filter>
+                  </activity>
+                  <service
+                      android:name="com.ryanheise.audioservice.AudioService"
+                      android:foregroundServiceType="mediaPlayback"
+                      android:exported="true">
+                      <intent-filter>
+                          <action android:name="android.media.browse.MediaBrowserService" />
+                      </intent-filter>
+                  </service>
+                  <receiver
+                      android:name="com.ryanheise.audioservice.MediaButtonReceiver"
+                      android:exported="true">
+                      <intent-filter>
+                          <action android:name="android.intent.action.MEDIA_BUTTON" />
+                      </intent-filter>
+                  </receiver>
+                  <meta-data android:name="com.google.android.gms.car.application" android:resource="@xml/automotive_app_desc" />
+                  <meta-data android:name="flutterEmbedding" android:value="2" />
+              </application>
+              <queries>
+                  <intent>
+                      <action android:name="android.intent.action.VIEW" />
+                      <data android:scheme="https" />
+                  </intent>
+              </queries>
+          </manifest>
+          EOF
+
+      - name: Resolve packages and compile APK
+        shell: bash
+        run: |
+          set -euxo pipefail
+          cd /tmp/rrn_mobile
+          flutter pub get
+          dart format lib/main.dart
+          flutter analyze --no-fatal-infos
+          flutter build apk --debug
+          cp build/app/outputs/flutter-apk/app-debug.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.1.0-Official-Test.apk"
+
+      - name: Upload installable APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: RRN-Mobile-0.1.0-Official-Test-APK
+          path: RRN-Mobile-0.1.0-Official-Test.apk
+          if-no-files-found: error
+          retention-days: 90
