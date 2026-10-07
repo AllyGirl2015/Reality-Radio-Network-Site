@@ -1,0 +1,44 @@
+name: Build RRN mobile preview APK
+
+on:
+  push:
+    branches:
+      - rrn-radio-apk-preview
+    paths:
+      - 'mobile_preview/**'
+      - '.github/workflows/rrn-mobile-preview-apk.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-preview-apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out preview branch
+        uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Generate standalone Flutter Android project
+        working-directory: mobile_preview
+        run: |
+          flutter create --platforms=android --project-name rrn_preview --org net.realityradio .
+          flutter pub get
+      - name: Build installable debug APK
+        working-directory: mobile_preview
+        run: flutter build apk --debug -t lib/main.dart
+      - name: Publish download artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RRN-Mobile-Preview-Android-APK
+          path: mobile_preview/build/app/outputs/flutter-apk/app-debug.apk
+          if-no-files-found: error
