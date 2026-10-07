@@ -35,6 +35,7 @@ jobs:
           flutter create --platforms=android --org com.rbew --project-name rrn_official /tmp/rrn_mobile
           cp mobile/rrn_official/pubspec.yaml /tmp/rrn_mobile/pubspec.yaml
           cp mobile/rrn_official/lib/main.dart /tmp/rrn_mobile/lib/main.dart
+          rm -rf /tmp/rrn_mobile/test /tmp/rrn_mobile/analysis_options.yaml
 
       - name: Generate RRN app branding
         shell: bash
@@ -43,7 +44,7 @@ jobs:
           python3 -m pip install --quiet pillow
           mkdir -p /tmp/rrn_mobile/assets
           python3 - <<'PY'
-          from PIL import Image, ImageDraw, ImageFont, ImageFilter
+          from PIL import Image, ImageDraw, ImageFont
           from pathlib import Path
 
           def logo(size):
@@ -51,18 +52,15 @@ jobs:
               d = ImageDraw.Draw(im)
               for r in range(size//2, 5, -4):
                   t = r/(size/2)
-                  c = (int(236*(1-t)+0*t), int(72*(1-t)+243*t), int(153*(1-t)+255*t))
+                  c = (int(236*(1-t)), int(72*(1-t)+243*t), int(153*(1-t)+255*t))
                   box = (size//2-r, size//2-r, size//2+r, size//2+r)
                   d.ellipse(box, outline=c, width=max(1,size//96))
-              # broadcast mast
               cx=size//2
               d.line((cx,size*.18,cx,size*.42), fill=(230,230,245), width=max(2,size//64))
               d.line((cx,size*.22,size*.34,size*.42), fill=(0,243,255), width=max(2,size//80))
               d.line((cx,size*.22,size*.66,size*.42), fill=(236,72,153), width=max(2,size//80))
-              # radio waves
               for off in (0.10,0.16,0.22):
                   d.arc((size*(.5-off),size*(.12-off/2),size*(.5+off),size*(.36+off/2)),200,340,fill=(0,243,255),width=max(2,size//90))
-              # center plate
               d.rounded_rectangle((size*.16,size*.43,size*.84,size*.75),radius=size*.06,fill=(8,10,20),outline=(168,85,247),width=max(2,size//80))
               try:
                   font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', int(size*.25))
@@ -70,7 +68,7 @@ jobs:
                   font=ImageFont.load_default()
               text='RRN'
               b=d.textbbox((0,0),text,font=font)
-              tw=b[2]-b[0]; th=b[3]-b[1]
+              tw=b[2]-b[0]
               d.text(((size-tw)/2,size*.47),text,font=font,fill=(240,242,250),stroke_width=max(1,size//100),stroke_fill=(168,85,247))
               return im
 
