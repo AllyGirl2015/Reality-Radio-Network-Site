@@ -23,7 +23,7 @@ Future<void> main() async {
     config: const AudioServiceConfig(
       androidNotificationChannelId: 'com.rbew.rrn_official.audio',
       androidNotificationChannelName: 'RRN Audio',
-      androidNotificationOngoing: true,
+      androidNotificationOngoing: false,
       androidStopForegroundOnPause: false,
       androidNotificationIcon: 'mipmap/ic_launcher',
     ),
@@ -33,9 +33,6 @@ Future<void> main() async {
   final controller = RrnAppController();
   await controller.init();
 
-  // Android 13+ may require explicit notification permission for the full
-  // app notification experience. Media sessions are still authoritative,
-  // but requesting this now also prepares RRN for push notifications.
   try {
     final status = await Permission.notification.status;
     if (!status.isGranted && !status.isPermanentlyDenied) {
