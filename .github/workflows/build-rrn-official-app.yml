@@ -2,7 +2,7 @@ name: Build RRN Official Android App
 
 on:
   push:
-    branches: [rrn-official-app-v0.4]
+    branches: [rrn-official-app-v0.5]
     paths:
       - 'mobile/rrn_official/**'
       - '.github/workflows/build-rrn-official-app.yml'
@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -47,13 +47,14 @@ jobs:
           path = Path('/tmp/rrn_mobile/lib/tuner_v04.dart')
           text = path.read_text()
           old = """      metadata = RadioMetadata.from(body);\n      if (playback.kind == RrnPlaybackKind.station && playback.sourceId == 'station:${_identity(station)}' && station.streamUrl.isNotEmpty) {\n        // Keep playback itself alive; the Dial display is refreshed independently.\n      }\n      if (mounted) setState(() {});"""
-          new = """      metadata = RadioMetadata.from(body);\n      // Metadata refreshes update the Dial, in-app player and Android\n      // MediaSession without touching/reloading the live stream.\n      playback.updateStationMetadata(station, metadata);\n      if (mounted) setState(() {});"""
-          if old not in text:
-              raise SystemExit('Expected tuner metadata block was not found; refusing a silent partial build.')
-          path.write_text(text.replace(old, new, 1))
+          new = """      metadata = RadioMetadata.from(body);\n      playback.updateStationMetadata(station, metadata);\n      if (mounted) setState(() {});"""
+          if old in text:
+              path.write_text(text.replace(old, new, 1))
+          elif 'playback.updateStationMetadata(station, metadata);' not in text:
+              raise SystemExit('Expected tuner metadata bridge was not found.')
           PY
 
-      - name: Generate RRN branding, static audio and launcher icon
+      - name: Generate RRN branding and tuner static
         shell: bash
         run: |
           set -euxo pipefail
@@ -92,26 +93,21 @@ jobs:
 
           assets=Path('/tmp/rrn_mobile/assets')
           logo(1024).save(assets/'rrn_app_logo.png')
-          sizes={'mdpi':48,'hdpi':72,'xhdpi':96,'xxhdpi':144,'xxxhdpi':192}
-          for bucket,sz in sizes.items():
-              p=Path('/tmp/rrn_mobile/android/app/src/main/res')/f'mipmap-{bucket}'; p.mkdir(parents=True,exist_ok=True)
+          for bucket,sz in {'mdpi':48,'hdpi':72,'xhdpi':96,'xxhdpi':144,'xxxhdpi':192}.items():
+              p=Path('/tmp/rrn_mobile/android/app/src/main/res')/f'mipmap-{bucket}'
+              p.mkdir(parents=True,exist_ok=True)
               logo(sz).save(p/'ic_launcher.png')
 
-          sr=44100; seconds=4
-          random.seed(2015)
-          samples=[]
-          prev=0.0
+          sr=44100; seconds=4; random.seed(2015); samples=[]; prev=0.0
           for _ in range(sr*seconds):
-              white=random.uniform(-1,1)
-              prev=.72*prev+.28*white
-              value=max(-1,min(1,white*.48+prev*.42))
-              samples.append(int(value*8500))
+              white=random.uniform(-1,1); prev=.72*prev+.28*white
+              value=max(-1,min(1,white*.48+prev*.42)); samples.append(int(value*8500))
           with wave.open(str(assets/'radio_static.wav'),'wb') as w:
               w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr)
               w.writeframes(b''.join(struct.pack('<h',s) for s in samples))
           PY
 
-      - name: Enable background audio, media notification and Android Auto service
+      - name: Configure persistent Android media service
         shell: bash
         run: |
           set -euxo pipefail
@@ -120,26 +116,36 @@ jobs:
           import com.ryanheise.audioservice.AudioServiceActivity
           class MainActivity: AudioServiceActivity()
           EOF
+
           mkdir -p /tmp/rrn_mobile/android/app/src/main/res/xml
           mkdir -p /tmp/rrn_mobile/android/app/src/main/res/drawable
+          mkdir -p /tmp/rrn_mobile/android/app/src/main/res/raw
+
           cat > /tmp/rrn_mobile/android/app/src/main/res/drawable/ic_rrn_notification.xml <<'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <vector xmlns:android="http://schemas.android.com/apk/res/android"
-              android:width="24dp"
-              android:height="24dp"
-              android:viewportWidth="24"
-              android:viewportHeight="24">
+              android:width="24dp" android:height="24dp"
+              android:viewportWidth="24" android:viewportHeight="24">
             <path android:fillColor="#FFFFFFFF" android:pathData="M11,9h2l3,12h-2l-1,-4h-2l-1,4H8z" />
             <path android:fillColor="#FFFFFFFF" android:pathData="M12,3a2,2 0,1 0,0,4a2,2 0,1 0,0,-4z" />
             <path android:fillColor="@android:color/transparent" android:strokeColor="#FFFFFFFF" android:strokeWidth="1.5" android:pathData="M8.5,8.5C6.3,6.4 6.3,3.6 8.5,1.5M15.5,8.5C17.7,6.4 17.7,3.6 15.5,1.5" />
           </vector>
           EOF
+
+          # Release resource shrinking may otherwise remove a dynamically
+          # referenced notification icon, preventing the foreground media card.
+          cat > /tmp/rrn_mobile/android/app/src/main/res/raw/keep.xml <<'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@drawable/ic_rrn_notification" />
+          EOF
+
           cat > /tmp/rrn_mobile/android/app/src/main/res/xml/automotive_app_desc.xml <<'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <automotiveApp><uses name="media" /></automotiveApp>
           EOF
+
           cat > /tmp/rrn_mobile/android/app/src/main/AndroidManifest.xml <<'EOF'
-          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.WAKE_LOCK" />
             <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -150,8 +156,12 @@ jobs:
                 <meta-data android:name="io.flutter.embedding.android.NormalTheme" android:resource="@style/NormalTheme" />
                 <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>
               </activity>
-              <service android:name="com.ryanheise.audioservice.AudioService" android:foregroundServiceType="mediaPlayback" android:exported="true"><intent-filter><action android:name="android.media.browse.MediaBrowserService" /></intent-filter></service>
-              <receiver android:name="com.ryanheise.audioservice.MediaButtonReceiver" android:exported="true"><intent-filter><action android:name="android.intent.action.MEDIA_BUTTON" /></intent-filter></receiver>
+              <service android:name="com.ryanheise.audioservice.AudioService" android:foregroundServiceType="mediaPlayback" android:exported="true" android:stopWithTask="false" tools:ignore="Instantiatable">
+                <intent-filter><action android:name="android.media.browse.MediaBrowserService" /></intent-filter>
+              </service>
+              <receiver android:name="com.ryanheise.audioservice.MediaButtonReceiver" android:exported="true" tools:ignore="Instantiatable">
+                <intent-filter><action android:name="android.intent.action.MEDIA_BUTTON" /></intent-filter>
+              </receiver>
               <meta-data android:name="com.google.android.gms.car.application" android:resource="@xml/automotive_app_desc" />
               <meta-data android:name="flutterEmbedding" android:value="2" />
             </application>
@@ -173,15 +183,15 @@ jobs:
           set -euxo pipefail
           cd /tmp/rrn_mobile
           flutter build apk --release
-          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.4.2-Player-Recovery-Alpha.apk"
-          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.4.2-App-Logo.png"
+          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.5.0-Matrix-Background-Alpha.apk"
+          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.5.0-App-Logo.png"
 
       - name: Upload APK and logo
         uses: actions/upload-artifact@v4
         with:
-          name: RRN-Mobile-0.4.2-Player-Recovery-Alpha
+          name: RRN-Mobile-0.5.0-Matrix-Background-Alpha
           path: |
-            RRN-Mobile-0.4.2-Player-Recovery-Alpha.apk
-            RRN-Mobile-0.4.2-App-Logo.png
+            RRN-Mobile-0.5.0-Matrix-Background-Alpha.apk
+            RRN-Mobile-0.5.0-App-Logo.png
           if-no-files-found: error
           retention-days: 90
