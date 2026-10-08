@@ -60,7 +60,11 @@ class RrnPlaybackController extends ChangeNotifier {
 
     player.playerStateStream.listen((state) {
       if (!_switchingSource) {
-        phase = state.playing ? RrnPlaybackPhase.playing : hasItem ? RrnPlaybackPhase.paused : RrnPlaybackPhase.idle;
+        phase = state.playing
+            ? RrnPlaybackPhase.playing
+            : hasItem
+                ? RrnPlaybackPhase.paused
+                : RrnPlaybackPhase.idle;
       }
       notifyListeners();
     });
@@ -156,6 +160,11 @@ class RrnPlaybackController extends ChangeNotifier {
         'band': station.band,
         'frequency': station.frequency,
         'designation': designation,
+        'presenter': metadata?.presenter ?? '',
+        'show': metadata?.show ?? '',
+        'program': metadata?.program ?? '',
+        'trackTitle': metadata?.title ?? '',
+        'trackArtist': metadata?.artist ?? '',
         'isLive': true,
       },
     );
@@ -212,6 +221,7 @@ class RrnPlaybackController extends ChangeNotifier {
         }
       }
 
+      if (_desiredSourceId != nextId) return;
       kind = RrnPlaybackKind.station;
       title = station.name;
       subtitle = _stationSubtitle(station, metadata);
@@ -221,8 +231,17 @@ class RrnPlaybackController extends ChangeNotifier {
       raw = station.raw;
       _handler!.setNowPlaying(media);
       await player.setVolume(volume.clamp(0, 1).toDouble());
-      if (autoplay && !player.playing) await player.play();
-      phase = player.playing ? RrnPlaybackPhase.playing : RrnPlaybackPhase.paused;
+
+      // AudioPlayer.play() completes when playback ends. Never await it inside
+      // the serialized command queue or Pause/Stop/Tune commands will deadlock
+      // behind the active live stream.
+      if (autoplay && !player.playing) {
+        unawaited(player.play());
+        phase = RrnPlaybackPhase.playing;
+      } else {
+        phase = player.playing ? RrnPlaybackPhase.playing : RrnPlaybackPhase.paused;
+      }
+      _handler!.publishState();
       notifyListeners();
     });
   }
@@ -256,6 +275,7 @@ class RrnPlaybackController extends ChangeNotifier {
         }
       }
 
+      if (_desiredSourceId != nextId) return;
       final media = _musicMediaItem(item, duration: player.duration);
       kind = RrnPlaybackKind.music;
       title = media.title;
@@ -266,8 +286,13 @@ class RrnPlaybackController extends ChangeNotifier {
       raw = Map<String, dynamic>.from(item);
       _handler!.setNowPlaying(media);
       await player.setVolume(1);
-      if (autoplay && !player.playing) await player.play();
-      phase = player.playing ? RrnPlaybackPhase.playing : RrnPlaybackPhase.paused;
+      if (autoplay && !player.playing) {
+        unawaited(player.play());
+        phase = RrnPlaybackPhase.playing;
+      } else {
+        phase = player.playing ? RrnPlaybackPhase.playing : RrnPlaybackPhase.paused;
+      }
+      _handler!.publishState();
       notifyListeners();
     });
   }
@@ -288,13 +313,15 @@ class RrnPlaybackController extends ChangeNotifier {
         if (!attached || player.audioSource == null) return;
         await player.pause();
         phase = RrnPlaybackPhase.paused;
+        _handler?.publishState();
         notifyListeners();
       });
 
   Future<void> resume() => _serialize(() async {
         if (!attached || player.audioSource == null) return;
-        await player.play();
+        if (!player.playing) unawaited(player.play());
         phase = RrnPlaybackPhase.playing;
+        _handler?.publishState();
         notifyListeners();
       });
 
@@ -322,6 +349,7 @@ class RrnPlaybackController extends ChangeNotifier {
   Future<void> seek(Duration position) => _serialize(() async {
         if (!attached || live || player.audioSource == null) return;
         await player.seek(position);
+        _handler?.publishState();
         notifyListeners();
       });
 
