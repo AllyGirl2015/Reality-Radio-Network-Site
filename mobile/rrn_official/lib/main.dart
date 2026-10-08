@@ -4,11 +4,13 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'account.dart';
 import 'charts.dart';
 import 'core.dart';
-import 'music.dart';
+import 'music_v04.dart';
+import 'playback.dart';
 import 'points.dart';
 import 'site.dart';
 import 'social.dart';
-import 'tuner.dart';
+import 'stations.dart';
+import 'tuner_v04.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,9 +45,10 @@ class RrnShell extends StatefulWidget {
 
 class _RrnShellState extends State<RrnShell> {
   int index = 0;
+
   final pages = const [
-    RealityDialScreen(),
-    MusicScreen(),
+    RealityDialV04Screen(),
+    MusicScreenV04(),
     SocialScreen(),
     ChartsScreen(),
     MoreScreen(),
@@ -54,6 +57,7 @@ class _RrnShellState extends State<RrnShell> {
   @override
   Widget build(BuildContext context) {
     final app = RrnScope.of(context);
+    final playback = RrnPlaybackController.instance;
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 12,
@@ -70,6 +74,11 @@ class _RrnShellState extends State<RrnShell> {
           ],
         ),
         actions: [
+          IconButton(
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StationDirectoryScreen())),
+            icon: const Icon(Icons.search),
+            tooltip: 'Search RRN',
+          ),
           IconButton(
             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PointsWalletScreen())),
             icon: const Icon(Icons.toll_outlined),
@@ -89,7 +98,15 @@ class _RrnShellState extends State<RrnShell> {
           ),
         ],
       ),
-      body: IndexedStack(index: index, children: pages),
+      body: Column(
+        children: [
+          Expanded(child: IndexedStack(index: index, children: pages)),
+          AnimatedBuilder(
+            animation: playback,
+            builder: (context, _) => playback.hasItem ? const RrnMiniPlayer() : const SizedBox.shrink(),
+          ),
+        ],
+      ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: index,
         onDestinationSelected: (v) => setState(() => index = v),
@@ -100,6 +117,100 @@ class _RrnShellState extends State<RrnShell> {
           NavigationDestination(icon: Icon(Icons.leaderboard_outlined), selectedIcon: Icon(Icons.leaderboard), label: 'Charts'),
           NavigationDestination(icon: Icon(Icons.apps_outlined), selectedIcon: Icon(Icons.apps), label: 'More'),
         ],
+      ),
+    );
+  }
+}
+
+class RrnMiniPlayer extends StatelessWidget {
+  const RrnMiniPlayer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final playback = RrnPlaybackController.instance;
+    return Material(
+      color: const Color(0xFF0A0E18),
+      child: InkWell(
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MusicNowPlayingScreen())),
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 68),
+          decoration: const BoxDecoration(
+            border: Border(top: BorderSide(color: Color(0x3322D3EE))),
+          ),
+          padding: const EdgeInsets.fromLTRB(10, 8, 6, 8),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: playback.artwork.isNotEmpty
+                      ? Image.network(
+                          playback.artwork,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => ColoredBox(
+                            color: Colors.black,
+                            child: Icon(playback.live ? Icons.radio : Icons.album, color: rrnCyan),
+                          ),
+                        )
+                      : ColoredBox(
+                          color: Colors.black,
+                          child: Icon(playback.live ? Icons.radio : Icons.album, color: rrnCyan),
+                        ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        if (playback.live)
+                          Container(
+                            margin: const EdgeInsets.only(right: 6),
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(99),
+                              border: Border.all(color: rrnPink),
+                            ),
+                            child: const Text('LIVE', style: TextStyle(color: rrnPink, fontSize: 8, fontWeight: FontWeight.w900)),
+                          ),
+                        Expanded(
+                          child: Text(
+                            playback.title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(fontWeight: FontWeight.w900),
+                          ),
+                        ),
+                      ],
+                    ),
+                    if (playback.subtitle.isNotEmpty)
+                      Text(
+                        playback.subtitle,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(color: Colors.white60, fontSize: 11),
+                      ),
+                  ],
+                ),
+              ),
+              IconButton(
+                onPressed: playback.toggle,
+                icon: Icon(playback.playing ? Icons.pause_circle_filled : Icons.play_circle_fill, size: 35, color: rrnCyan),
+                tooltip: playback.playing ? 'Pause' : 'Play',
+              ),
+              IconButton(
+                onPressed: playback.stop,
+                icon: const Icon(Icons.close, size: 21),
+                tooltip: 'Stop',
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -118,10 +229,28 @@ class MoreScreen extends StatelessWidget {
       children: [
         const RrnSectionHeader(
           eyebrow: 'Everything RRN',
-          title: 'The website, rendered as an app.',
-          subtitle: 'Public pages, account areas and privileged tools use the same RRN information and permissions, presented more ergonomically for a phone.',
+          title: 'RealityRadio.net, translated to mobile.',
+          subtitle: 'Every information surface, account capability and permission is expected to have a mobile representation. Native screens are used where available, with Matrix-driven parity surfaces filling the rest.',
         ),
         const SizedBox(height: 16),
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.radio, color: rrnCyan),
+            title: const Text('Station Directory', style: TextStyle(fontWeight: FontWeight.w900)),
+            subtitle: const Text('Search every live, testing, coming-soon and off-air station.'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StationDirectoryScreen())),
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.bookmarks, color: rrnPurple),
+            title: const Text('Saved Stations', style: TextStyle(fontWeight: FontWeight.w900)),
+            subtitle: const Text('Unlimited saved stations plus six presets per band.'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SavedStationsScreen())),
+          ),
+        ),
         Card(
           child: ListTile(
             leading: const Icon(Icons.toll, color: rrnCyan),
