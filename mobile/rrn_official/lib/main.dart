@@ -23,7 +23,7 @@ Future<void> main() async {
     config: const AudioServiceConfig(
       androidNotificationChannelId: 'com.rbew.rrn_official.audio.v2',
       androidNotificationChannelName: 'RRN Playback',
-      androidNotificationOngoing: true,
+      androidNotificationOngoing: false,
       androidStopForegroundOnPause: false,
     ),
   );
