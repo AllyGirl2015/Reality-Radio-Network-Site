@@ -37,6 +37,12 @@ jobs:
           rm -rf /tmp/rrn_mobile/lib
           cp -R mobile/rrn_official/lib /tmp/rrn_mobile/lib
           rm -rf /tmp/rrn_mobile/test /tmp/rrn_mobile/analysis_options.yaml
+          # Legacy screens are not used by the v0.5 shell but still contain
+          # MediaItem helpers. Keep them analyzable without reintroducing the
+          # just_audio_background plugin beside audio_service.
+          sed -i 's#package:just_audio_background/just_audio_background.dart#package:audio_service/audio_service.dart#g' \
+            /tmp/rrn_mobile/lib/music.dart \
+            /tmp/rrn_mobile/lib/tuner.dart
 
       - name: Bridge live station metadata into the media session
         shell: bash
@@ -132,8 +138,6 @@ jobs:
           </vector>
           EOF
 
-          # Release resource shrinking may otherwise remove a dynamically
-          # referenced notification icon, preventing the foreground media card.
           cat > /tmp/rrn_mobile/android/app/src/main/res/raw/keep.xml <<'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@drawable/ic_rrn_notification" />
