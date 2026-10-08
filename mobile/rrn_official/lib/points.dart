@@ -37,7 +37,7 @@ class RrnPointsWallet {
       pending: numi(wallet['pending']),
       lifetimeEarned: numi(wallet['lifetimeEarned'] ?? wallet['lifetime_earned']),
       lifetimeSpent: numi(wallet['lifetimeSpent'] ?? wallet['lifetime_spent']),
-      centsPerPoint: numi(wallet['centsPerPoint'] ?? wallet['cents_per_point'], 1).clamp(1, 1000000),
+      centsPerPoint: numi(wallet['centsPerPoint'] ?? wallet['cents_per_point'], 1).clamp(1, 1000000).toInt(),
     );
   }
 }
@@ -74,9 +74,6 @@ class PointsService {
     return listFrom(body, const ['transactions', 'ledger']).map(PointLedgerEntry.from).toList();
   }
 
-  /// Returns a server-created checkout object. The backend decides whether the
-  /// final payment is RRN Store, Google Play Billing, Apple IAP, or another
-  /// compliant payment rail for the active distribution channel.
   Future<Map<String, dynamic>> quotePointPurchase(int points) async {
     if (points <= 0) throw ArgumentError.value(points, 'points', 'Must be positive.');
     final body = await api.post('/points/purchase/quote', body: {'points': points});
@@ -93,8 +90,6 @@ class PointsService {
     return Map<String, dynamic>.from(body);
   }
 
-  /// Ask the backend how many points can be applied to a cart/order.
-  /// Supports all-points purchases and split tender without trusting client math.
   Future<Map<String, dynamic>> checkoutQuote({required String cartId, required int requestedPoints}) async {
     final body = await api.post('/points/checkout/quote', body: {
       'cartId': cartId,
@@ -111,11 +106,6 @@ class PointsService {
   }
 }
 
-/// Server-authoritative listening rewards.
-///
-/// RRN's current rule requested for the app is 10 points per verified hour,
-/// equivalent to 1 point per 6 verified listening minutes. The backend should
-/// apply the award from heartbeats and must enforce anti-abuse rules.
 class ListeningRewardsController extends ChangeNotifier {
   final ApiClient api;
   Timer? _timer;
@@ -249,7 +239,7 @@ class _PointsWalletScreenState extends State<PointsWalletScreen> {
       builder: (context) => AlertDialog(
         title: const Text('Buy RRN points'),
         content: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Text('1 point = $0.01 of RRN value. 100 points = $1.00.'),
+          const Text('1 point = \$0.01 of RRN value. 100 points = \$1.00.'),
           const SizedBox(height: 12),
           TextField(controller: controller, keyboardType: TextInputType.number, decoration: const InputDecoration(labelText: 'Points')),
         ]),
@@ -312,7 +302,7 @@ class _PointsWalletScreenState extends State<PointsWalletScreen> {
                   SizedBox(height: 6),
                   Text('• Verified Reality Dial listening: 10 points/hour (1 point per 6 verified minutes).'),
                   Text('• Qualifying store purchases: backend-configurable reward rate.'),
-                  Text('• Direct purchase: 1 point per $0.01 paid.'),
+                  Text('• Direct purchase: 1 point per \$0.01 paid.'),
                   SizedBox(height: 8),
                   Text('Points never go negative and have no cash-out route. Failed purchases/requests must roll back or refund their point hold.', style: TextStyle(color: Colors.white70)),
                 ]),
