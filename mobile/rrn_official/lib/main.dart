@@ -25,7 +25,7 @@ Future<void> main() async {
       androidNotificationChannelName: 'RRN Audio',
       androidNotificationOngoing: false,
       androidStopForegroundOnPause: false,
-      androidNotificationIcon: 'mipmap/ic_launcher',
+      androidNotificationIcon: 'drawable/ic_rrn_notification',
     ),
   );
   await RrnPlaybackController.instance.attachHandler(mediaHandler);
