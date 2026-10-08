@@ -116,6 +116,7 @@ jobs:
             <uses-permission android:name="android.permission.WAKE_LOCK" />
             <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
             <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+            <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
             <application android:label="Reality Radio Network" android:name="${applicationName}" android:icon="@mipmap/ic_launcher" android:usesCleartextTraffic="false">
               <activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize">
                 <meta-data android:name="io.flutter.embedding.android.NormalTheme" android:resource="@style/NormalTheme" />
@@ -144,15 +145,15 @@ jobs:
           set -euxo pipefail
           cd /tmp/rrn_mobile
           flutter build apk --release
-          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.4.0-Website-Parity-Alpha.apk"
-          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.4.0-App-Logo.png"
+          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.4.1-Media-Inbox-Alpha.apk"
+          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.4.1-App-Logo.png"
 
       - name: Upload APK and logo
         uses: actions/upload-artifact@v4
         with:
-          name: RRN-Mobile-0.4.0-Website-Parity-Alpha
+          name: RRN-Mobile-0.4.1-Media-Inbox-Alpha
           path: |
-            RRN-Mobile-0.4.0-Website-Parity-Alpha.apk
-            RRN-Mobile-0.4.0-App-Logo.png
+            RRN-Mobile-0.4.1-Media-Inbox-Alpha.apk
+            RRN-Mobile-0.4.1-App-Logo.png
           if-no-files-found: error
           retention-days: 90
