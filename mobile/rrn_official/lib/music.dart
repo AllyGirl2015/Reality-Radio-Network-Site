@@ -233,7 +233,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                     final max = duration.inMilliseconds <= 0 ? 1.0 : duration.inMilliseconds.toDouble();
                     return Column(children: [
                       Slider(
-                        value: position.inMilliseconds.toDouble().clamp(0, max),
+                        value: position.inMilliseconds.toDouble().clamp(0.0, max).toDouble(),
                         max: max,
                         onChanged: duration.inMilliseconds <= 0 ? null : (v) => player.seek(Duration(milliseconds: v.round())),
                       ),
@@ -250,7 +250,10 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      IconButton(onPressed: () => player.seek(Duration(milliseconds: (player.position.inMilliseconds - 10000).clamp(0, 1 << 31))), icon: const Icon(Icons.replay_10)),
+                      IconButton(
+                        onPressed: () => player.seek(Duration(milliseconds: (player.position.inMilliseconds - 10000).clamp(0, 1 << 31).toInt())),
+                        icon: const Icon(Icons.replay_10),
+                      ),
                       const SizedBox(width: 12),
                       FilledButton(
                         onPressed: !ready ? null : () => playing ? player.pause() : player.play(),
