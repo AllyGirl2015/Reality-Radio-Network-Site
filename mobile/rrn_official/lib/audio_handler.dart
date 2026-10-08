@@ -80,7 +80,7 @@ class RrnAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     _urls
       ..clear()
       ..addAll(urls);
-    _index = index.clamp(0, items.length - 1);
+    _index = index.clamp(0, items.length - 1).toInt();
     _isLive = isLive;
     _volume = volume.clamp(0, 1).toDouble();
     queue.add(List<MediaItem>.unmodifiable(_items));
@@ -89,7 +89,7 @@ class RrnAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   Future<void> _loadIndex(int index, {bool autoplay = true}) async {
     if (_items.isEmpty) return;
-    _index = index.clamp(0, _items.length - 1);
+    _index = index.clamp(0, _items.length - 1).toInt();
     final item = _items[_index];
     final url = _urls[_index];
 
