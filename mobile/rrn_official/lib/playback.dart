@@ -79,13 +79,14 @@ class RrnPlaybackController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<T> _serialize<T>(Future<T> Function() operation) {
-    final completer = Completer<T>();
+  Future<void> _serialize(Future<void> Function() operation) {
+    final completer = Completer<void>();
     _operationChain = _operationChain.catchError((_) {}).then((_) async {
       try {
-        completer.complete(await operation());
+        await operation();
+        if (!completer.isCompleted) completer.complete();
       } catch (error, stackTrace) {
-        completer.completeError(error, stackTrace);
+        if (!completer.isCompleted) completer.completeError(error, stackTrace);
       }
     });
     return completer.future;
