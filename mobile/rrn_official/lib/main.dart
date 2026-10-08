@@ -1,9 +1,11 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio_background/just_audio_background.dart';
 
 import 'account.dart';
+import 'audio_handler.dart';
 import 'charts.dart';
 import 'core.dart';
+import 'inbox.dart';
 import 'music_v04.dart';
 import 'playback.dart';
 import 'points.dart';
@@ -14,11 +16,18 @@ import 'tuner_v04.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await JustAudioBackground.init(
-    androidNotificationChannelId: 'com.rbew.rrn_official.audio',
-    androidNotificationChannelName: 'RRN Audio',
-    androidNotificationOngoing: true,
+
+  final mediaHandler = await AudioService.init(
+    builder: () => RrnAudioHandler(),
+    config: const AudioServiceConfig(
+      androidNotificationChannelId: 'com.rbew.rrn_official.audio',
+      androidNotificationChannelName: 'RRN Audio',
+      androidNotificationOngoing: true,
+      androidNotificationIcon: 'mipmap/ic_launcher',
+    ),
   );
+  await RrnPlaybackController.instance.attachHandler(mediaHandler);
+
   final controller = RrnAppController();
   await controller.init();
   runApp(RrnScope(controller: controller, child: const RrnApp()));
@@ -79,11 +88,7 @@ class _RrnShellState extends State<RrnShell> {
             icon: const Icon(Icons.search),
             tooltip: 'Search RRN',
           ),
-          IconButton(
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PointsWalletScreen())),
-            icon: const Icon(Icons.toll_outlined),
-            tooltip: 'RRN Points',
-          ),
+          const RrnTopInboxActions(),
           IconButton(
             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AccountScreen())),
             icon: AnimatedBuilder(
@@ -195,16 +200,29 @@ class RrnMiniPlayer extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(color: Colors.white60, fontSize: 11),
                       ),
+                    if (playback.lastError != null)
+                      Text(
+                        playback.lastError!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(color: rrnPink, fontSize: 9),
+                      ),
                   ],
                 ),
               ),
+              if (playback.transitioning)
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  child: SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2)),
+                )
+              else
+                IconButton(
+                  onPressed: playback.toggle,
+                  icon: Icon(playback.playing ? Icons.pause_circle_filled : Icons.play_circle_fill, size: 35, color: rrnCyan),
+                  tooltip: playback.playing ? 'Pause' : 'Play',
+                ),
               IconButton(
-                onPressed: playback.toggle,
-                icon: Icon(playback.playing ? Icons.pause_circle_filled : Icons.play_circle_fill, size: 35, color: rrnCyan),
-                tooltip: playback.playing ? 'Pause' : 'Play',
-              ),
-              IconButton(
-                onPressed: playback.stop,
+                onPressed: playback.transitioning ? null : playback.stop,
                 icon: const Icon(Icons.close, size: 21),
                 tooltip: 'Stop',
               ),
@@ -258,6 +276,15 @@ class MoreScreen extends StatelessWidget {
             subtitle: const Text('Earn, buy and spend network-wide points.'),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PointsWalletScreen())),
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.notifications_active_outlined, color: rrnPink),
+            title: const Text('Notification Settings', style: TextStyle(fontWeight: FontWeight.w900)),
+            subtitle: const Text('Choose RRN push and in-app notification categories.'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PushNotificationSettingsScreen())),
           ),
         ),
         ...modules.map((raw) {
