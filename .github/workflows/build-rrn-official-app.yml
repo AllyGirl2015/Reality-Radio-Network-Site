@@ -38,6 +38,21 @@ jobs:
           cp -R mobile/rrn_official/lib /tmp/rrn_mobile/lib
           rm -rf /tmp/rrn_mobile/test /tmp/rrn_mobile/analysis_options.yaml
 
+      - name: Bridge live station metadata into the media session
+        shell: bash
+        run: |
+          set -euxo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('/tmp/rrn_mobile/lib/tuner_v04.dart')
+          text = path.read_text()
+          old = """      metadata = RadioMetadata.from(body);\n      if (playback.kind == RrnPlaybackKind.station && playback.sourceId == 'station:${_identity(station)}' && station.streamUrl.isNotEmpty) {\n        // Keep playback itself alive; the Dial display is refreshed independently.\n      }\n      if (mounted) setState(() {});"""
+          new = """      metadata = RadioMetadata.from(body);\n      // Metadata refreshes update the Dial, in-app player and Android\n      // MediaSession without touching/reloading the live stream.\n      playback.updateStationMetadata(station, metadata);\n      if (mounted) setState(() {});"""
+          if old not in text:
+              raise SystemExit('Expected tuner metadata block was not found; refusing a silent partial build.')
+          path.write_text(text.replace(old, new, 1))
+          PY
+
       - name: Generate RRN branding, static audio and launcher icon
         shell: bash
         run: |
@@ -96,7 +111,7 @@ jobs:
               w.writeframes(b''.join(struct.pack('<h',s) for s in samples))
           PY
 
-      - name: Enable background audio and Android Auto media service
+      - name: Enable background audio, media notification and Android Auto service
         shell: bash
         run: |
           set -euxo pipefail
@@ -145,15 +160,15 @@ jobs:
           set -euxo pipefail
           cd /tmp/rrn_mobile
           flutter build apk --release
-          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.4.1-Media-Inbox-Alpha.apk"
-          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.4.1-App-Logo.png"
+          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.4.2-Player-Recovery-Alpha.apk"
+          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.4.2-App-Logo.png"
 
       - name: Upload APK and logo
         uses: actions/upload-artifact@v4
         with:
-          name: RRN-Mobile-0.4.1-Media-Inbox-Alpha
+          name: RRN-Mobile-0.4.2-Player-Recovery-Alpha
           path: |
-            RRN-Mobile-0.4.1-Media-Inbox-Alpha.apk
-            RRN-Mobile-0.4.1-App-Logo.png
+            RRN-Mobile-0.4.2-Player-Recovery-Alpha.apk
+            RRN-Mobile-0.4.2-App-Logo.png
           if-no-files-found: error
           retention-days: 90
