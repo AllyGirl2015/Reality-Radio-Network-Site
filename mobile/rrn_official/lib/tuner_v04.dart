@@ -24,6 +24,7 @@ class _RealityDialV04ScreenState extends State<RealityDialV04Screen> {
   String band = 'RMP';
   double frequency = 201.5;
   double volume = 1;
+  double tunerSensitivity = .60;
   bool staticOn = true;
   bool signalBleed = true;
   bool dialAudio = true;
@@ -51,6 +52,7 @@ class _RealityDialV04ScreenState extends State<RealityDialV04Screen> {
     band = (prefs?.getString('dial_band') ?? 'RMP').toUpperCase();
     frequency = prefs?.getDouble('dial_frequency') ?? 201.5;
     volume = prefs?.getDouble('dial_volume') ?? 1;
+    tunerSensitivity = (prefs?.getDouble('dial_tuner_sensitivity') ?? .60).clamp(.25, 1.50).toDouble();
     staticOn = prefs?.getBool('dial_static') ?? true;
     signalBleed = prefs?.getBool('dial_bleed') ?? true;
     dialAudio = prefs?.getBool('dial_auto') ?? true;
@@ -121,6 +123,14 @@ class _RealityDialV04ScreenState extends State<RealityDialV04Screen> {
     return ((frequency - r.min) / (r.max - r.min)).clamp(0, 1);
   }
 
+  String get sensitivityLabel {
+    if (tunerSensitivity <= .35) return 'FINE';
+    if (tunerSensitivity <= .55) return 'SLOW';
+    if (tunerSensitivity <= .75) return 'NORMAL';
+    if (tunerSensitivity <= 1.05) return 'QUICK';
+    return 'FAST';
+  }
+
   Future<void> _setBand(String value) async {
     if (band == value) return;
     scanTimer?.cancel();
@@ -145,6 +155,84 @@ class _RealityDialV04ScreenState extends State<RealityDialV04Screen> {
     message = null;
     if (mounted) setState(() {});
     _scheduleAudio();
+  }
+
+  void _setTunerSensitivity(double value) {
+    tunerSensitivity = value.clamp(.25, 1.50).toDouble();
+    app!.prefs?.setDouble('dial_tuner_sensitivity', tunerSensitivity);
+    if (mounted) setState(() {});
+  }
+
+  Future<void> _showTunerSensitivity() async {
+    var draft = tunerSensitivity;
+    await showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      builder: (sheetContext) => StatefulBuilder(
+        builder: (context, setSheetState) {
+          String label(double value) {
+            if (value <= .35) return 'Fine';
+            if (value <= .55) return 'Slow';
+            if (value <= .75) return 'Normal';
+            if (value <= 1.05) return 'Quick';
+            return 'Fast';
+          }
+
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 4, 20, 22),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Tuner sensitivity', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900)),
+                  const SizedBox(height: 5),
+                  const Text(
+                    'Controls both the TUNE knob and finger-dragging on the frequency scale. This setting is remembered on this device.',
+                    style: TextStyle(color: Colors.white60),
+                  ),
+                  const SizedBox(height: 14),
+                  Row(
+                    children: [
+                      Expanded(child: Text(label(draft), style: const TextStyle(color: rrnCyan, fontSize: 18, fontWeight: FontWeight.w900))),
+                      Text('${(draft * 100).round()}%', style: const TextStyle(fontFamily: 'monospace', color: Colors.white70)),
+                    ],
+                  ),
+                  Slider(
+                    min: .25,
+                    max: 1.50,
+                    divisions: 25,
+                    value: draft,
+                    label: '${(draft * 100).round()}%',
+                    onChanged: (value) {
+                      draft = value;
+                      setSheetState(() {});
+                      _setTunerSensitivity(value);
+                    },
+                  ),
+                  Row(
+                    children: [
+                      const Text('Finer', style: TextStyle(color: Colors.white38, fontSize: 11)),
+                      const Spacer(),
+                      TextButton(
+                        onPressed: () {
+                          draft = .60;
+                          setSheetState(() {});
+                          _setTunerSensitivity(.60);
+                        },
+                        child: const Text('Reset to 60%'),
+                      ),
+                      const Spacer(),
+                      const Text('Faster', style: TextStyle(color: Colors.white38, fontSize: 11)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 
   void _scheduleAudio() {
@@ -441,7 +529,9 @@ class _RealityDialV04ScreenState extends State<RealityDialV04Screen> {
                   detail: frequency.toStringAsFixed(1),
                   onChanged: (v) {
                     final r = bandRange;
-                    _setFrequency(r.min + (r.max - r.min) * v);
+                    final current = rangePosition;
+                    final adjusted = (current + (v - current) * tunerSensitivity).clamp(0.0, 1.0).toDouble();
+                    _setFrequency(r.min + (r.max - r.min) * adjusted);
                   },
                 ),
               ],
@@ -451,7 +541,7 @@ class _RealityDialV04ScreenState extends State<RealityDialV04Screen> {
               height: 72,
               child: GestureDetector(
                 behavior: HitTestBehavior.opaque,
-                onHorizontalDragUpdate: (d) => _setFrequency(frequency - d.delta.dx * .0045),
+                onHorizontalDragUpdate: (d) => _setFrequency(frequency - d.delta.dx * .0045 * tunerSensitivity),
                 child: CustomPaint(painter: DialScalePainter(frequency: frequency, stations: bandStations, band: band), child: const SizedBox.expand()),
               ),
             ),
@@ -581,6 +671,11 @@ class _RealityDialV04ScreenState extends State<RealityDialV04Screen> {
           FilterChip(selected: staticOn, onSelected: (v) { staticOn = v; app!.prefs?.setBool('dial_static', v); setState(() {}); _updateAudio(); }, label: Text('STATIC ${staticOn ? 'ON' : 'OFF'}')),
           FilterChip(selected: signalBleed, onSelected: (v) { signalBleed = v; app!.prefs?.setBool('dial_bleed', v); setState(() {}); _updateAudio(); }, label: Text('SIGNAL BLEED ${signalBleed ? 'ON' : 'OFF'}')),
           FilterChip(selected: dialAudio, onSelected: (v) { dialAudio = v; app!.prefs?.setBool('dial_auto', v); if (v) manualStationId = ''; setState(() {}); _updateAudio(); }, label: Text(dialAudio ? 'DIAL AUDIO AUTO' : 'DIAL AUDIO MANUAL')),
+          ActionChip(
+            avatar: const Icon(Icons.tune, size: 17),
+            label: Text('TUNER $sensitivityLabel ${(tunerSensitivity * 100).round()}%'),
+            onPressed: _showTunerSensitivity,
+          ),
         ],
       );
 
