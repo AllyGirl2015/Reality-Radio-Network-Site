@@ -2,7 +2,7 @@ name: Build RRN Official Android App
 
 on:
   push:
-    branches: [rrn-official-app-v0.3]
+    branches: [rrn-official-app-v0.4]
     paths:
       - 'mobile/rrn_official/**'
       - '.github/workflows/build-rrn-official-app.yml'
@@ -145,15 +145,15 @@ jobs:
           set -euxo pipefail
           cd /tmp/rrn_mobile
           flutter build apk --release
-          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.3.0-Website-Parity-Alpha.apk"
-          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.3.0-App-Logo.png"
+          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.4.0-Website-Parity-Alpha.apk"
+          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.4.0-App-Logo.png"
 
       - name: Upload APK and logo
         uses: actions/upload-artifact@v4
         with:
-          name: RRN-Mobile-0.3.0-Website-Parity-Alpha
+          name: RRN-Mobile-0.4.0-Website-Parity-Alpha
           path: |
-            RRN-Mobile-0.3.0-Website-Parity-Alpha.apk
-            RRN-Mobile-0.3.0-App-Logo.png
+            RRN-Mobile-0.4.0-Website-Parity-Alpha.apk
+            RRN-Mobile-0.4.0-App-Logo.png
           if-no-files-found: error
           retention-days: 90
