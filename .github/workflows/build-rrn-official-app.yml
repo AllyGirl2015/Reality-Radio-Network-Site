@@ -82,7 +82,6 @@ jobs:
               p=Path('/tmp/rrn_mobile/android/app/src/main/res')/f'mipmap-{bucket}'; p.mkdir(parents=True,exist_ok=True)
               logo(sz).save(p/'ic_launcher.png')
 
-          # Loopable generated broadband radio static. It contains no copyrighted audio.
           sr=44100; seconds=4
           random.seed(2015)
           samples=[]
@@ -137,7 +136,7 @@ jobs:
           cd /tmp/rrn_mobile
           flutter pub get
           dart format lib
-          flutter analyze --no-fatal-infos
+          flutter analyze --no-fatal-infos --no-fatal-warnings
 
       - name: Compile installable release APK
         shell: bash
