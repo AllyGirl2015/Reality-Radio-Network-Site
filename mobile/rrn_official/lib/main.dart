@@ -1,5 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'account.dart';
 import 'audio_handler.dart';
@@ -23,6 +24,7 @@ Future<void> main() async {
       androidNotificationChannelId: 'com.rbew.rrn_official.audio',
       androidNotificationChannelName: 'RRN Audio',
       androidNotificationOngoing: true,
+      androidStopForegroundOnPause: false,
       androidNotificationIcon: 'mipmap/ic_launcher',
     ),
   );
@@ -30,6 +32,17 @@ Future<void> main() async {
 
   final controller = RrnAppController();
   await controller.init();
+
+  // Android 13+ may require explicit notification permission for the full
+  // app notification experience. Media sessions are still authoritative,
+  // but requesting this now also prepares RRN for push notifications.
+  try {
+    final status = await Permission.notification.status;
+    if (!status.isGranted && !status.isPermanentlyDenied) {
+      await Permission.notification.request();
+    }
+  } catch (_) {}
+
   runApp(RrnScope(controller: controller, child: const RrnApp()));
 }
 
