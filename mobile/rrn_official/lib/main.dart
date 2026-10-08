@@ -21,11 +21,10 @@ Future<void> main() async {
   final mediaHandler = await AudioService.init(
     builder: () => RrnAudioHandler(),
     config: const AudioServiceConfig(
-      androidNotificationChannelId: 'com.rbew.rrn_official.audio',
-      androidNotificationChannelName: 'RRN Audio',
-      androidNotificationOngoing: false,
+      androidNotificationChannelId: 'com.rbew.rrn_official.audio.v2',
+      androidNotificationChannelName: 'RRN Playback',
+      androidNotificationOngoing: true,
       androidStopForegroundOnPause: false,
-      androidNotificationIcon: 'drawable/ic_rrn_notification',
     ),
   );
   await RrnPlaybackController.instance.attachHandler(mediaHandler);
@@ -140,23 +139,30 @@ class _RrnShellState extends State<RrnShell> {
 class RrnMiniPlayer extends StatelessWidget {
   const RrnMiniPlayer({super.key});
 
+  Widget _control({required VoidCallback? onPressed, required IconData icon, required String tooltip, Color? color}) => IconButton(
+        visualDensity: VisualDensity.compact,
+        constraints: const BoxConstraints.tightFor(width: 36, height: 42),
+        padding: EdgeInsets.zero,
+        onPressed: onPressed,
+        icon: Icon(icon, size: 28, color: color),
+        tooltip: tooltip,
+      );
+
   @override
   Widget build(BuildContext context) {
     final playback = RrnPlaybackController.instance;
     return Material(
       color: const Color(0xFF0A0E18),
-      child: InkWell(
-        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MusicNowPlayingScreen())),
-        child: Container(
-          constraints: const BoxConstraints(minHeight: 68),
-          decoration: const BoxDecoration(
-            border: Border(top: BorderSide(color: Color(0x3322D3EE))),
-          ),
-          padding: const EdgeInsets.fromLTRB(10, 8, 6, 8),
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
+      child: Container(
+        constraints: const BoxConstraints(minHeight: 68),
+        decoration: const BoxDecoration(border: Border(top: BorderSide(color: Color(0x3322D3EE)))),
+        padding: const EdgeInsets.fromLTRB(8, 7, 5, 7),
+        child: Row(
+          children: [
+            InkWell(
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MusicNowPlayingScreen())),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(9),
                 child: SizedBox(
                   width: 50,
                   height: 50,
@@ -175,8 +181,11 @@ class RrnMiniPlayer extends StatelessWidget {
                         ),
                 ),
               ),
-              const SizedBox(width: 10),
-              Expanded(
+            ),
+            const SizedBox(width: 9),
+            Expanded(
+              child: InkWell(
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MusicNowPlayingScreen())),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,13 +194,10 @@ class RrnMiniPlayer extends StatelessWidget {
                       children: [
                         if (playback.live)
                           Container(
-                            margin: const EdgeInsets.only(right: 6),
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(99),
-                              border: Border.all(color: rrnPink),
-                            ),
-                            child: const Text('LIVE', style: TextStyle(color: rrnPink, fontSize: 8, fontWeight: FontWeight.w900)),
+                            margin: const EdgeInsets.only(right: 5),
+                            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(99), border: Border.all(color: rrnPink)),
+                            child: const Text('LIVE', style: TextStyle(color: rrnPink, fontSize: 7, fontWeight: FontWeight.w900)),
                           ),
                         Expanded(
                           child: Text(
@@ -210,34 +216,35 @@ class RrnMiniPlayer extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(color: Colors.white60, fontSize: 11),
                       ),
-                    if (playback.lastError != null)
-                      Text(
-                        playback.lastError!,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(color: rrnPink, fontSize: 9),
-                      ),
                   ],
                 ),
               ),
-              if (playback.transitioning)
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  child: SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2)),
-                )
-              else
-                IconButton(
-                  onPressed: playback.toggle,
-                  icon: Icon(playback.playing ? Icons.pause_circle_filled : Icons.play_circle_fill, size: 35, color: rrnCyan),
-                  tooltip: playback.playing ? 'Pause' : 'Play',
-                ),
-              IconButton(
-                onPressed: playback.transitioning ? null : playback.stop,
-                icon: const Icon(Icons.close, size: 21),
-                tooltip: 'Stop',
+            ),
+            if (!playback.live)
+              _control(
+                onPressed: playback.canSkip ? playback.skipPrevious : null,
+                icon: Icons.skip_previous,
+                tooltip: 'Previous',
               ),
-            ],
-          ),
+            _control(
+              onPressed: playback.toggle,
+              icon: playback.playing ? Icons.pause_circle_filled : Icons.play_circle_fill,
+              tooltip: playback.playing ? 'Pause' : 'Play',
+              color: rrnCyan,
+            ),
+            if (!playback.live)
+              _control(
+                onPressed: playback.canSkip ? playback.skipNext : null,
+                icon: Icons.skip_next,
+                tooltip: 'Next',
+              ),
+            _control(
+              onPressed: playback.stop,
+              icon: Icons.close,
+              tooltip: 'Close player',
+              color: Colors.white60,
+            ),
+          ],
         ),
       ),
     );
@@ -277,6 +284,15 @@ class MoreScreen extends StatelessWidget {
             subtitle: const Text('Unlimited saved stations plus six presets per band.'),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SavedStationsScreen())),
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.library_music, color: rrnCyan),
+            title: const Text('Music Library & Queue', style: TextStyle(fontWeight: FontWeight.w900)),
+            subtitle: const Text('Account library, favorites, current queue and playlist access.'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MusicLibraryScreen())),
           ),
         ),
         Card(
