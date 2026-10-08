@@ -121,6 +121,19 @@ jobs:
           class MainActivity: AudioServiceActivity()
           EOF
           mkdir -p /tmp/rrn_mobile/android/app/src/main/res/xml
+          mkdir -p /tmp/rrn_mobile/android/app/src/main/res/drawable
+          cat > /tmp/rrn_mobile/android/app/src/main/res/drawable/ic_rrn_notification.xml <<'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <vector xmlns:android="http://schemas.android.com/apk/res/android"
+              android:width="24dp"
+              android:height="24dp"
+              android:viewportWidth="24"
+              android:viewportHeight="24">
+            <path android:fillColor="#FFFFFFFF" android:pathData="M11,9h2l3,12h-2l-1,-4h-2l-1,4H8z" />
+            <path android:fillColor="#FFFFFFFF" android:pathData="M12,3a2,2 0,1 0,0,4a2,2 0,1 0,0,-4z" />
+            <path android:fillColor="@android:color/transparent" android:strokeColor="#FFFFFFFF" android:strokeWidth="1.5" android:pathData="M8.5,8.5C6.3,6.4 6.3,3.6 8.5,1.5M15.5,8.5C17.7,6.4 17.7,3.6 15.5,1.5" />
+          </vector>
+          EOF
           cat > /tmp/rrn_mobile/android/app/src/main/res/xml/automotive_app_desc.xml <<'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <automotiveApp><uses name="media" /></automotiveApp>
