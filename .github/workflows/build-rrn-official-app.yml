@@ -2,7 +2,7 @@ name: Build RRN Official Android App
 
 on:
   push:
-    branches: [rrn-official-app-v0.1]
+    branches: [rrn-official-app-v0.3]
     paths:
       - 'mobile/rrn_official/**'
       - '.github/workflows/build-rrn-official-app.yml'
@@ -34,10 +34,11 @@ jobs:
           rm -rf /tmp/rrn_mobile
           flutter create --platforms=android --org com.rbew --project-name rrn_official /tmp/rrn_mobile
           cp mobile/rrn_official/pubspec.yaml /tmp/rrn_mobile/pubspec.yaml
-          cat mobile/rrn_official/source_bundle.part00 mobile/rrn_official/source_bundle.part01 mobile/rrn_official/source_bundle.part02 | base64 -d | gzip -d > /tmp/rrn_mobile/lib/main.dart
+          rm -rf /tmp/rrn_mobile/lib
+          cp -R mobile/rrn_official/lib /tmp/rrn_mobile/lib
           rm -rf /tmp/rrn_mobile/test /tmp/rrn_mobile/analysis_options.yaml
 
-      - name: Generate RRN branding and launcher icon
+      - name: Generate RRN branding, static audio and launcher icon
         shell: bash
         run: |
           set -euxo pipefail
@@ -46,34 +47,29 @@ jobs:
           python3 - <<'PY'
           from PIL import Image, ImageDraw, ImageFont
           from pathlib import Path
-          import math
+          import math, random, struct, wave
 
           def logo(size):
               im=Image.new('RGB',(size,size),(2,4,10)); d=ImageDraw.Draw(im)
               cx=cy=size/2
-              # outer tuner rings: RBEW cyan -> purple -> magenta
               for i,c in enumerate([(0,243,255),(95,110,255),(168,85,247),(236,72,153)]):
                   pad=size*(.055+i*.025)
                   d.ellipse((pad,pad,size-pad,size-pad),outline=c,width=max(2,size//70))
-              # ticks
               for n in range(36):
                   a=2*math.pi*n/36-math.pi/2
                   r1=size*.395; r2=size*(.435 if n%3 else .455)
                   d.line((cx+math.cos(a)*r1,cy+math.sin(a)*r1,cx+math.cos(a)*r2,cy+math.sin(a)*r2),fill=(0,243,255) if n<18 else (236,72,153),width=max(1,size//95))
-              # broadcast mast + waves
               d.line((cx,size*.18,cx,size*.40),fill=(245,245,255),width=max(3,size//58))
               d.line((cx,size*.21,size*.36,size*.43),fill=(0,243,255),width=max(3,size//70))
               d.line((cx,size*.21,size*.64,size*.43),fill=(236,72,153),width=max(3,size//70))
               for r in (.12,.18,.24):
                   box=(cx-size*r, size*(.10-r*.15), cx+size*r, size*(.37+r*.12))
                   d.arc(box,205,335,fill=(0,243,255),width=max(2,size//75))
-              # RRN plate
               d.rounded_rectangle((size*.14,size*.43,size*.86,size*.72),radius=size*.06,fill=(5,8,18),outline=(168,85,247),width=max(3,size//65))
               try: font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',int(size*.245))
               except: font=ImageFont.load_default()
               b=d.textbbox((0,0),'RRN',font=font); tw=b[2]-b[0]
               d.text(((size-tw)/2,size*.46),'RRN',font=font,fill=(245,247,255),stroke_width=max(1,size//110),stroke_fill=(168,85,247))
-              # waveform
               for x in range(int(size*.24),int(size*.76),max(2,size//55)):
                   amp=(.02+.055*abs(math.sin(x/size*math.pi*5)))*size
                   d.line((x,size*.78-amp,x,size*.78+amp),fill=(0,243,255) if x<cx else (236,72,153),width=max(1,size//120))
@@ -85,6 +81,20 @@ jobs:
           for bucket,sz in sizes.items():
               p=Path('/tmp/rrn_mobile/android/app/src/main/res')/f'mipmap-{bucket}'; p.mkdir(parents=True,exist_ok=True)
               logo(sz).save(p/'ic_launcher.png')
+
+          # Loopable generated broadband radio static. It contains no copyrighted audio.
+          sr=44100; seconds=4
+          random.seed(2015)
+          samples=[]
+          prev=0.0
+          for _ in range(sr*seconds):
+              white=random.uniform(-1,1)
+              prev=.72*prev+.28*white
+              value=max(-1,min(1,white*.48+prev*.42))
+              samples.append(int(value*8500))
+          with wave.open(str(assets/'radio_static.wav'),'wb') as w:
+              w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr)
+              w.writeframes(b''.join(struct.pack('<h',s) for s in samples))
           PY
 
       - name: Enable background audio and Android Auto media service
@@ -126,7 +136,7 @@ jobs:
           set -euxo pipefail
           cd /tmp/rrn_mobile
           flutter pub get
-          dart format lib/main.dart
+          dart format lib
           flutter analyze --no-fatal-infos
 
       - name: Compile installable release APK
@@ -135,15 +145,15 @@ jobs:
           set -euxo pipefail
           cd /tmp/rrn_mobile
           flutter build apk --release
-          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.2.0-Official-Alpha.apk"
-          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.2.0-App-Logo.png"
+          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.3.0-Website-Parity-Alpha.apk"
+          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.3.0-App-Logo.png"
 
       - name: Upload APK and logo
         uses: actions/upload-artifact@v4
         with:
-          name: RRN-Mobile-0.2.0-Official-Alpha
+          name: RRN-Mobile-0.3.0-Website-Parity-Alpha
           path: |
-            RRN-Mobile-0.2.0-Official-Alpha.apk
-            RRN-Mobile-0.2.0-App-Logo.png
+            RRN-Mobile-0.3.0-Website-Parity-Alpha.apk
+            RRN-Mobile-0.3.0-App-Logo.png
           if-no-files-found: error
           retention-days: 90
