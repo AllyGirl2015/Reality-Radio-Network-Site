@@ -9,7 +9,6 @@ import 'audio_handler.dart';
 import 'core.dart';
 
 enum RrnPlaybackKind { none, station, music }
-
 enum RrnPlaybackPhase { detached, idle, loading, playing, paused, error }
 
 class RrnPlaybackController extends ChangeNotifier {
@@ -22,6 +21,8 @@ class RrnPlaybackController extends ChangeNotifier {
   String _desiredSourceId = '';
   bool _switchingSource = false;
   StreamSubscription<MediaItem?>? _mediaSub;
+  StreamSubscription<List<MediaItem>>? _queueSub;
+  StreamSubscription<PlaybackState>? _stateSub;
 
   RrnPlaybackKind kind = RrnPlaybackKind.none;
   RrnPlaybackPhase phase = RrnPlaybackPhase.detached;
@@ -33,6 +34,10 @@ class RrnPlaybackController extends ChangeNotifier {
   String? lastError;
   bool live = false;
   Map<String, dynamic> raw = const {};
+  List<MediaItem> mediaQueue = const [];
+  int queueIndex = 0;
+  AudioServiceRepeatMode repeatMode = AudioServiceRepeatMode.none;
+  AudioServiceShuffleMode shuffleMode = AudioServiceShuffleMode.none;
 
   bool get attached => _handler != null;
   AudioPlayer get player {
@@ -44,6 +49,7 @@ class RrnPlaybackController extends ChangeNotifier {
   bool get hasItem => kind != RrnPlaybackKind.none && title.isNotEmpty;
   bool get playing => attached && player.playing;
   bool get transitioning => _switchingSource || phase == RrnPlaybackPhase.loading;
+  bool get canSkip => _handler?.canSkip ?? false;
   Duration get position => attached ? player.position : Duration.zero;
   Duration get duration => attached ? (player.duration ?? Duration.zero) : Duration.zero;
 
@@ -74,11 +80,35 @@ class RrnPlaybackController extends ChangeNotifier {
         notifyListeners();
       },
     );
+
     _mediaSub = handler.mediaItem.listen((item) {
-      if (item == null && hasItem) {
-        _clearLocalState();
-        notifyListeners();
+      if (item == null) {
+        if (hasItem) {
+          _clearLocalState();
+          notifyListeners();
+        }
+        return;
       }
+      final extras = item.extras ?? const <String, dynamic>{};
+      sourceId = item.id;
+      title = item.title;
+      album = item.album ?? '';
+      subtitle = [item.artist ?? '', item.album ?? ''].where((e) => e.isNotEmpty).join(' · ');
+      artwork = item.artUri?.toString() ?? '';
+      live = boolish(extras['isLive']);
+      kind = str(extras['rrnType']) == 'station' ? RrnPlaybackKind.station : RrnPlaybackKind.music;
+      phase = player.playing ? RrnPlaybackPhase.playing : RrnPlaybackPhase.paused;
+      notifyListeners();
+    });
+    _queueSub = handler.queue.listen((items) {
+      mediaQueue = List<MediaItem>.unmodifiable(items);
+      notifyListeners();
+    });
+    _stateSub = handler.playbackState.listen((state) {
+      queueIndex = state.queueIndex ?? 0;
+      repeatMode = state.repeatMode;
+      shuffleMode = state.shuffleMode;
+      notifyListeners();
     });
 
     phase = RrnPlaybackPhase.idle;
@@ -94,6 +124,7 @@ class RrnPlaybackController extends ChangeNotifier {
       } catch (error, stackTrace) {
         lastError = '$error';
         phase = RrnPlaybackPhase.error;
+        _switchingSource = false;
         notifyListeners();
         if (!completer.isCompleted) completer.completeError(error, stackTrace);
       }
@@ -108,15 +139,13 @@ class RrnPlaybackController extends ChangeNotifier {
   }
 
   String musicUrl(Map<String, dynamic> item) => _absolute(str(
-        item['streamUrl'] ??
-            item['stream_url'] ??
-            item['audioUrl'] ??
-            item['audio_url'] ??
-            item['previewUrl'] ??
-            item['preview_url'] ??
-            item['fileUrl'] ??
-            item['file_url'],
+        item['streamUrl'] ?? item['stream_url'] ?? item['audioUrl'] ?? item['audio_url'] ?? item['previewUrl'] ?? item['preview_url'] ?? item['fileUrl'] ?? item['file_url'],
       ));
+
+  String _musicIdentity(Map<String, dynamic> item) {
+    final stream = musicUrl(item);
+    return str(item['id'] ?? item['slug'] ?? item['catalog'], stream);
+  }
 
   String _stationIdentity(Station station) => station.id.isNotEmpty
       ? station.id
@@ -146,9 +175,7 @@ class RrnPlaybackController extends ChangeNotifier {
         : metadata?.presenter.isNotEmpty == true
             ? metadata!.presenter
             : station.name;
-    final designation = station.designation.isNotEmpty
-        ? station.designation
-        : '${station.frequency.toStringAsFixed(1)} ${station.band}';
+    final designation = station.designation.isNotEmpty ? station.designation : '${station.frequency.toStringAsFixed(1)} ${station.band}';
     return MediaItem(
       id: 'station:${_stationIdentity(station)}',
       title: trackTitle,
@@ -175,34 +202,29 @@ class RrnPlaybackController extends ChangeNotifier {
     );
   }
 
-  MediaItem _musicMediaItem(Map<String, dynamic> item, {Duration? duration}) {
+  MediaItem _musicMediaItem(Map<String, dynamic> item) {
     final itemTitle = str(item['title'] ?? item['name'], 'RRN Music');
     final itemArtist = str(item['artist'] ?? item['artistName'] ?? item['artist_name']);
     final itemAlbum = str(item['album'] ?? item['albumTitle'] ?? item['album_title'] ?? item['releaseTitle'] ?? item['release_title']);
     final art = _absolute(str(item['artwork'] ?? item['artwork_url'] ?? item['image'] ?? item['coverUrl'] ?? item['cover_url'] ?? item['artworkUrl']));
-    final id = str(item['id'] ?? item['slug'] ?? item['catalog'], musicUrl(item));
+    final id = _musicIdentity(item);
+    final seconds = numi(item['duration_seconds'] ?? item['durationSeconds']);
     return MediaItem(
       id: 'music:$id',
       title: itemTitle,
       artist: itemArtist.isEmpty ? 'Reality Radio Network' : itemArtist,
       album: itemAlbum,
-      duration: duration,
+      duration: seconds > 0 ? Duration(seconds: seconds) : null,
       artUri: art.isNotEmpty ? Uri.tryParse(art) : null,
       extras: {'rrnType': 'music', 'resourceType': 'track', 'resourceId': id, 'isLive': false},
     );
   }
 
-  Future<void> playStation(
-    Station station, {
-    RadioMetadata? metadata,
-    double volume = 1,
-    bool autoplay = true,
-  }) {
+  Future<void> playStation(Station station, {RadioMetadata? metadata, double volume = 1, bool autoplay = true}) {
     final stream = _absolute(station.streamUrl);
     if (stream.isEmpty) return Future.error(StateError('This station does not currently expose a playable stream.'));
     final nextId = 'station:${_stationIdentity(station)}';
     _desiredSourceId = nextId;
-
     return _serialize(() async {
       if (_desiredSourceId != nextId || _handler == null) return;
       lastError = null;
@@ -220,7 +242,7 @@ class RrnPlaybackController extends ChangeNotifier {
       raw = station.raw;
 
       try {
-        await _handler!.loadSource(url: stream, item: media, autoplay: autoplay, volume: volume);
+        await _handler!.loadSingle(url: stream, item: media, autoplay: autoplay, volume: volume, isLive: true);
         if (_desiredSourceId != nextId) return;
         sourceId = nextId;
         phase = autoplay ? RrnPlaybackPhase.playing : RrnPlaybackPhase.paused;
@@ -231,11 +253,15 @@ class RrnPlaybackController extends ChangeNotifier {
     });
   }
 
-  Future<void> playMusic(Map<String, dynamic> item, {bool autoplay = true}) {
-    final stream = musicUrl(item);
-    if (stream.isEmpty) return Future.error(StateError('This RRN track does not expose a playable stream.'));
-    final itemId = str(item['id'] ?? item['slug'] ?? item['catalog'], stream);
-    final nextId = 'music:$itemId';
+  Future<void> playMusic(
+    Map<String, dynamic> item, {
+    bool autoplay = true,
+    List<Map<String, dynamic>>? queueItems,
+  }) {
+    final selectedId = _musicIdentity(item);
+    final selectedUrl = musicUrl(item);
+    if (selectedUrl.isEmpty) return Future.error(StateError('This RRN track does not expose a playable stream.'));
+    final nextId = 'music:$selectedId';
     _desiredSourceId = nextId;
 
     return _serialize(() async {
@@ -245,7 +271,13 @@ class RrnPlaybackController extends ChangeNotifier {
       phase = RrnPlaybackPhase.loading;
       notifyListeners();
 
-      final media = _musicMediaItem(item);
+      final sourceQueue = (queueItems ?? [item]).where((row) => musicUrl(row).isNotEmpty).toList();
+      if (!sourceQueue.any((row) => _musicIdentity(row) == selectedId)) sourceQueue.insert(0, item);
+      final selectedIndex = sourceQueue.indexWhere((row) => _musicIdentity(row) == selectedId);
+      final mediaItems = sourceQueue.map(_musicMediaItem).toList();
+      final urls = sourceQueue.map(musicUrl).toList();
+      final media = mediaItems[selectedIndex];
+
       kind = RrnPlaybackKind.music;
       title = media.title;
       subtitle = [media.artist ?? '', media.album ?? ''].where((e) => e.isNotEmpty).join(' · ');
@@ -255,7 +287,14 @@ class RrnPlaybackController extends ChangeNotifier {
       raw = Map<String, dynamic>.from(item);
 
       try {
-        await _handler!.loadSource(url: stream, item: media, autoplay: autoplay, volume: 1);
+        await _handler!.loadQueue(
+          urls: urls,
+          items: mediaItems,
+          index: selectedIndex,
+          autoplay: autoplay,
+          volume: 1,
+          isLive: false,
+        );
         if (_desiredSourceId != nextId) return;
         sourceId = nextId;
         phase = autoplay ? RrnPlaybackPhase.playing : RrnPlaybackPhase.paused;
@@ -294,8 +333,41 @@ class RrnPlaybackController extends ChangeNotifier {
 
   Future<void> toggle() => playing ? pause() : resume();
 
+  Future<void> skipNext() => _serialize(() async {
+        if (_handler == null || !canSkip) return;
+        await _handler!.skipToNext();
+      });
+
+  Future<void> skipPrevious() => _serialize(() async {
+        if (_handler == null || !canSkip) return;
+        await _handler!.skipToPrevious();
+      });
+
+  Future<void> playQueueIndex(int index) => _serialize(() async {
+        if (_handler == null || live) return;
+        await _handler!.skipToQueueItem(index);
+      });
+
+  Future<void> cycleRepeat() => _serialize(() async {
+        if (_handler == null || live) return;
+        final next = switch (repeatMode) {
+          AudioServiceRepeatMode.none => AudioServiceRepeatMode.all,
+          AudioServiceRepeatMode.all => AudioServiceRepeatMode.one,
+          _ => AudioServiceRepeatMode.none,
+        };
+        await _handler!.setRepeatMode(next);
+      });
+
+  Future<void> toggleShuffle() => _serialize(() async {
+        if (_handler == null || live) return;
+        await _handler!.setShuffleMode(
+          shuffleMode == AudioServiceShuffleMode.none ? AudioServiceShuffleMode.all : AudioServiceShuffleMode.none,
+        );
+      });
+
   Future<void> stop() {
     _desiredSourceId = '';
+    _switchingSource = false;
     return _serialize(() async {
       if (_handler != null) await _handler!.stop();
       _clearLocalState();
@@ -324,6 +396,8 @@ class RrnPlaybackController extends ChangeNotifier {
     artwork = '';
     live = false;
     raw = const {};
+    mediaQueue = const [];
+    queueIndex = 0;
     lastError = null;
     _switchingSource = false;
   }
