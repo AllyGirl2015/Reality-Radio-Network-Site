@@ -2,7 +2,7 @@ name: Build RRN Official Android App
 
 on:
   push:
-    branches: [rrn-official-app-v0.5.1]
+    branches: [rrn-official-app-v0.6.0-media3]
     paths:
       - 'mobile/rrn_official/**'
       - '.github/workflows/build-rrn-official-app.yml'
@@ -38,29 +38,55 @@ jobs:
           cp -R mobile/rrn_official/lib /tmp/rrn_mobile/lib
           rm -rf /tmp/rrn_mobile/test /tmp/rrn_mobile/analysis_options.yaml
 
-          # Keep the compatibility-only legacy files analyzable without adding
-          # a second background-audio plugin beside audio_service.
+          # Legacy alpha source files are kept for reference, but only the v0.6
+          # screens are wired into main.dart. Keep those files analyzable.
           sed -i 's#package:just_audio_background/just_audio_background.dart#package:audio_service/audio_service.dart#g' \
             /tmp/rrn_mobile/lib/music.dart \
             /tmp/rrn_mobile/lib/tuner.dart
 
-          # Make the app identify this build correctly to the Matrix.
-          sed -i "s/'0.3.0'/'0.5.1'/g" /tmp/rrn_mobile/lib/core.dart
-
-      - name: Bridge live station metadata into the media session
-        shell: bash
-        run: |
-          set -euxo pipefail
+          # Native Media3 owns Android playback in v0.6. Remove AudioService.init
+          # from Flutter startup while retaining audio_service Dart value types.
           python3 - <<'PY'
           from pathlib import Path
-          path = Path('/tmp/rrn_mobile/lib/tuner_v04.dart')
-          text = path.read_text()
-          old = """      metadata = RadioMetadata.from(body);\n      if (playback.kind == RrnPlaybackKind.station && playback.sourceId == 'station:${_identity(station)}' && station.streamUrl.isNotEmpty) {\n        // Keep playback itself alive; the Dial display is refreshed independently.\n      }\n      if (mounted) setState(() {});"""
-          new = """      metadata = RadioMetadata.from(body);\n      playback.updateStationMetadata(station, metadata);\n      if (mounted) setState(() {});"""
-          if old in text:
-              path.write_text(text.replace(old, new, 1))
-          elif 'playback.updateStationMetadata(station, metadata);' not in text:
+          p=Path('/tmp/rrn_mobile/lib/main.dart')
+          s=p.read_text()
+          s=s.replace("import 'package:audio_service/audio_service.dart';\n",'')
+          s=s.replace("import 'audio_handler.dart';\n",'')
+          start=s.find('  final mediaHandler = await AudioService.init(')
+          end=s.find('  await RrnPlaybackController.instance.attachHandler(mediaHandler);')
+          if start < 0 or end < 0:
+              raise SystemExit('Expected AudioService startup block was not found.')
+          end += len('  await RrnPlaybackController.instance.attachHandler(mediaHandler);')
+          s=s[:start] + '  await RrnPlaybackController.instance.init();' + s[end:]
+          p.write_text(s)
+
+          # Make the app identify this build correctly to the Matrix.
+          core=Path('/tmp/rrn_mobile/lib/core.dart')
+          t=core.read_text().replace("'0.3.0'", "'0.6.0'")
+          core.write_text(t)
+
+          # v0.6 puts stream controls directly below the selected station and
+          # sends live metadata into the same Media3 system session.
+          tuner=Path('/tmp/rrn_mobile/lib/tuner_v04.dart')
+          t=tuner.read_text()
+          if "import 'stream_controls.dart';" not in t:
+              t=t.replace("import 'stations.dart';\n", "import 'stations.dart';\nimport 'stream_controls.dart';\n")
+          old="""      metadata = RadioMetadata.from(body);\n      if (playback.kind == RrnPlaybackKind.station && playback.sourceId == 'station:${_identity(station)}' && station.streamUrl.isNotEmpty) {\n        // Keep playback itself alive; the Dial display is refreshed independently.\n      }\n      if (mounted) setState(() {});"""
+          new="""      metadata = RadioMetadata.from(body);\n      playback.updateStationMetadata(station, metadata);\n      if (mounted) setState(() {});"""
+          if old in t:
+              t=t.replace(old,new,1)
+          elif 'playback.updateStationMetadata(station, metadata);' not in t:
               raise SystemExit('Expected tuner metadata bridge was not found.')
+          marker="""          _stationCard(station),\n          const SizedBox(height: 10),\n          _toggles(),"""
+          replacement="""          _stationCard(station),\n          const SizedBox(height: 10),\n          RrnStreamControlsCard(\n            station: station,\n            metadata: metadata,\n            volume: volume,\n            onVolumeChanged: _setVolume,\n            onPreviousStation: () => _seekStation(-1),\n            onNextStation: () => _seekStation(1),\n          ),\n          const SizedBox(height: 10),\n          _toggles(),"""
+          if marker in t:
+              t=t.replace(marker,replacement,1)
+          elif 'RrnStreamControlsCard(' not in t:
+              raise SystemExit('Expected station-card insertion point was not found.')
+          tuner.write_text(t)
+
+          stream=Path('/tmp/rrn_mobile/lib/stream_controls.dart')
+          stream.write_text(stream.read_text().replace('value: widget.volume.clamp(0, 1),','value: widget.volume.clamp(0, 1).toDouble(),'))
           PY
 
       - name: Generate RRN branding and tuner static
@@ -116,47 +142,40 @@ jobs:
               w.writeframes(b''.join(struct.pack('<h',s) for s in samples))
           PY
 
-      - name: Configure persistent Android media service
+      - name: Install native AndroidX Media3 playback service
         shell: bash
         run: |
           set -euxo pipefail
-          cat > /tmp/rrn_mobile/android/app/src/main/kotlin/com/rbew/rrn_official/MainActivity.kt <<'EOF'
-          package com.rbew.rrn_official
-          import com.ryanheise.audioservice.AudioServiceActivity
-          class MainActivity: AudioServiceActivity()
-          EOF
+          KOTLIN=/tmp/rrn_mobile/android/app/src/main/kotlin/com/rbew/rrn_official
+          RES=/tmp/rrn_mobile/android/app/src/main/res
+          mkdir -p "$KOTLIN" "$RES/drawable" "$RES/xml" "$RES/values"
+          cp mobile/rrn_official/native_android/MainActivity.kt "$KOTLIN/MainActivity.kt"
+          cp mobile/rrn_official/native_android/RrnMediaService.kt "$KOTLIN/RrnMediaService.kt"
+          cp mobile/rrn_official/native_android/AndroidManifest.xml /tmp/rrn_mobile/android/app/src/main/AndroidManifest.xml
+          cp mobile/rrn_official/native_android/ic_stat_rrn.xml "$RES/drawable/ic_stat_rrn.xml"
 
-          mkdir -p /tmp/rrn_mobile/android/app/src/main/res/xml
-          cat > /tmp/rrn_mobile/android/app/src/main/res/xml/automotive_app_desc.xml <<'EOF'
+          cat > "$RES/xml/automotive_app_desc.xml" <<'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <automotiveApp><uses name="media" /></automotiveApp>
           EOF
 
-          cat > /tmp/rrn_mobile/android/app/src/main/AndroidManifest.xml <<'EOF'
-          <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
-            <uses-permission android:name="android.permission.INTERNET" />
-            <uses-permission android:name="android.permission.WAKE_LOCK" />
-            <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-            <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
-            <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-            <application android:label="Reality Radio Network" android:name="${applicationName}" android:icon="@mipmap/ic_launcher" android:usesCleartextTraffic="false">
-              <activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize">
-                <meta-data android:name="io.flutter.embedding.android.NormalTheme" android:resource="@style/NormalTheme" />
-                <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>
-              </activity>
-              <service android:name="com.ryanheise.audioservice.AudioService" android:foregroundServiceType="mediaPlayback" android:exported="true" android:stopWithTask="false" tools:ignore="Instantiatable">
-                <intent-filter><action android:name="android.media.browse.MediaBrowserService" /></intent-filter>
-              </service>
-              <receiver android:name="com.ryanheise.audioservice.MediaButtonReceiver" android:exported="true" tools:ignore="Instantiatable">
-                <intent-filter><action android:name="android.intent.action.MEDIA_BUTTON" /></intent-filter>
-              </receiver>
-              <meta-data android:name="com.google.android.gms.car.application" android:resource="@xml/automotive_app_desc" />
-              <meta-data android:name="flutterEmbedding" android:value="2" />
-            </application>
-          </manifest>
+          cat > "$RES/values/rrn_media_strings.xml" <<'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+            <string name="rrn_playback_channel_name">RRN Playback</string>
+          </resources>
           EOF
 
-      - name: Resolve packages and validate source
+          cat >> /tmp/rrn_mobile/android/app/build.gradle.kts <<'EOF'
+
+          dependencies {
+              implementation("androidx.media3:media3-exoplayer:1.11.1")
+              implementation("androidx.media3:media3-exoplayer-hls:1.11.1")
+              implementation("androidx.media3:media3-session:1.11.1")
+          }
+          EOF
+
+      - name: Resolve packages and validate Flutter source
         shell: bash
         run: |
           set -euxo pipefail
@@ -171,15 +190,15 @@ jobs:
           set -euxo pipefail
           cd /tmp/rrn_mobile
           flutter build apk --release
-          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.5.1-Media-Controls-Alpha.apk"
-          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.5.1-App-Logo.png"
+          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.6.0-Media3-Native-Alpha.apk"
+          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.6.0-App-Logo.png"
 
       - name: Upload APK and logo
         uses: actions/upload-artifact@v4
         with:
-          name: RRN-Mobile-0.5.1-Media-Controls-Alpha
+          name: RRN-Mobile-0.6.0-Media3-Native-Alpha
           path: |
-            RRN-Mobile-0.5.1-Media-Controls-Alpha.apk
-            RRN-Mobile-0.5.1-App-Logo.png
+            RRN-Mobile-0.6.0-Media3-Native-Alpha.apk
+            RRN-Mobile-0.6.0-App-Logo.png
           if-no-files-found: error
           retention-days: 90
