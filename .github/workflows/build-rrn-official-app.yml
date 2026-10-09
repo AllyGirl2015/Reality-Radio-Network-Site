@@ -2,7 +2,7 @@ name: Build RRN Official Android App
 
 on:
   push:
-    branches: [rrn-official-app-v0.6.0]
+    branches: [rrn-official-app-v0.7.0]
     paths:
       - 'mobile/rrn_official/**'
       - '.github/workflows/build-rrn-official-app.yml'
@@ -27,7 +27,7 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Create RRN Android project
+      - name: Create RRN Android project and apply app patches
         shell: bash
         run: |
           set -euxo pipefail
@@ -38,21 +38,20 @@ jobs:
           cp -R mobile/rrn_official/lib /tmp/rrn_mobile/lib
           rm -rf /tmp/rrn_mobile/test /tmp/rrn_mobile/analysis_options.yaml
 
-          # Keep compatibility-only legacy files analyzable without adding a
+          # Compatibility-only legacy files remain analyzable without adding a
           # second background-audio plugin beside audio_service.
           sed -i 's#package:just_audio_background/just_audio_background.dart#package:audio_service/audio_service.dart#g' \
             /tmp/rrn_mobile/lib/music.dart \
             /tmp/rrn_mobile/lib/tuner.dart
 
-          # Identify this build correctly to the App Translation Matrix.
-          sed -i "s/'0.3.0'/'0.6.0'/g" /tmp/rrn_mobile/lib/core.dart
+          sed -i "s/'0.3.0'/'0.7.0'/g" /tmp/rrn_mobile/lib/core.dart
 
-          # Apply the v0.6 app-side parity/media-control changes against the
-          # checked-in Flutter source. The patch script fails loudly if an
-          # expected contract changes.
+          # v0.6 established the proven Android media surface and native parity
+          # baseline. v0.7 layers metadata/feed/points/playlists onto it.
           python3 mobile/rrn_official/ci_patch_v060.py
+          python3 mobile/rrn_official/ci_patch_v070.py
 
-      - name: Bridge live station metadata into the media session
+      - name: Bridge live station metadata into shared playback state
         shell: bash
         run: |
           set -euxo pipefail
@@ -125,14 +124,9 @@ jobs:
         shell: bash
         run: |
           set -euxo pipefail
-
-          # Explicit native media/session layer used for notification shade,
-          # lock screen and Android media transport controls.
           cp mobile/rrn_official/android_native/RrnNativeMedia.kt \
             /tmp/rrn_mobile/android/app/src/main/kotlin/com/rbew/rrn_official/MainActivity.kt
 
-          # MediaSessionCompat/MediaStyle is deliberately used as a thin system
-          # surface above the existing Flutter audio engine for this alpha.
           cat >> /tmp/rrn_mobile/android/app/build.gradle.kts <<'EOF'
 
           dependencies {
@@ -158,18 +152,13 @@ jobs:
                 <meta-data android:name="io.flutter.embedding.android.NormalTheme" android:resource="@style/NormalTheme" />
                 <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>
               </activity>
-
-              <!-- Existing Flutter audio engine. -->
               <service android:name="com.ryanheise.audioservice.AudioService" android:foregroundServiceType="mediaPlayback" android:exported="true" android:stopWithTask="false" tools:ignore="Instantiatable">
                 <intent-filter><action android:name="android.media.browse.MediaBrowserService" /></intent-filter>
               </service>
               <receiver android:name="com.ryanheise.audioservice.MediaButtonReceiver" android:exported="true" tools:ignore="Instantiatable">
                 <intent-filter><action android:name="android.intent.action.MEDIA_BUTTON" /></intent-filter>
               </receiver>
-
-              <!-- v0.6 explicit public Android media/session surface. -->
               <service android:name=".RrnMediaSurfaceService" android:foregroundServiceType="mediaPlayback" android:exported="false" android:stopWithTask="false" />
-
               <meta-data android:name="com.google.android.gms.car.application" android:resource="@xml/automotive_app_desc" />
               <meta-data android:name="flutterEmbedding" android:value="2" />
             </application>
@@ -191,16 +180,16 @@ jobs:
           set -euxo pipefail
           cd /tmp/rrn_mobile
           flutter build apk --release
-          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.6.0-Native-Media-Alpha.apk"
-          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.6.0-App-Logo.png"
+          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.7.0-Metadata-Parity-Alpha.apk"
+          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.7.0-App-Logo.png"
 
       - name: Upload APK and audit
         uses: actions/upload-artifact@v4
         with:
-          name: RRN-Mobile-0.6.0-Native-Media-Alpha
+          name: RRN-Mobile-0.7.0-Metadata-Parity-Alpha
           path: |
-            RRN-Mobile-0.6.0-Native-Media-Alpha.apk
-            RRN-Mobile-0.6.0-App-Logo.png
-            mobile/rrn_official/NATIVE_PARITY_AUDIT_v0.6.md
+            RRN-Mobile-0.7.0-Metadata-Parity-Alpha.apk
+            RRN-Mobile-0.7.0-App-Logo.png
+            mobile/rrn_official/NATIVE_PARITY_AUDIT_v0.7.md
           if-no-files-found: error
           retention-days: 90
