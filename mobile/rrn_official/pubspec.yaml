@@ -1,7 +1,7 @@
 name: rrn_official
 description: Official Reality Radio Network mobile application.
 publish_to: 'none'
-version: 0.5.1+8
+version: 0.6.0+9
 
 environment:
   sdk: '>=3.6.0 <4.0.0'
@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # audio_service is temporarily retained for MediaItem/repeat/shuffle Dart
+  # value types while Android playback itself is owned by native Media3.
   audio_service: ^0.18.19
   audio_session: ^0.1.21
   flutter_secure_storage: ^9.2.2
