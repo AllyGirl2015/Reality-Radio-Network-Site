@@ -50,6 +50,7 @@ jobs:
           # baseline. v0.7 layers metadata/feed/points/playlists onto it.
           python3 mobile/rrn_official/ci_patch_v060.py
           python3 mobile/rrn_official/ci_patch_v070.py
+          sed -i 's/Colors.white45/Colors.white54/g' /tmp/rrn_mobile/lib/tuner_v04.dart
 
       - name: Bridge live station metadata into shared playback state
         shell: bash
