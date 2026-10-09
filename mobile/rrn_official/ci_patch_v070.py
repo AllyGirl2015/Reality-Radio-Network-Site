@@ -20,8 +20,6 @@ def replace_once(text: str, old: str, new: str, label: str) -> str:
 
 # ---------------------------------------------------------------------------
 # Live radio metadata normalization.
-# The website metadata provider uses who/song in addition to presenter/title.
-# Preserve both schemas and common nested song objects.
 # ---------------------------------------------------------------------------
 text = read('core.dart')
 text = replace_once(
@@ -34,9 +32,8 @@ write('core.dart', text)
 
 
 # ---------------------------------------------------------------------------
-# Playback: for live radio the active song is the media item title, track artist
-# is the media artist, and station/presenter/source context lives in album/extras.
-# Existing native Android media surface then receives all of this automatically.
+# Playback: active song/artist become the public media metadata while station,
+# presenter and source remain available as station context.
 # ---------------------------------------------------------------------------
 text = read('playback.dart')
 text = replace_once(
@@ -63,7 +60,6 @@ text = replace_once(
     """    title = media.title;\n    subtitle = [media.artist ?? '', station.name].where((e) => e.isNotEmpty).join(' · ');\n    album = media.album ?? '';\n    artwork = media.artUri?.toString() ?? '';\n    raw = {\n      ...station.raw,\n      'rrnNowPlaying': {\n        'stationName': station.name,\n        'designation': station.designation,\n        'presenter': metadata.presenter,\n        'show': metadata.show,\n        'artist': metadata.artist,\n        'title': metadata.title,\n        'source': metadata.source,\n        'artwork': metadata.artwork,\n      },\n    };\n    _handler?.updateNowPlaying(media);\n    notifyListeners();""",
     'live metadata refresh playback state',
 )
-# Keep live notification text concise when MediaItem changes arrive from handler.
 old_subtitle = "      subtitle = [item.artist ?? '', item.album ?? ''].where((e) => e.isNotEmpty).join(' · ');\n"
 new_subtitle = """      final incomingLive = boolish(extras['isLive']);\n      subtitle = incomingLive\n          ? [item.artist ?? '', str(extras['stationName'])].where((e) => e.isNotEmpty).join(' · ')\n          : [item.artist ?? '', item.album ?? ''].where((e) => e.isNotEmpty).join(' · ');\n"""
 text = replace_once(text, old_subtitle, new_subtitle, 'concise live media subtitle')
@@ -71,9 +67,8 @@ write('playback.dart', text)
 
 
 # ---------------------------------------------------------------------------
-# Reality Dial: immediately refresh metadata on a newly tuned station, fuse the
-# station/live-metadata card into the radio hardware container, and keep the
-# exact same metadata object feeding the system media surface.
+# Reality Dial: immediately refresh metadata on a new station and fuse the
+# station/live metadata panel into the same radio hardware element.
 # ---------------------------------------------------------------------------
 text = read('tuner_v04.dart')
 text = replace_once(
@@ -89,11 +84,10 @@ text = replace_once(
     'fuse station card into radio face',
 )
 
-# Insert the fused station/live metadata panel as the final child of radioFace.
 start = text.index('  Widget _radioFace(Station? station) => Container(')
-end = text.index('\n\n  Widget _display(Station? station)', start)
+end = text.index('\n\n  Future<void> _presetMenu', start)
 block = text[start:end]
-needle = "          ],\n        ),\n      ),"
+needle = "          ],\n        ),\n      );"
 pos = block.rfind(needle)
 if pos < 0:
     raise SystemExit('v0.7 patch failed: radio face closing block')
@@ -184,7 +178,7 @@ helper = r'''
           child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text('$designation · ${station.name}', style: const TextStyle(fontFamily: 'monospace', color: Colors.white80, fontWeight: FontWeight.w800)),
+                Text('$designation · ${station.name}', style: const TextStyle(fontFamily: 'monospace', color: Colors.white70, fontWeight: FontWeight.w800)),
                 const SizedBox(height: 9),
                 Text(coming ? 'STATUS' : 'NOW PLAYING', style: const TextStyle(color: rrnCyan, fontFamily: 'monospace', fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 1.2)),
                 const SizedBox(height: 3),
@@ -234,9 +228,7 @@ write('tuner_v04.dart', text)
 
 
 # ---------------------------------------------------------------------------
-# Feed: prefer the posting front (artist/persona/station/label/network) instead
-# of the underlying account. Fetch enough rows to match the website's public
-# feed window and tolerate both normalized author objects and legacy fields.
+# Feed posting-front fidelity and full public-feed request window.
 # ---------------------------------------------------------------------------
 text = read('social.dart')
 feed_helper = r'''
@@ -293,8 +285,6 @@ if anchor not in text:
 text = text.replace(anchor, '\n' + feed_helper + anchor, 1)
 text = text.replace("'limit': 40,", "'limit': 150,", 1)
 text = text.replace("listFrom(body, const ['items'])", "listFrom(body, const ['items', 'posts', 'feed'])", 1)
-
-# Replace v0.6 local scope classifier with posting-front-aware classifier.
 text, n = re.subn(
     r"  bool _matchesScope\(Map<String, dynamic> post\) \{.*?\n  \}",
     """  bool _matchesScope(Map<String, dynamic> post) {\n    if (feedScope == 'all') return true;\n    final author = _resolveFeedAuthor(post);\n    final isMemberPost = author.type == 'user';\n    return feedScope == 'community' ? isMemberPost : !isMemberPost;\n  }""",
@@ -304,7 +294,6 @@ text, n = re.subn(
 )
 if n != 1:
     raise SystemExit('v0.7 patch failed: feed scope classifier')
-
 text = replace_once(
     text,
     """    final author = str(post['author_name'] ?? post['authorName'], 'Reality Radio Network');\n    final authorImage = _absoluteMedia(str(post['author_image'] ?? post['authorImage']));""",
@@ -333,9 +322,7 @@ write('social.dart', text)
 
 
 # ---------------------------------------------------------------------------
-# Native playlists: v0.6 intentionally showed a bridge-required screen. v0.7
-# ships the actual native client now; it gracefully reports 404 until the site
-# Matrix exposes the bearer-session playlist routes.
+# Native playlist client activation.
 # ---------------------------------------------------------------------------
 text = read('music_v04.dart')
 text = replace_once(
@@ -356,9 +343,7 @@ write('music_v04.dart', text)
 
 
 # ---------------------------------------------------------------------------
-# Points: base /points exists today. Do not let absent optional ledger/purchase
-# subroutes make the entire wallet disappear. Render the base balance first and
-# parse embedded history if the endpoint supplies it.
+# Points base balance must not depend on optional ledger/purchase subroutes.
 # ---------------------------------------------------------------------------
 text = read('points.dart')
 old_load = """    try {\n      final service = PointsService(app.api);\n      final values = await Future.wait([service.wallet(), service.ledger()]);\n      wallet = values[0] as RrnPointsWallet;\n      ledger = values[1] as List<PointLedgerEntry>;\n      error = null;\n    } catch (e) {\n      error = '$e';\n    } finally {"""
@@ -370,19 +355,16 @@ text = replace_once(
     """                    const SizedBox(height: 12),\n                    const Text('Balance is loaded directly from the current App Matrix /points contract.', style: TextStyle(color: Colors.white54, fontSize: 11)),""",
     'hide unsupported point purchase action',
 )
-text = replace_once(
-    text,
-    """            Card(\n              child: const Padding(\n                padding: EdgeInsets.all(16),\n                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [\n                  Text('Current earning rules', style: TextStyle(fontWeight: FontWeight.w900)),\n                  SizedBox(height: 6),\n                  Text('• Verified Reality Dial listening: 10 points/hour (1 point per 6 verified minutes).'),\n                  Text('• Qualifying store purchases: backend-configurable reward rate.'),\n                  Text('• Direct purchase: 1 point per \\$0.01 paid.'),\n                  SizedBox(height: 8),\n                  Text('Points never go negative and have no cash-out route. Failed purchases/requests must roll back or refund their point hold.', style: TextStyle(color: Colors.white70)),\n                ]),\n              ),\n            ),""",
-    """            const Card(\n              child: Padding(\n                padding: EdgeInsets.all(16),\n                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [\n                  Text('Server-authoritative wallet', style: TextStyle(fontWeight: FontWeight.w900)),\n                  SizedBox(height: 6),\n                  Text('The app displays the balance returned by RRN. Optional ledger, point-purchase, checkout-redemption and listening-reward actions stay hidden until their Matrix contracts are exposed instead of fabricating client-side behavior.', style: TextStyle(color: Colors.white70)),\n                ]),\n              ),\n            ),""",
-    'points truthful capabilities card',
-)
+start_card = """            Card(\n              child: const Padding(\n                padding: EdgeInsets.all(16),\n                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [\n                  Text('Current earning rules', style: TextStyle(fontWeight: FontWeight.w900)),"""
+if start_card in text:
+    card_start = text.index(start_card)
+    card_end = text.index("            if (error != null)", card_start)
+    replacement_card = """            const Card(\n              child: Padding(\n                padding: EdgeInsets.all(16),\n                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [\n                  Text('Server-authoritative wallet', style: TextStyle(fontWeight: FontWeight.w900)),\n                  SizedBox(height: 6),\n                  Text('The app displays the balance returned by RRN. Optional ledger, point-purchase, checkout-redemption and listening-reward actions stay hidden until their Matrix contracts are exposed instead of fabricating client-side behavior.', style: TextStyle(color: Colors.white70)),\n                ]),\n              ),\n            ),\n"""
+    text = text[:card_start] + replacement_card + text[card_end:]
 write('points.dart', text)
 
 
-# ---------------------------------------------------------------------------
-# Account: show the auth snapshot's point count as a quick glance while the full
-# wallet screen refreshes authoritative data from /points.
-# ---------------------------------------------------------------------------
+# Account quick-glance points count.
 text = read('account.dart')
 text = replace_once(
     text,
@@ -391,3 +373,5 @@ text = replace_once(
     'account points glance',
 )
 write('account.dart', text)
+
+print('RRN Mobile v0.7 metadata/feed/points/playlists patches applied successfully.')
