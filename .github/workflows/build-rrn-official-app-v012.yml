@@ -1,0 +1,42 @@
+name: Build RRN Official Android App v0.12
+
+on:
+  push:
+    branches: [rrn-official-app-v0.12.0]
+    paths:
+      - 'mobile/rrn_official/**'
+      - '.github/workflows/build-rrn-official-app-v012.yml'
+  workflow_dispatch:
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Build and validate v0.12
+        shell: bash
+        run: bash mobile/rrn_official/build_android_v012.sh
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: RRN-Mobile-0.12.0-Control-Surfaces-RC1
+          path: |
+            RRN-Mobile-0.12.0-Control-Surfaces-RC1.apk
+            RRN-Mobile-0.12.0-App-Logo.png
+          if-no-files-found: error
+          retention-days: 90
