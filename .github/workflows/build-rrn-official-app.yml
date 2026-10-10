@@ -2,7 +2,7 @@ name: Build RRN Official Android App
 
 on:
   push:
-    branches: [rrn-official-app-v0.9.0]
+    branches: [rrn-official-app-v0.10.0]
     paths:
       - 'mobile/rrn_official/**'
       - '.github/workflows/build-rrn-official-app.yml'
@@ -27,7 +27,7 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Create RRN Android project and apply app patches
+      - name: Create RRN Android project and apply compatibility patches
         shell: bash
         run: |
           set -euxo pipefail
@@ -42,7 +42,7 @@ jobs:
             /tmp/rrn_mobile/lib/music.dart \
             /tmp/rrn_mobile/lib/tuner.dart
 
-          sed -i "s/'0.3.0'/'0.9.0'/g" /tmp/rrn_mobile/lib/core.dart
+          sed -i "s/'0.3.0'/'0.10.0'/g" /tmp/rrn_mobile/lib/core.dart
 
           python3 mobile/rrn_official/ci_patch_v060.py
           python3 mobile/rrn_official/ci_patch_v070.py
@@ -50,8 +50,9 @@ jobs:
           python3 mobile/rrn_official/ci_patch_v090.py
           python3 mobile/rrn_official/ci_patch_v091_fix.py
           sed -i 's/Colors.white45/Colors.white54/g' /tmp/rrn_mobile/lib/tuner_v04.dart
+          sed -i "s/'0.9.0'/'0.10.0'/g; s/'buildNumber': 10/'buildNumber': 11/g" /tmp/rrn_mobile/lib/notification_preferences.dart
 
-      - name: Verify live station metadata bridge
+      - name: Verify station-scoped shared playback bridge
         shell: bash
         run: |
           set -euxo pipefail
@@ -66,7 +67,7 @@ jobs:
           elif 'playback.updateStationMetadata(station, metadata);' not in text:
               raise SystemExit('Expected tuner metadata bridge was not found.')
           if "'station': stationKey" not in text:
-              raise SystemExit('v0.9 station-scoped metadata query is missing.')
+              raise SystemExit('Station-scoped metadata query is missing.')
           PY
 
       - name: Generate RRN branding and tuner static
@@ -167,6 +168,15 @@ jobs:
           </manifest>
           EOF
 
+      - name: Apply v0.10 launch hardening
+        shell: bash
+        run: |
+          set -euxo pipefail
+          python3 mobile/rrn_official/ci_patch_v010.py
+          grep -q "package:file_picker/file_picker.dart" /tmp/rrn_mobile/lib/site.dart
+          grep -q "RrnPlayBilling" /tmp/rrn_mobile/lib/points.dart
+          grep -q "loadBoundedArtwork" /tmp/rrn_mobile/android/app/src/main/kotlin/com/rbew/rrn_official/MainActivity.kt
+
       - name: Resolve packages and validate source
         shell: bash
         run: |
@@ -182,15 +192,15 @@ jobs:
           set -euxo pipefail
           cd /tmp/rrn_mobile
           flutter build apk --release
-          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.9.0-Functional-Stability-RC2.apk"
-          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.9.0-App-Logo.png"
+          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.10.0-Launch-Candidate.apk"
+          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.10.0-App-Logo.png"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: RRN-Mobile-0.9.0-Functional-Stability-RC2
+          name: RRN-Mobile-0.10.0-Launch-Candidate
           path: |
-            RRN-Mobile-0.9.0-Functional-Stability-RC2.apk
-            RRN-Mobile-0.9.0-App-Logo.png
+            RRN-Mobile-0.10.0-Launch-Candidate.apk
+            RRN-Mobile-0.10.0-App-Logo.png
           if-no-files-found: error
           retention-days: 90
