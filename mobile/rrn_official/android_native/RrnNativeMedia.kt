@@ -18,23 +18,20 @@ import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.media.VolumeProviderCompat
 import androidx.media.app.NotificationCompat.MediaStyle
 import com.ryanheise.audioservice.AudioServiceActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import java.net.URL
 import java.util.concurrent.Executors
+import kotlin.math.roundToInt
 
 private const val SYSTEM_MEDIA_CHANNEL = "com.rbew.rrn_official/system_media"
 private const val NOTIFICATION_CHANNEL_ID = "rrn_native_media_v1"
 private const val NOTIFICATION_CHANNEL_NAME = "RRN Media Controls"
 private const val NOTIFICATION_ID = 2015
 
-/**
- * Flutter still owns the actual audio source in this alpha. Android owns the
- * public MediaSession and foreground MediaStyle notification so Samsung/SystemUI
- * receives a conventional media source instead of relying on plugin side effects.
- */
 object RrnNativeMediaBridge {
     @Volatile
     var channel: MethodChannel? = null
@@ -86,6 +83,7 @@ class MainActivity : AudioServiceActivity() {
 
 class RrnMediaSurfaceService : Service() {
     private lateinit var session: MediaSessionCompat
+    private lateinit var volumeProvider: VolumeProviderCompat
     private val artworkExecutor = Executors.newSingleThreadExecutor()
     private val mainHandler = Handler(Looper.getMainLooper())
 
@@ -103,15 +101,33 @@ class RrnMediaSurfaceService : Service() {
     private var positionMs = 0L
     private var durationMs = 0L
     private var sourceId = ""
+    private var rrnVolume = 100
 
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+
+        volumeProvider = object : VolumeProviderCompat(
+            VolumeProviderCompat.VOLUME_CONTROL_ABSOLUTE,
+            100,
+            rrnVolume,
+        ) {
+            override fun onSetVolumeTo(volume: Int) {
+                setRrnVolume(volume, emit = true)
+            }
+
+            override fun onAdjustVolume(direction: Int) {
+                if (direction == 0) return
+                setRrnVolume(rrnVolume + if (direction > 0) 5 else -5, emit = true)
+            }
+        }
+
         session = MediaSessionCompat(this, "RRNSystemMedia").apply {
             setFlags(
                 MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS or
                     MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS,
             )
+            setPlaybackToRemote(volumeProvider)
             setCallback(object : MediaSessionCompat.Callback() {
                 override fun onPlay() = RrnNativeMediaBridge.emit("play")
                 override fun onPause() = RrnNativeMediaBridge.emit("pause")
@@ -139,10 +155,15 @@ class RrnMediaSurfaceService : Service() {
             ACTION_TOGGLE -> RrnNativeMediaBridge.emit("toggle")
             ACTION_PREVIOUS -> RrnNativeMediaBridge.emit("previous")
             ACTION_NEXT -> RrnNativeMediaBridge.emit("next")
+            ACTION_VOLUME_DOWN -> setRrnVolume(rrnVolume - 5, emit = true)
+            ACTION_VOLUME_UP -> setRrnVolume(rrnVolume + 5, emit = true)
             ACTION_STOP -> RrnNativeMediaBridge.emit("stop")
             ACTION_CLEAR -> removeSurface()
         }
-        return START_NOT_STICKY
+        // Playback is an explicit persistent user-visible foreground task. If
+        // Android reclaims the process, request service recreation instead of
+        // silently dropping the media surface.
+        return START_STICKY
     }
 
     private fun readState(intent: Intent) {
@@ -160,7 +181,19 @@ class RrnMediaSurfaceService : Service() {
         positionMs = intent.getLongExtra(EXTRA_POSITION_MS, 0L).coerceAtLeast(0L)
         durationMs = intent.getLongExtra(EXTRA_DURATION_MS, 0L).coerceAtLeast(0L)
         sourceId = intent.getStringExtra(EXTRA_SOURCE_ID).orEmpty()
+        rrnVolume = (intent.getDoubleExtra(EXTRA_VOLUME, rrnVolume / 100.0).coerceIn(0.0, 1.0) * 100).roundToInt()
+        volumeProvider.setCurrentVolume(rrnVolume)
         if (oldArtwork != artworkUrl) currentArtwork = null
+    }
+
+    private fun setRrnVolume(value: Int, emit: Boolean) {
+        rrnVolume = value.coerceIn(0, 100)
+        volumeProvider.setCurrentVolume(rrnVolume)
+        if (emit) RrnNativeMediaBridge.emit("setVolume", rrnVolume / 100.0)
+        try {
+            getSystemService(NotificationManager::class.java).notify(NOTIFICATION_ID, buildNotification())
+        } catch (_: Throwable) {
+        }
     }
 
     private fun publishSessionState() {
@@ -234,9 +267,14 @@ class RrnMediaSurfaceService : Service() {
             serviceAction(ACTION_NEXT, 103),
         )
         builder.addAction(
-            android.R.drawable.ic_menu_close_clear_cancel,
-            "Stop",
-            serviceAction(ACTION_STOP, 104),
+            android.R.drawable.ic_media_rew,
+            "Volume down · $rrnVolume%",
+            serviceAction(ACTION_VOLUME_DOWN, 104),
+        )
+        builder.addAction(
+            android.R.drawable.ic_media_ff,
+            "Volume up · $rrnVolume%",
+            serviceAction(ACTION_VOLUME_UP, 105),
         )
         return builder.build()
     }
@@ -256,7 +294,7 @@ class RrnMediaSurfaceService : Service() {
         launch.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
         return PendingIntent.getActivity(
             this,
-            105,
+            106,
             launch,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
@@ -277,8 +315,7 @@ class RrnMediaSurfaceService : Service() {
                         currentArtwork = bitmap
                         publishSessionState()
                         try {
-                            val manager = getSystemService(NotificationManager::class.java)
-                            manager.notify(NOTIFICATION_ID, buildNotification())
+                            getSystemService(NotificationManager::class.java).notify(NOTIFICATION_ID, buildNotification())
                         } catch (_: Throwable) {
                         }
                     }
@@ -331,6 +368,8 @@ class RrnMediaSurfaceService : Service() {
         private const val ACTION_TOGGLE = "com.rbew.rrn_official.media.TOGGLE"
         private const val ACTION_PREVIOUS = "com.rbew.rrn_official.media.PREVIOUS"
         private const val ACTION_NEXT = "com.rbew.rrn_official.media.NEXT"
+        private const val ACTION_VOLUME_DOWN = "com.rbew.rrn_official.media.VOLUME_DOWN"
+        private const val ACTION_VOLUME_UP = "com.rbew.rrn_official.media.VOLUME_UP"
         private const val ACTION_STOP = "com.rbew.rrn_official.media.STOP"
 
         private const val EXTRA_TITLE = "title"
@@ -346,6 +385,7 @@ class RrnMediaSurfaceService : Service() {
         private const val EXTRA_POSITION_MS = "positionMs"
         private const val EXTRA_DURATION_MS = "durationMs"
         private const val EXTRA_SOURCE_ID = "sourceId"
+        private const val EXTRA_VOLUME = "volume"
 
         fun publish(context: Context, values: Map<*, *>) {
             val intent = Intent(context, RrnMediaSurfaceService::class.java)
@@ -363,6 +403,7 @@ class RrnMediaSurfaceService : Service() {
                 .putExtra(EXTRA_POSITION_MS, (values[EXTRA_POSITION_MS] as? Number)?.toLong() ?: 0L)
                 .putExtra(EXTRA_DURATION_MS, (values[EXTRA_DURATION_MS] as? Number)?.toLong() ?: 0L)
                 .putExtra(EXTRA_SOURCE_ID, values[EXTRA_SOURCE_ID]?.toString().orEmpty())
+                .putExtra(EXTRA_VOLUME, (values[EXTRA_VOLUME] as? Number)?.toDouble() ?: 1.0)
             try {
                 ContextCompat.startForegroundService(context, intent)
             } catch (_: Throwable) {
