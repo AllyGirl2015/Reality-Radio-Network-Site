@@ -2,7 +2,7 @@ name: Build RRN Official Android App
 
 on:
   push:
-    branches: [rrn-official-app-v0.8.0]
+    branches: [rrn-official-app-v0.8.1]
     paths:
       - 'mobile/rrn_official/**'
       - '.github/workflows/build-rrn-official-app.yml'
@@ -42,13 +42,12 @@ jobs:
             /tmp/rrn_mobile/lib/music.dart \
             /tmp/rrn_mobile/lib/tuner.dart
 
-          sed -i "s/'0.3.0'/'0.8.0'/g" /tmp/rrn_mobile/lib/core.dart
+          sed -i "s/'0.3.0'/'0.8.1'/g" /tmp/rrn_mobile/lib/core.dart
 
-          # Keep the already-proven v0.6 Android media surface, then layer the
-          # metadata/parity work and the 061i launch stabilization fixes.
           python3 mobile/rrn_official/ci_patch_v060.py
           python3 mobile/rrn_official/ci_patch_v070.py
           python3 mobile/rrn_official/ci_patch_v080.py
+          python3 mobile/rrn_official/ci_patch_v081.py
           sed -i 's/Colors.white45/Colors.white54/g' /tmp/rrn_mobile/lib/tuner_v04.dart
 
       - name: Bridge live station metadata into shared playback state
@@ -126,6 +125,7 @@ jobs:
           set -euxo pipefail
           cp mobile/rrn_official/android_native/RrnNativeMedia.kt \
             /tmp/rrn_mobile/android/app/src/main/kotlin/com/rbew/rrn_official/MainActivity.kt
+          python3 mobile/rrn_official/ci_patch_android_v081.py
 
           cat >> /tmp/rrn_mobile/android/app/build.gradle.kts <<'EOF'
 
@@ -180,15 +180,15 @@ jobs:
           set -euxo pipefail
           cd /tmp/rrn_mobile
           flutter build apk --release
-          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.8.0-Launch-Stabilization-RC1.apk"
-          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.8.0-App-Logo.png"
+          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.8.1-Stability-Parity-RC2.apk"
+          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.8.1-App-Logo.png"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: RRN-Mobile-0.8.0-Launch-Stabilization-RC1
+          name: RRN-Mobile-0.8.1-Stability-Parity-RC2
           path: |
-            RRN-Mobile-0.8.0-Launch-Stabilization-RC1.apk
-            RRN-Mobile-0.8.0-App-Logo.png
+            RRN-Mobile-0.8.1-Stability-Parity-RC2.apk
+            RRN-Mobile-0.8.1-App-Logo.png
           if-no-files-found: error
           retention-days: 90
