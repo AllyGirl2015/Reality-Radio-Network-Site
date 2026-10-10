@@ -185,6 +185,30 @@ jobs:
           set -euxo pipefail
           cd /tmp/rrn_mobile
           flutter pub get
+          python3 - <<'PY'
+          from pathlib import Path
+          candidates = list(Path.home().glob('.pub-cache/hosted/pub.dev/file_picker-*/android/build.gradle'))
+          if not candidates:
+              raise SystemExit('file_picker Android Gradle file was not found in the pub cache')
+          patched = 0
+          for path in candidates:
+              text = path.read_text()
+              next_text = text
+              for old, new in [
+                  ('compileSdkVersion 34', 'compileSdkVersion 36'),
+                  ('compileSdkVersion = 34', 'compileSdkVersion = 36'),
+                  ('compileSdk 34', 'compileSdk 36'),
+                  ('compileSdk = 34', 'compileSdk = 36'),
+              ]:
+                  next_text = next_text.replace(old, new)
+              if next_text != text:
+                  path.write_text(next_text)
+                  patched += 1
+          if patched == 0:
+              print('file_picker does not pin compileSdk 34; no compatibility rewrite required.')
+          else:
+              print(f'Raised file_picker compileSdk to Android API 36 in {patched} module(s).')
+          PY
           dart format lib
           flutter analyze --no-fatal-infos --no-fatal-warnings
 
