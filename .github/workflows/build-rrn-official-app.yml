@@ -44,12 +44,11 @@ jobs:
 
           sed -i "s/'0.3.0'/'0.9.0'/g" /tmp/rrn_mobile/lib/core.dart
 
-          # Preserve the proven Android media/session layers, then add current
-          # metadata parity, 061i/061j translation contracts and v0.9 stability.
           python3 mobile/rrn_official/ci_patch_v060.py
           python3 mobile/rrn_official/ci_patch_v070.py
           python3 mobile/rrn_official/ci_patch_v080.py
           python3 mobile/rrn_official/ci_patch_v090.py
+          python3 mobile/rrn_official/ci_patch_v091_fix.py
           sed -i 's/Colors.white45/Colors.white54/g' /tmp/rrn_mobile/lib/tuner_v04.dart
 
       - name: Verify live station metadata bridge
