@@ -47,6 +47,7 @@ jobs:
           python3 mobile/rrn_official/ci_patch_v060.py
           python3 mobile/rrn_official/ci_patch_v070.py
           python3 mobile/rrn_official/ci_patch_v080.py
+          python3 mobile/rrn_official/ci_patch_v081_pre.py
           python3 mobile/rrn_official/ci_patch_v081.py
           sed -i 's/Colors.white45/Colors.white54/g' /tmp/rrn_mobile/lib/tuner_v04.dart
 
