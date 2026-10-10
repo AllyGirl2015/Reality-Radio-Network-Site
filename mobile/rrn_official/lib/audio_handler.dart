@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:audio_service/audio_service.dart';
+import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
 
 class RrnAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
@@ -23,6 +25,10 @@ class RrnAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
     _speedSub = player.speedStream.listen((_) => _broadcastState(player.playbackEvent));
   }
 
+  static const String _rootId = 'root';
+  static const String _stationsId = 'rrn:stations';
+  static const String _matrixStations = 'https://realityradio.net/api/app/v1/stations';
+
   final AudioPlayer player = AudioPlayer();
   final Random _random = Random();
 
@@ -33,10 +39,13 @@ class RrnAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
 
   final List<MediaItem> _items = [];
   final List<String> _urls = [];
+  final Map<String, MediaItem> _browseStations = {};
   int _index = 0;
   bool _isLive = false;
   bool _handlingCompletion = false;
   double _volume = 1;
+  DateTime? _browseLoadedAt;
+  Future<List<MediaItem>>? _browseLoad;
   AudioServiceRepeatMode _repeatMode = AudioServiceRepeatMode.none;
   AudioServiceShuffleMode _shuffleMode = AudioServiceShuffleMode.none;
 
@@ -45,6 +54,171 @@ class RrnAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   bool get canSkip => !_isLive && _items.length > 1;
   AudioServiceRepeatMode get repeatSetting => _repeatMode;
   AudioServiceShuffleMode get shuffleSetting => _shuffleMode;
+
+  String _absolute(String value) {
+    if (value.isEmpty) return '';
+    if (value.startsWith('http://') || value.startsWith('https://')) return value;
+    return 'https://realityradio.net${value.startsWith('/') ? value : '/$value'}';
+  }
+
+  List<dynamic> _listFrom(dynamic body) {
+    if (body is List) return body;
+    if (body is Map) {
+      for (final key in const ['items', 'stations', 'results', 'data', 'rows']) {
+        final value = body[key];
+        if (value is List) return value;
+      }
+    }
+    return const [];
+  }
+
+  String _string(dynamic value, [String fallback = '']) => value == null ? fallback : '$value';
+
+  Future<List<MediaItem>> _loadBrowseStations({bool force = false}) {
+    final now = DateTime.now();
+    if (!force &&
+        _browseStations.isNotEmpty &&
+        _browseLoadedAt != null &&
+        now.difference(_browseLoadedAt!) < const Duration(minutes: 3)) {
+      return Future.value(List<MediaItem>.unmodifiable(_browseStations.values));
+    }
+    final active = _browseLoad;
+    if (active != null) return active;
+
+    final future = () async {
+      try {
+        final uri = Uri.parse(_matrixStations).replace(queryParameters: const {'limit': '250'});
+        final response = await http.get(
+          uri,
+          headers: const {
+            'Accept': 'application/json',
+            'X-RRN-App': 'android-auto',
+            'X-RRN-App-Version': '0.10.0',
+          },
+        ).timeout(const Duration(seconds: 12));
+        if (response.statusCode < 200 || response.statusCode >= 300) {
+          throw StateError('RRN station directory returned ${response.statusCode}.');
+        }
+        final decoded = response.body.isEmpty ? const <String, dynamic>{} : jsonDecode(response.body);
+        final next = <String, MediaItem>{};
+        for (final raw in _listFrom(decoded)) {
+          if (raw is! Map) continue;
+          final station = Map<String, dynamic>.from(raw);
+          final streamUrl = _absolute(_string(
+            station['streamUrl'] ?? station['stream_url'] ?? station['stream'] ?? station['listenUrl'] ?? station['listen_url'],
+          ));
+          if (streamUrl.isEmpty) continue;
+          final stationId = _string(station['id']);
+          final slug = _string(station['slug']);
+          final band = _string(station['band'] ?? station['frequencyType'] ?? station['frequency_type']);
+          final frequency = _string(station['frequency']);
+          final name = _string(station['name'] ?? station['title'], 'RRN Station');
+          final designation = _string(
+            station['designation'],
+            [frequency, band].where((value) => value.isNotEmpty).join(' '),
+          );
+          final identity = stationId.isNotEmpty
+              ? stationId
+              : slug.isNotEmpty
+                  ? slug
+                  : '${band}_$frequency';
+          final artwork = _absolute(_string(
+            station['artwork'] ?? station['artworkUrl'] ?? station['artwork_url'] ?? station['image'] ?? station['imageUrl'],
+          ));
+          final location = _string(station['location'] ?? station['coverageLabel'] ?? station['coverage_label']);
+          final item = MediaItem(
+            id: 'station:$identity',
+            title: name,
+            artist: designation.isEmpty ? 'Reality Radio Network' : designation,
+            album: location.isEmpty ? 'Reality Dial' : '$location · Reality Dial',
+            artUri: artwork.isEmpty ? null : Uri.tryParse(artwork),
+            playable: true,
+            extras: {
+              'rrnType': 'station',
+              'resourceType': 'station',
+              'resourceId': stationId.isNotEmpty ? stationId : identity,
+              'stationId': stationId,
+              'slug': slug,
+              'stationName': name,
+              'band': band,
+              'frequency': station['frequency'],
+              'designation': designation,
+              'streamUrl': streamUrl,
+              'isLive': true,
+            },
+          );
+          next[item.id] = item;
+        }
+        if (next.isNotEmpty) {
+          _browseStations
+            ..clear()
+            ..addAll(next);
+          _browseLoadedAt = DateTime.now();
+        }
+        return List<MediaItem>.unmodifiable(_browseStations.values);
+      } finally {
+        _browseLoad = null;
+      }
+    }();
+    _browseLoad = future;
+    return future;
+  }
+
+  MediaItem get _stationsFolder => const MediaItem(
+        id: _stationsId,
+        title: 'Reality Dial Stations',
+        artist: 'Reality Radio Network',
+        album: 'Live internet radio',
+        playable: false,
+      );
+
+  @override
+  Future<List<MediaItem>> getChildren(String parentMediaId, [Map<String, dynamic>? options]) async {
+    if (parentMediaId.isEmpty || parentMediaId == _rootId) {
+      return [_stationsFolder];
+    }
+    if (parentMediaId == _stationsId) {
+      return _loadBrowseStations();
+    }
+    return const [];
+  }
+
+  @override
+  Future<MediaItem?> getMediaItem(String mediaId) async {
+    if (mediaId == _stationsId) return _stationsFolder;
+    final cached = _browseStations[mediaId];
+    if (cached != null) return cached;
+    await _loadBrowseStations();
+    return _browseStations[mediaId];
+  }
+
+  @override
+  Future<void> playFromMediaId(String mediaId, [Map<String, dynamic>? extras]) async {
+    var item = _browseStations[mediaId];
+    item ??= await getMediaItem(mediaId);
+    if (item == null || item.playable != true) return;
+    final streamUrl = _string(item.extras?['streamUrl']);
+    if (streamUrl.isEmpty) return;
+    await loadSingle(url: streamUrl, item: item, autoplay: true, volume: _volume, isLive: true);
+  }
+
+  @override
+  Future<void> playFromSearch(String query, [Map<String, dynamic>? extras]) async {
+    final stations = await _loadBrowseStations();
+    final clean = query.trim().toLowerCase();
+    if (stations.isEmpty) return;
+    MediaItem selected = stations.first;
+    if (clean.isNotEmpty) {
+      for (final item in stations) {
+        final haystack = '${item.title} ${item.artist ?? ''} ${item.album ?? ''}'.toLowerCase();
+        if (haystack.contains(clean)) {
+          selected = item;
+          break;
+        }
+      }
+    }
+    await playFromMediaId(selected.id, extras);
+  }
 
   Future<void> loadSingle({
     required String url,
@@ -163,9 +337,7 @@ class RrnAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
   @override
   Future<void> skipToNext() async {
     if (!canSkip) return;
-    final next = _shuffleMode == AudioServiceShuffleMode.all
-        ? _randomDifferentIndex()
-        : (_index + 1) % _items.length;
+    final next = _shuffleMode == AudioServiceShuffleMode.all ? _randomDifferentIndex() : (_index + 1) % _items.length;
     await _loadIndex(next);
   }
 
@@ -176,9 +348,7 @@ class RrnAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       await seek(Duration.zero);
       return;
     }
-    final previous = _shuffleMode == AudioServiceShuffleMode.all
-        ? _randomDifferentIndex()
-        : (_index - 1 + _items.length) % _items.length;
+    final previous = _shuffleMode == AudioServiceShuffleMode.all ? _randomDifferentIndex() : (_index - 1 + _items.length) % _items.length;
     await _loadIndex(previous);
   }
 
