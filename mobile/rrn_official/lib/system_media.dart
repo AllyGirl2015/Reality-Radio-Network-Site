@@ -4,12 +4,10 @@ import 'package:flutter/services.dart';
 
 import 'playback.dart';
 
-/// Mirrors the active RRN player into an explicit Android media surface.
-///
-/// The Flutter audio player remains the source of audio for this alpha. Android
-/// receives metadata/state over a MethodChannel and owns the persistent
-/// MediaStyle notification + lock-screen MediaSession surface. External Android
-/// transport commands are routed back into the same RRN playback controller.
+/// Mirrors the active RRN player into the Android MediaSession/MediaStyle layer.
+/// All system transport and volume commands route back through the single shared
+/// RrnPlaybackController so the Dial, mini-player, lock screen and notification
+/// cannot intentionally own separate playback state.
 class RrnSystemMediaBridge {
   RrnSystemMediaBridge._();
 
@@ -27,7 +25,11 @@ class RrnSystemMediaBridge {
     _playback = playback;
     _channel.setMethodCallHandler(_handleNativeCommand);
     playback.addListener(_publish);
-    _positionTicker = Timer.periodic(const Duration(seconds: 1), (_) => _publish(positionTick: true));
+    // Position is supplemental state. A slower cadence reduces long-idle work
+    // while the foreground audio service itself remains authoritative.
+    _positionTicker = Timer.periodic(const Duration(seconds: 3), (_) {
+      if (playback.hasItem) _publish(positionTick: true);
+    });
     await _publish(force: true);
   }
 
@@ -63,6 +65,15 @@ class RrnSystemMediaBridge {
                 : 0;
         await playback.seek(Duration(milliseconds: ms));
         break;
+      case 'setVolume':
+        final value = call.arguments;
+        final raw = value is num
+            ? value.toDouble()
+            : value is Map && value['volume'] is num
+                ? (value['volume'] as num).toDouble()
+                : playback.userVolume;
+        await playback.setSystemVolume(raw > 1 ? raw / 100 : raw);
+        break;
     }
     await _publish(force: true);
     return null;
@@ -96,6 +107,7 @@ class RrnSystemMediaBridge {
       'positionMs': playback.position.inMilliseconds,
       'durationMs': playback.duration.inMilliseconds,
       'sourceId': playback.sourceId,
+      'volume': playback.userVolume,
     };
 
     final signature = [
@@ -110,6 +122,7 @@ class RrnSystemMediaBridge {
       payload['canPrevious'],
       payload['canNext'],
       payload['durationMs'],
+      payload['volume'],
     ].join('|');
 
     if (!force && !positionTick && signature == _lastSignature) return;
