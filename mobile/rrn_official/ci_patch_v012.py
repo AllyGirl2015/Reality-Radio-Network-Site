@@ -122,8 +122,8 @@ navigate_method = r'''Future<void> _matrixNavigate(BuildContext context, String 
 }'''
 text = regex_once(
     text,
-    r"Future<void> _matrixNavigate\(BuildContext context, String rawPath, String title\) async \{.*?\n\}",
-    navigate_method,
+    r"Future<void> _matrixNavigate\(BuildContext context, String rawPath, String title\) async \{.*?\n\}\n\nFuture<dynamic> runMatrixAction",
+    navigate_method + "\n\nFuture<dynamic> runMatrixAction",
     'site-page navigation semantics',
 )
 
