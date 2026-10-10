@@ -2,7 +2,7 @@ name: Build RRN Official Android App
 
 on:
   push:
-    branches: [rrn-official-app-v0.8.0]
+    branches: [rrn-official-app-v0.9.0]
     paths:
       - 'mobile/rrn_official/**'
       - '.github/workflows/build-rrn-official-app.yml'
@@ -42,16 +42,17 @@ jobs:
             /tmp/rrn_mobile/lib/music.dart \
             /tmp/rrn_mobile/lib/tuner.dart
 
-          sed -i "s/'0.3.0'/'0.8.0'/g" /tmp/rrn_mobile/lib/core.dart
+          sed -i "s/'0.3.0'/'0.9.0'/g" /tmp/rrn_mobile/lib/core.dart
 
-          # Keep the already-proven v0.6 Android media surface, then layer the
-          # metadata/parity work and the 061i launch stabilization fixes.
+          # Preserve the proven Android media/session layers, then add current
+          # metadata parity, 061i/061j translation contracts and v0.9 stability.
           python3 mobile/rrn_official/ci_patch_v060.py
           python3 mobile/rrn_official/ci_patch_v070.py
           python3 mobile/rrn_official/ci_patch_v080.py
+          python3 mobile/rrn_official/ci_patch_v090.py
           sed -i 's/Colors.white45/Colors.white54/g' /tmp/rrn_mobile/lib/tuner_v04.dart
 
-      - name: Bridge live station metadata into shared playback state
+      - name: Verify live station metadata bridge
         shell: bash
         run: |
           set -euxo pipefail
@@ -65,6 +66,8 @@ jobs:
               path.write_text(text.replace(old, new, 1))
           elif 'playback.updateStationMetadata(station, metadata);' not in text:
               raise SystemExit('Expected tuner metadata bridge was not found.')
+          if "'station': stationKey" not in text:
+              raise SystemExit('v0.9 station-scoped metadata query is missing.')
           PY
 
       - name: Generate RRN branding and tuner static
@@ -120,7 +123,7 @@ jobs:
               w.writeframes(b''.join(struct.pack('<h',s) for s in samples))
           PY
 
-      - name: Configure explicit Android media surface
+      - name: Configure persistent Android media surface
         shell: bash
         run: |
           set -euxo pipefail
@@ -180,15 +183,15 @@ jobs:
           set -euxo pipefail
           cd /tmp/rrn_mobile
           flutter build apk --release
-          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.8.0-Launch-Stabilization-RC1.apk"
-          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.8.0-App-Logo.png"
+          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.9.0-Functional-Stability-RC2.apk"
+          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.9.0-App-Logo.png"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: RRN-Mobile-0.8.0-Launch-Stabilization-RC1
+          name: RRN-Mobile-0.9.0-Functional-Stability-RC2
           path: |
-            RRN-Mobile-0.8.0-Launch-Stabilization-RC1.apk
-            RRN-Mobile-0.8.0-App-Logo.png
+            RRN-Mobile-0.9.0-Functional-Stability-RC2.apk
+            RRN-Mobile-0.9.0-App-Logo.png
           if-no-files-found: error
           retention-days: 90
