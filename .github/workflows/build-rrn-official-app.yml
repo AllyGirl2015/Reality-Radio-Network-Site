@@ -2,7 +2,7 @@ name: Build RRN Official Android App
 
 on:
   push:
-    branches: [rrn-official-app-v0.10.0]
+    branches: [rrn-official-app-v0.11.0]
     paths:
       - 'mobile/rrn_official/**'
       - '.github/workflows/build-rrn-official-app.yml'
@@ -42,7 +42,7 @@ jobs:
             /tmp/rrn_mobile/lib/music.dart \
             /tmp/rrn_mobile/lib/tuner.dart
 
-          sed -i "s/'0.3.0'/'0.10.0'/g" /tmp/rrn_mobile/lib/core.dart
+          sed -i "s/'0.3.0'/'0.11.0'/g" /tmp/rrn_mobile/lib/core.dart
 
           python3 mobile/rrn_official/ci_patch_v060.py
           python3 mobile/rrn_official/ci_patch_v070.py
@@ -50,7 +50,7 @@ jobs:
           python3 mobile/rrn_official/ci_patch_v090.py
           python3 mobile/rrn_official/ci_patch_v091_fix.py
           sed -i 's/Colors.white45/Colors.white54/g' /tmp/rrn_mobile/lib/tuner_v04.dart
-          sed -i "s/'0.9.0'/'0.10.0'/g; s/'buildNumber': 10/'buildNumber': 11/g" /tmp/rrn_mobile/lib/notification_preferences.dart
+          sed -i "s/'0.9.0'/'0.11.0'/g; s/'buildNumber': 10/'buildNumber': 12/g" /tmp/rrn_mobile/lib/notification_preferences.dart
 
       - name: Verify station-scoped shared playback bridge
         shell: bash
@@ -168,16 +168,21 @@ jobs:
           </manifest>
           EOF
 
-      - name: Apply v0.10 launch hardening
+      - name: Apply v0.11 account/navigation fixes
         shell: bash
         run: |
           set -euxo pipefail
           python3 mobile/rrn_official/ci_patch_v010.py
           python3 mobile/rrn_official/ci_patch_v010_contract_fix.py
+          python3 mobile/rrn_official/ci_patch_v011.py
           grep -q "package:file_picker/file_picker.dart" /tmp/rrn_mobile/lib/site.dart
           grep -q "RrnPlayBilling" /tmp/rrn_mobile/lib/points.dart
           grep -q "'uploads': heroImageFile" /tmp/rrn_mobile/lib/feed_composer.dart
           grep -q "loadBoundedArtwork" /tmp/rrn_mobile/android/app/src/main/kotlin/com/rbew/rrn_official/MainActivity.kt
+          grep -q "discord.realityradionetwork.com" /tmp/rrn_mobile/lib/account.dart
+          grep -q "api.post('/actions'" /tmp/rrn_mobile/lib/site.dart
+          grep -q "RrnStudioScreen" /tmp/rrn_mobile/lib/account.dart
+          grep -q "api.get('/account/profile')" /tmp/rrn_mobile/lib/core.dart
 
       - name: Resolve packages and validate source
         shell: bash
@@ -218,15 +223,15 @@ jobs:
           set -euxo pipefail
           cd /tmp/rrn_mobile
           flutter build apk --release
-          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.10.0-Launch-Candidate.apk"
-          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.10.0-App-Logo.png"
+          cp build/app/outputs/flutter-apk/app-release.apk "$GITHUB_WORKSPACE/RRN-Mobile-0.11.0-Account-Navigation-RC1.apk"
+          cp assets/rrn_app_logo.png "$GITHUB_WORKSPACE/RRN-Mobile-0.11.0-App-Logo.png"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: RRN-Mobile-0.10.0-Launch-Candidate
+          name: RRN-Mobile-0.11.0-Account-Navigation-RC1
           path: |
-            RRN-Mobile-0.10.0-Launch-Candidate.apk
-            RRN-Mobile-0.10.0-App-Logo.png
+            RRN-Mobile-0.11.0-Account-Navigation-RC1.apk
+            RRN-Mobile-0.11.0-App-Logo.png
           if-no-files-found: error
           retention-days: 90
