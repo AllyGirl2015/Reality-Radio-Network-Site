@@ -19,11 +19,13 @@ if android_prep not in text.split(android_anchor,1)[0]:
     text=text.replace(android_anchor, android_prep+android_anchor, 1)
 
 old='python3 "$ROOT/mobile/rrn_official/ci_patch_v012.py"\n'
-new=old+'python3 "$ROOT/mobile/rrn_official/ci_patch_v0121.py"\n'
-if 'ci_patch_v0121.py' not in text:
-    if old not in text:
-        raise SystemExit('v0.12.1 build wrapper could not find patch insertion point')
-    text=text.replace(old,new,1)
+new=(
+    'python3 "$ROOT/mobile/rrn_official/ci_patch_v012_fixed.py"\n'
+    'python3 "$ROOT/mobile/rrn_official/ci_patch_v0121.py"\n'
+)
+if old not in text:
+    raise SystemExit('v0.12.1 build wrapper could not find v0.12 patch insertion point')
+text=text.replace(old,new,1)
 
 text=text.replace(
     'grep -q "MatrixPageScreen(path: \'/studio\'" "$APP/lib/account.dart"',
