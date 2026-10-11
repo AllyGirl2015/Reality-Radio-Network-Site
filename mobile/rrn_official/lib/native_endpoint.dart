@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'core.dart';
 import 'site.dart';
 
-/// Loads an existing App Translation Matrix endpoint directly and keeps the
-/// result inside the app. It intentionally does not fall through to a WebView.
+/// Loads a dedicated App Translation Matrix resource. Unlike the old alpha
+/// renderer, this screen never turns arbitrary response fields into UI.
 class MatrixEndpointScreen extends StatefulWidget {
   final String endpoint;
   final String title;
@@ -51,7 +51,7 @@ class _MatrixEndpointScreenState extends State<MatrixEndpointScreen> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
-          actions: [IconButton(onPressed: _load, icon: const Icon(Icons.refresh))],
+          actions: [IconButton(onPressed: busy ? null : _load, icon: const Icon(Icons.refresh))],
         ),
         body: busy
             ? const Center(child: CircularProgressIndicator())
@@ -66,7 +66,7 @@ class _MatrixEndpointScreenState extends State<MatrixEndpointScreen> {
           RrnSectionHeader(
             eyebrow: 'App Translation Matrix',
             title: '${widget.title} is temporarily unavailable.',
-            subtitle: 'The native screen is calling ${widget.endpoint}; it will not silently redirect to the website.',
+            subtitle: 'The native screen is calling ${widget.endpoint}. It will not expose the raw response or silently reinterpret it as a control panel.',
           ),
           const SizedBox(height: 14),
           Text(error!, style: const TextStyle(color: Colors.white60)),
@@ -78,24 +78,69 @@ class _MatrixEndpointScreenState extends State<MatrixEndpointScreen> {
   Widget _content() {
     if (data is Map) {
       final map = Map<String, dynamic>.from(data as Map);
-      final blocks = listFrom(map['blocks']);
-      if (blocks.isNotEmpty || str(map['title'] ?? map['name']).isNotEmpty) {
-        final normalized = <String, dynamic>{
-          'title': widget.title,
-          ...map,
-        };
-        return MatrixPageRenderer(page: normalized);
-      }
+      if (_looksLikePage(map)) return MatrixPageRenderer(page: {'title': widget.title, ...map});
 
-      final items = listFrom(map, const ['items', 'products', 'results', 'entries']);
-      if (items.isNotEmpty) return _collection(items, map);
-      return _mapCard(map);
+      final pageTarget = _pageTarget(map);
+      final sections = _collectionSections(map);
+      if (sections.isNotEmpty) return _sections(map, sections, pageTarget);
+      return _safeMap(map, pageTarget);
     }
-    if (data is List) return _collection(List<dynamic>.from(data as List), const <String, dynamic>{});
-    return Center(child: Padding(padding: const EdgeInsets.all(20), child: Text(str(data, 'No content returned.'))));
+    if (data is List) {
+      return _sections(
+        const <String, dynamic>{},
+        [MapEntry('items', List<dynamic>.from(data as List))],
+        '',
+      );
+    }
+    return _safeMap(const <String, dynamic>{}, '', message: 'The endpoint completed without a user-facing payload.');
   }
 
-  Widget _collection(List<dynamic> rawItems, Map<String, dynamic> envelope) {
+  bool _looksLikePage(Map<String, dynamic> map) =>
+      listFrom(map['blocks']).isNotEmpty ||
+      listFrom(map['forms']).isNotEmpty ||
+      listFrom(map['links']).isNotEmpty ||
+      listFrom(map['actions']).isNotEmpty;
+
+  String _pageTarget(Map<String, dynamic> map) {
+    final direct = str(map['deepLink'] ?? map['deep_link'] ?? map['webUrl'] ?? map['web_url'] ?? map['pagePath'] ?? map['page_path']);
+    if (direct.isNotEmpty) return direct;
+    final page = str(map['page']);
+    if (page.isEmpty) return '';
+    final uri = Uri.tryParse(page.startsWith('http') ? page : '$rrnBase$page');
+    return uri?.queryParameters['path'] ?? page;
+  }
+
+  List<MapEntry<String, List<dynamic>>> _collectionSections(Map<String, dynamic> map) {
+    final sections = <MapEntry<String, List<dynamic>>>[];
+    for (final key in const [
+      'items',
+      'results',
+      'entries',
+      'products',
+      'stations',
+      'presenters',
+      'programs',
+      'artists',
+      'labels',
+      'services',
+      'applications',
+      'orders',
+      'tickets',
+      'members',
+      'roles',
+    ]) {
+      if (map[key] is List) sections.add(MapEntry(key, List<dynamic>.from(map[key] as List)));
+    }
+    return sections;
+  }
+
+  Widget _sections(
+    Map<String, dynamic> envelope,
+    List<MapEntry<String, List<dynamic>>> sections,
+    String pageTarget,
+  ) {
+    final rootActions = listFrom(envelope['actions']);
+    final rootLinks = listFrom(envelope['links']);
     return ListView(
       padding: const EdgeInsets.fromLTRB(14, 16, 14, 100),
       children: [
@@ -103,56 +148,111 @@ class _MatrixEndpointScreenState extends State<MatrixEndpointScreen> {
           eyebrow: 'Native Matrix',
           title: str(envelope['title'], widget.title),
           subtitle: str(envelope['summary'] ?? envelope['description']).isEmpty
-              ? 'Loaded directly from ${widget.endpoint}.'
+              ? 'Loaded from the dedicated ${widget.endpoint} resource.'
               : str(envelope['summary'] ?? envelope['description']),
         ),
         const SizedBox(height: 12),
-        ...rawItems.map((raw) {
-          final item = raw is Map ? Map<String, dynamic>.from(raw) : <String, dynamic>{'title': '$raw'};
-          final image = _absolute(str(item['image'] ?? item['imageUrl'] ?? item['image_url'] ?? item['artwork'] ?? item['coverUrl'] ?? item['cover_url']));
-          final title = str(item['title'] ?? item['name'] ?? item['label'], 'RRN');
-          final subtitle = [
-            str(item['artist'] ?? item['subtitle']),
-            str(item['price'] ?? item['displayPrice'] ?? item['display_price']),
-            str(item['summary'] ?? item['description']),
-          ].where((e) => e.isNotEmpty).join(' · ');
-          return Card(
-            child: ListTile(
-              leading: image.isEmpty
-                  ? const CircleAvatar(backgroundColor: Color(0xFF10262B), child: Icon(Icons.auto_awesome, color: rrnCyan))
-                  : ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(image, width: 52, height: 52, fit: BoxFit.cover, errorBuilder: (_, __, ___) => const SizedBox(width: 52, height: 52)),
-                    ),
-              title: Text(title, style: const TextStyle(fontWeight: FontWeight.w900)),
-              subtitle: subtitle.isEmpty ? null : Text(subtitle, maxLines: 3, overflow: TextOverflow.ellipsis),
-              trailing: item['action'] != null ? MatrixActionButton(action: item['action'], compact: true) : null,
+        if (pageTarget.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: FilledButton.icon(
+              onPressed: () => matrixNavigate(context, pageTarget, widget.title),
+              icon: const Icon(Icons.tune),
+              label: const Text('Open controls'),
             ),
-          );
-        }),
+          ),
+        for (final section in sections) ...[
+          if (sections.length > 1)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Text(
+                section.key.replaceAll('_', ' ').toUpperCase(),
+                style: const TextStyle(color: rrnCyan, fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 1.2),
+              ),
+            ),
+          if (section.value.isEmpty)
+            const Card(child: ListTile(title: Text('Nothing here yet.')))
+          else
+            ...section.value.map(_record),
+          const SizedBox(height: 10),
+        ],
+        ...rootLinks.map((link) => MatrixTranslatedLinkButton(link: link)),
+        if (rootActions.isNotEmpty)
+          Wrap(spacing: 8, runSpacing: 8, children: rootActions.map((action) => MatrixActionButton(action: action)).toList()),
       ],
     );
   }
 
-  Widget _mapCard(Map<String, dynamic> map) => ListView(
-        padding: const EdgeInsets.fromLTRB(14, 16, 14, 100),
-        children: [
-          RrnSectionHeader(
-            eyebrow: 'Native Matrix',
-            title: widget.title,
-            subtitle: 'This endpoint is connected natively. Its current payload does not yet expose a recognized block or collection shape.',
-          ),
-          const SizedBox(height: 12),
-          ...map.entries.map(
-            (entry) => Card(
-              child: ListTile(
-                title: Text(entry.key, style: const TextStyle(fontWeight: FontWeight.w900)),
-                subtitle: Text(str(entry.value)),
+  Widget _record(dynamic raw) {
+    final item = raw is Map ? Map<String, dynamic>.from(raw) : <String, dynamic>{'title': str(raw)};
+    final title = str(
+      item['title'] ?? item['name'] ?? item['displayName'] ?? item['display_name'] ?? item['label'],
+      'RRN',
+    );
+    final subtitle = [
+      str(item['subtitle'] ?? item['summary'] ?? item['description']),
+      str(item['status']),
+      str(item['designation'] ?? item['frequencyLabel'] ?? item['frequency_label']),
+      str(item['price'] ?? item['displayPrice'] ?? item['display_price']),
+    ].where((e) => e.isNotEmpty).join(' · ');
+    final image = _absolute(str(
+      item['imageUrl'] ??
+          item['image_url'] ??
+          item['artworkUrl'] ??
+          item['artwork_url'] ??
+          item['avatarUrl'] ??
+          item['avatar_url'] ??
+          item['coverUrl'] ??
+          item['cover_url'],
+    ));
+    final action = matrixActionFrom(item);
+    return Card(
+      child: ListTile(
+        leading: image.isEmpty
+            ? const CircleAvatar(backgroundColor: Color(0xFF10262B), child: Icon(Icons.auto_awesome, color: rrnCyan))
+            : ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(image, width: 52, height: 52, fit: BoxFit.cover, errorBuilder: (_, __, ___) => const SizedBox(width: 52, height: 52)),
               ),
-            ),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w900)),
+        subtitle: subtitle.isEmpty ? null : Text(subtitle, maxLines: 3, overflow: TextOverflow.ellipsis),
+        trailing: action == null ? null : const Icon(Icons.chevron_right),
+        onTap: action == null ? null : () => runMatrixAction(context, action, fallbackTitle: title),
+      ),
+    );
+  }
+
+  Widget _safeMap(
+    Map<String, dynamic> map,
+    String pageTarget, {
+    String message = 'This resource returned backend state that is not itself a user interface.',
+  }) {
+    final actions = listFrom(map['actions']);
+    final links = listFrom(map['links']);
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(14, 16, 14, 100),
+      children: [
+        RrnSectionHeader(eyebrow: 'Native Matrix', title: widget.title, subtitle: message),
+        const SizedBox(height: 12),
+        const Card(
+          child: ListTile(
+            leading: Icon(Icons.shield_outlined, color: rrnCyan),
+            title: Text('Internal fields hidden'),
+            subtitle: Text('IDs, controller paths, authorization metadata and unrecognized backend values are not displayed to users.'),
           ),
-        ],
-      );
+        ),
+        if (pageTarget.isNotEmpty)
+          FilledButton.icon(
+            onPressed: () => matrixNavigate(context, pageTarget, widget.title),
+            icon: const Icon(Icons.tune),
+            label: const Text('Open controls'),
+          ),
+        ...links.map((link) => MatrixTranslatedLinkButton(link: link)),
+        if (actions.isNotEmpty)
+          Wrap(spacing: 8, runSpacing: 8, children: actions.map((action) => MatrixActionButton(action: action)).toList()),
+      ],
+    );
+  }
 
   String _absolute(String value) {
     if (value.isEmpty) return '';
@@ -161,9 +261,6 @@ class _MatrixEndpointScreenState extends State<MatrixEndpointScreen> {
   }
 }
 
-/// Native alpha surface for a known backend parity gap. This is deliberately
-/// preferable to a surprise website redirect because it names the contract the
-/// next site build must provide.
 class BridgePendingScreen extends StatelessWidget {
   final String title;
   final String endpoint;
@@ -184,7 +281,7 @@ class BridgePendingScreen extends StatelessWidget {
           children: [
             RrnSectionHeader(
               eyebrow: 'Native bridge required',
-              title: '$title is not being sent to the website.',
+              title: '$title is not available natively yet.',
               subtitle: description,
             ),
             const SizedBox(height: 16),
@@ -197,11 +294,6 @@ class BridgePendingScreen extends StatelessWidget {
                     const Text('Required Matrix contract', style: TextStyle(fontWeight: FontWeight.w900)),
                     const SizedBox(height: 8),
                     SelectableText(endpoint, style: const TextStyle(color: rrnCyan, fontFamily: 'monospace')),
-                    const SizedBox(height: 10),
-                    const Text(
-                      'This is tracked in NATIVE_PARITY_AUDIT_v0.6.md for the next RealityRadio.net build.',
-                      style: TextStyle(color: Colors.white60),
-                    ),
                   ],
                 ),
               ),
