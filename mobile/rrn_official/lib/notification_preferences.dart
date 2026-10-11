@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'account.dart';
+import 'api_client_extensions.dart';
 import 'core.dart';
 
 class RrnNotificationPreferencesScreen extends StatefulWidget {
@@ -101,8 +102,8 @@ class _RrnNotificationPreferencesScreenState extends State<RrnNotificationPrefer
     try {
       await app.api.post('/device/register', body: {
         'installationId': app.api.deviceId,
-        'appVersion': '0.9.0',
-        'buildNumber': 10,
+        'appVersion': '0.13.0',
+        'buildNumber': 14,
         'deviceName': 'RRN Android',
         'platform': 'android',
         'capabilities': {
