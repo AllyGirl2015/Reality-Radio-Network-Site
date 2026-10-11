@@ -25,13 +25,13 @@ class RrnSystemMediaBridge {
     _playback = playback;
     _channel.setMethodCallHandler(_handleNativeCommand);
     playback.addListener(_publish);
-    // Position is supplemental state. A slower cadence reduces long-idle work
-    // while the foreground audio service itself remains authoritative.
     _positionTicker = Timer.periodic(const Duration(seconds: 3), (_) {
       if (playback.hasItem) _publish(positionTick: true);
     });
     await _publish(force: true);
   }
+
+  double _volume(RrnPlaybackController playback) => playback.attached ? playback.player.volume : 1.0;
 
   Future<dynamic> _handleNativeCommand(MethodCall call) async {
     final playback = _playback;
@@ -51,10 +51,10 @@ class RrnSystemMediaBridge {
         await playback.stop();
         break;
       case 'next':
-        await playback.systemNext();
+        await playback.skipNext();
         break;
       case 'previous':
-        await playback.systemPrevious();
+        await playback.skipPrevious();
         break;
       case 'seekTo':
         final value = call.arguments;
@@ -71,8 +71,8 @@ class RrnSystemMediaBridge {
             ? value.toDouble()
             : value is Map && value['volume'] is num
                 ? (value['volume'] as num).toDouble()
-                : playback.userVolume;
-        await playback.setSystemVolume(raw > 1 ? raw / 100 : raw);
+                : _volume(playback);
+        await playback.setVolume((raw > 1 ? raw / 100 : raw).clamp(0.0, 1.0));
         break;
     }
     await _publish(force: true);
@@ -101,13 +101,13 @@ class RrnSystemMediaBridge {
       'live': playback.live,
       'playing': playback.playing,
       'loading': playback.transitioning,
-      'canPrevious': playback.systemCanSkip,
-      'canNext': playback.systemCanSkip,
+      'canPrevious': playback.canSkip,
+      'canNext': playback.canSkip,
       'canSeek': !playback.live && playback.duration > Duration.zero,
       'positionMs': playback.position.inMilliseconds,
       'durationMs': playback.duration.inMilliseconds,
       'sourceId': playback.sourceId,
-      'volume': playback.userVolume,
+      'volume': _volume(playback),
     };
 
     final signature = [
