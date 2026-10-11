@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'account.dart';
+import 'api_client_extensions.dart';
 import 'core.dart';
 
 class RrnFeedComposerScreen extends StatefulWidget {
