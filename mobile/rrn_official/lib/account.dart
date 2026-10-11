@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'core.dart';
 import 'points.dart';
 import 'site.dart';
+import 'studio_native.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -15,6 +16,13 @@ class _AccountScreenState extends State<AccountScreen> {
   final email = TextEditingController();
   final password = TextEditingController();
   bool obscure = true;
+
+  @override
+  void dispose() {
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +42,7 @@ class _AccountScreenState extends State<AccountScreen> {
           const RrnSectionHeader(
             eyebrow: 'One RRN identity',
             title: 'Sign in to the network.',
-            subtitle: 'The same account controls your presets, library, purchases, points, charts, social identity and any creator/station/staff access you already have on the site.',
+            subtitle: 'The same account controls your presets, library, purchases, points, charts, social identity and authorized creator, station or staff access.',
           ),
           const SizedBox(height: 20),
           TextField(
@@ -76,21 +84,11 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
           const SizedBox(height: 8),
           OutlinedButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => const MatrixPageScreen(path: '/account/register', title: 'Create RRN Account'),
-              ),
-            ),
+            onPressed: () => _openPage('/account/register', 'Create RRN Account'),
             child: const Text('Create account'),
           ),
           TextButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => const MatrixPageScreen(path: '/account/password-reset', title: 'Reset password'),
-              ),
-            ),
+            onPressed: () => _openPage('/account/forgot-password', 'Reset password'),
             child: const Text('Forgot password?'),
           ),
         ],
@@ -118,8 +116,6 @@ class _AccountScreenState extends State<AccountScreen> {
                   children: [
                     Text(u.displayName, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
                     Text(u.email, style: const TextStyle(color: Colors.white60)),
-                    if (u.roles.isNotEmpty)
-                      Text(u.roles.join(' · '), style: const TextStyle(color: rrnPurple, fontSize: 11)),
                   ],
                 ),
               ),
@@ -130,24 +126,32 @@ class _AccountScreenState extends State<AccountScreen> {
             child: ListTile(
               leading: const Icon(Icons.toll, color: rrnCyan),
               title: const Text('RRN Points', style: TextStyle(fontWeight: FontWeight.w900)),
-              subtitle: const Text('Earn by listening and qualifying purchases; spend across participating RRN services.'),
+              subtitle: const Text('Balance, listening rewards and participating RRN services.'),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PointsWalletScreen())),
             ),
           ),
           _tile('Profile & settings', Icons.manage_accounts_outlined, '/account/settings'),
-          _tile('My library', Icons.library_music_outlined, '/account/library'),
+          _tile('My library', Icons.library_music_outlined, '/library'),
           _tile('Orders & purchases', Icons.receipt_long_outlined, '/account/orders'),
           _tile('Social & messages', Icons.people_outline, '/account/social'),
           _tile('My stations', Icons.radio_outlined, '/account/stations'),
           _tile('Presenter', Icons.mic_external_on_outlined, '/account/presenter'),
-          _tile('Creator catalog', Icons.album_outlined, '/account/creator'),
+          _tile('Creator catalog', Icons.album_outlined, '/account/artists'),
           _tile('Labels', Icons.label_outline, '/account/labels'),
           _tile('Services', Icons.hub_outlined, '/account/services'),
           _tile('Applications', Icons.assignment_outlined, '/account/applications'),
           _tile('Reports & support', Icons.support_agent_outlined, '/account/reports'),
-          if (u.permissions.isNotEmpty || u.roles.any(_likelyStaffRole))
-            _tile('RRN Studio', Icons.admin_panel_settings_outlined, '/studio'),
+          if (_hasStudioAccess(u))
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.admin_panel_settings_outlined, color: rrnPurple),
+                title: const Text('RRN Studio', style: TextStyle(fontWeight: FontWeight.w900)),
+                subtitle: const Text('Authorized network, moderation and management controls.'),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const RrnStudioScreen())),
+              ),
+            ),
           const SizedBox(height: 14),
           OutlinedButton.icon(
             onPressed: app.auth.busy ? null : app.auth.logout,
@@ -159,9 +163,14 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  bool _likelyStaffRole(String role) {
-    final r = role.toLowerCase();
-    return r.contains('admin') || r.contains('staff') || r.contains('studio') || r.contains('owner') || r.contains('manager');
+  bool _hasStudioAccess(AccountUser user) {
+    if (user.permissions.contains('studio.access')) return true;
+    const staffRoles = {'creator', 'editor', 'support', 'admin', 'developer', 'superadmin', 'owner', 'manager'};
+    return user.roles.any((role) => staffRoles.contains(role.toLowerCase()));
+  }
+
+  void _openPage(String path, String title) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => MatrixPageScreen(path: path, title: title)));
   }
 
   Widget _tile(String title, IconData icon, String path) => Card(
@@ -169,10 +178,7 @@ class _AccountScreenState extends State<AccountScreen> {
           leading: Icon(icon, color: rrnCyan),
           title: Text(title),
           trailing: const Icon(Icons.chevron_right),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => MatrixPageScreen(path: path, title: title)),
-          ),
+          onTap: () => _openPage(path, title),
         ),
       );
 }
