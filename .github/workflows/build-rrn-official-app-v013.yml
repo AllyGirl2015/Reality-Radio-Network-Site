@@ -8,6 +8,10 @@ on:
       - '.github/workflows/build-rrn-official-app-v013.yml'
   workflow_dispatch:
 
+concurrency:
+  group: rrn-mobile-v013-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-apk:
     runs-on: ubuntu-latest
